@@ -143,8 +143,7 @@ export class AccountComponent implements OnInit {
       let response = this.baseService.getAPiData(res);
       if (response.body) {
         let data = this.baseService.getResponseData(res, 'getAccoutDetailsResponse');
-        this.parseXML(data).then((parseData) => {
-          this.accountParsedArr = parseData;
+          this.accountParsedArr = data.accountDetails;
           this.accountParsedArr = this.accountParsedArr.map((x, index) => {
             if (this.accountParsedArr[index].ACCOUNTNUMBER != undefined && this.accountParsedArr[index].ACCOUNTNUMBER.split('')[this.accountParsedArr[index].ACCOUNTNUMBER.split('').length - 1] == '=') {
               x.ACCOUNTNUMBER = x.ACCOUNTNUMBER ? this.baseService.dencryptionFunction(x.ACCOUNTNUMBER) : '';
@@ -158,50 +157,48 @@ export class AccountComponent implements OnInit {
           // this.totalCount = this.accountParsedArr[this.accountParsedArr.length-1].totalCount;
           this.totalCount = data.totalCount
 
-          this.accountParsedArr = this.accountParsedArr.filter((data) => { return (data['no'] != undefined); });
+          // this.accountParsedArr = this.accountParsedArr.filter((data) => { return (data['no'] != undefined); });
           // this.dataSource.data = this.accountParsedArr;
           let value = this.radioValue2;
           this.accountParsedArr.forEach((data) => {
-            if (data.AcctBal) {
+            if (data.accountBalance) {
               if (value == "Amount in Rupees") {
-                data.AcctBal = (data.AcctBal)
+                data.accountBalance = (data.accountBalance)
               } else {
-                data.AcctBal = ((data.AcctBal) / 10000000)
+                data.accountBalance = ((data.accountBalance) / 10000000)
               }
             }
           })
 
           this.accountParsedArr.forEach((data) => {
-            if (data.TotalLimitGrantAmt) {
+            if (data.totalLimitGrantAmount) {
               if (value == "Amount in Rupees") {
-                data.TotalLimitGrantAmt = (data.TotalLimitGrantAmt)
+                data.totalLimitGrantAmount = (data.totalLimitGrantAmount)
               } else {
-                data.TotalLimitGrantAmt = ((data.TotalLimitGrantAmt) / 10000000)
+                data.totalLimitGrantAmount = ((data.totalLimitGrantAmount) / 10000000)
               }
             }
           });
 
           this.accountParsedArr.forEach((data) => {
-            if (data.UtilisedLimit) {
+            if (data.utilisedLimit) {
               if (value == "Amount in Rupees") {
-                data.UtilisedLimit = (data.UtilisedLimit)
+                data.utilisedLimit = (data.utilisedLimit)
               } else {
-                data.UtilisedLimit = ((data.UtilisedLimit) / 10000000)
+                data.utilisedLimit = ((data.utilisedLimit) / 10000000)
               }
             }
           });
 
           this.accountParsedArr.forEach((data) => {
-            if (data.BalanceLimit) {
+            if (data.balanceLimit) {
               if (value == "Amount in Rupees") {
-                data.BalanceLimit = (data.BalanceLimit)
+                data.balanceLimit = (data.balanceLimit)
               } else {
-                data.BalanceLimit = ((data.BalanceLimit) / 10000000)
+                data.balanceLimit = ((data.balanceLimit) / 10000000)
               }
             }
           });
-
-        });
       } else {
         let error = response.error;
         this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
