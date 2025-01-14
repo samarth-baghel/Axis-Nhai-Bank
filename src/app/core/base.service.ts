@@ -6,9 +6,7 @@ import 'rxjs/add/operator/mergeMap';
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 import xml2js from 'xml2js';
 import * as _ from 'lodash';
-import * as CryptoJS from 'crypto-js';
 import { StateServiceService } from './services/state-service.service';
-
 
 @Injectable({
   providedIn: 'root'
@@ -128,8 +126,10 @@ export class BaseService {
     let month = [
       'Jan', "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
+    if(datevalue){
     var finalvaluefordate = month[datevalue.getMonth()];
     return finalvaluefordate;
+    }
   }
 
   //formation datetype - selecetd month -1 = previous month from slected
@@ -186,8 +186,10 @@ export class BaseService {
 
   //formation datetype - only year
   dateformatasperyy(datevalue) {
+    if(datevalue){
     var finalyearvalue = datevalue.getFullYear();
     return finalyearvalue.toString();
+    }
   }
 
   //formation datetype - month and year (07/2020)
@@ -290,116 +292,6 @@ export class BaseService {
     ).toString(CryptoJS.enc.Utf8);
      
     return dencryptedData;
-  }
-
-  newEncryptionFunction(plainText:any)
-  {
-    let encryptedBase64Key="NHAILMS0277d40bc0aee6011ef08d5400a0904e9";
-    let parsedBase64Key=CryptoJS.enc.Base64.parse(encryptedBase64Key.slice(0,16));
-    let encryptedData;
-    encryptedData=CryptoJS.AES.encrypt(plainText,parsedBase64Key,{
-      keySize: 16,
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7
-      });
-     return encryptedData.toString();
-  }
-
-  newEncryptionFunctionObject(plainText:any){
-    let encryptedBase64Key="NHAILMS0277d40bc0aee6011ef08d5400a0904e9";
-    let parsedBase64Key=CryptoJS.enc.Base64.parse(encryptedBase64Key.slice(0,16));
-    let encryptedData;
-    encryptedData=CryptoJS.AES.encrypt(JSON.stringify(plainText),parsedBase64Key,{
-      keySize: 16,
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7
-      });
-     return encryptedData.toString();
-  }
-
-  AES_PASSWORD = 'NHAILMS0277d40bc0aee6011ef08d5400a0904e9';
-
-  /**
-   * Decrypts the given encrypted text using AES-128 in CBC mode with PKCS5Padding.
-   * @param encryptedText - The Base64 encoded string containing salt, IV, and encrypted data.
-   * @returns Decrypted plain text
-   */
-  newDecryptionFunction(encryptedText: string): string {
-    try {
-      // Decode the Base64 encrypted text
-      const encryptedBytes = CryptoJS.enc.Base64.parse(encryptedText);
-  
-      // Extract salt (first 20 bytes)
-      const salt = CryptoJS.lib.WordArray.create(encryptedBytes.words.slice(0, 5)); // 20 bytes = 5 words
-  
-      // Extract IV (next 16 bytes)
-      const iv = CryptoJS.lib.WordArray.create(encryptedBytes.words.slice(5, 9)); // 16 bytes = 4 words
-  
-      // Extract ciphertext (remaining bytes)
-      const ciphertext = CryptoJS.lib.WordArray.create(encryptedBytes.words.slice(9));
-  
-      // Derive the key using PBKDF2
-      const key = CryptoJS.PBKDF2(this.AES_PASSWORD, salt, {
-        keySize: 128 / 32, // 128-bit key
-        iterations: 50,
-        hasher: CryptoJS.algo.SHA1,
-      });
-  
-      // Decrypt the ciphertext
-      const decrypted = CryptoJS.AES.decrypt(
-        { ciphertext } as any, // AES expects the ciphertext object
-        key,
-        {
-          iv: iv,
-          mode: CryptoJS.mode.CBC,
-          padding: CryptoJS.pad.Pkcs7,
-        }
-      );
-  
-      // Convert decrypted bytes to a UTF-8 string
-      const decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
-      if (!decryptedText) {
-        throw new Error('Decryption returned empty data');
-      }
-      return decryptedText;
-    } catch (error) {
-      console.error('Error extracting or decrypting response data:', error);
-      throw new Error(`Decryption failed: ${error.message}`);
-    }
-  
-  }
-  /**
-   * Extracts and decrypts data from an encrypted response.
-   * @param data The full response data as a JSON string.
-   * @param keyValue The key within the response containing the encrypted text.
-   * @returns The decrypted response body.
-   */
-  getResponseData(data: string, keyValue: string): any {
-    try {
-      const sanitizedResponse = data.replace(/[\u0000-\u001F\u007F]/g, ''); // Remove control characters
-      const parsedData = JSON.parse(sanitizedResponse);
-      const encryptedText = parsedData.response.body[keyValue].encryptedResponse;
-      const decryptedText = this.newDecryptionFunction(encryptedText);
-      return JSON.parse(decryptedText).responseBody; // Parse decrypted JSON response
-    } catch (error) {
-      console.error('Error extracting or decrypting response data:', error);
-      return null;
-    }
-  }
-
-  /**
-   * Sanitizes and parses a JSON API response.
-   * @param data The raw API response as a JSON string.
-   * @returns The parsed response object.
-   */
-  getAPiData(data: string): any {
-    try {
-      const sanitizedResponse = data.replace(/[\u0000-\u001F\u007F]/g, ''); // Remove control characters
-      return JSON.parse(sanitizedResponse).response;
-    } catch (error) {
-      console.error('Error parsing API data:', error);
-      return null;
-    }
   }
 
 }
