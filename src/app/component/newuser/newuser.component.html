@@ -53,8 +53,8 @@
                   <mat-label>--Select--</mat-label>
                   <mat-select formControlName="state" name="state" required autocomplete="off"
                     (selectionChange)="onStateChange($event.value)">
-                    <mat-option *ngFor="let state of stateList" [value]="state.state">
-                      {{state.state}}
+                    <mat-option *ngFor="let state of stateList" [value]="state">
+                      {{state}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>

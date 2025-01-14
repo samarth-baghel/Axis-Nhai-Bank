@@ -4,7 +4,7 @@ import xml2js from 'xml2js';
 import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
-import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { from, Observable } from 'rxjs';
 import { CalaPendingAdjustmentpopupComponent } from '../cala-pending-adjustmentpopup/cala-pending-adjustmentpopup.component';
 import { startWith, map } from 'rxjs/operators';
@@ -43,7 +43,7 @@ export class CalareconcilationstatementComponent implements OnInit {
   accNumber: any;
   dataSourcecaladrp: any;
 
-  constructor(public baseService: BaseService, public dialog: MatDialog, private _formBuilder: FormBuilder,private _snackBar: MatSnackBar) {
+  constructor(public baseService: BaseService, public dialog: MatDialog, private _formBuilder: FormBuilder) {
     this.radioValue2 = "Amount in Rupees";
     this.pageSize = 10;
   }
@@ -289,58 +289,49 @@ export class CalareconcilationstatementComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-      let data = this.baseService.getResponseData(res,'getCalaStatementNewDetailsResponse');
-      this.parseXMLAccount(data.calaSummaryDetails).then((parseDatas) => {
-        this.dataSourcecalaacc = parseDatas;
-        this.totalCountAcc = data.totalRecordCount;
+    }).subscribe((res) => {
+      this.parseXMLAccount(this.baseService.dencryptionFunction(res)).then((parseDatas) => {
+        this.dataSourcecalaacc = parseDatas[0];
+        this.totalCountAcc = parseDatas[1];
         let value = this.radioValue2;
         this.dataSourcecalaacc.forEach((data) => {
-          if (data.openBalanc) {
+          if (data.OpenBal) {
             if (value == "Amount in Rupees") {
-              data.openBalanc = (+data.openBalanc)
+              data.OpenBal = (data.OpenBal)
             } else {
-              data.openBalanc = ((+data.openBalanc) / 10000000)
+              data.OpenBal = ((data.OpenBal) / 10000000)
             }
           }
-          if (data.allocatedLimit) {
+          if (data.ALLOCATEDLIMITS) {
             if (value == "Amount in Rupees") {
-              data.allocatedLimit = (+data.allocatedLimit)
+              data.ALLOCATEDLIMITS = (data.ALLOCATEDLIMITS)
             } else {
-              data.allocatedLimit = ((+data.allocatedLimit) / 10000000)
+              data.ALLOCATEDLIMITS = ((data.ALLOCATEDLIMITS) / 10000000)
             }
           }
-          if (data.utilisedLimi) {
+          if (data.UTILISED_LIMIT) {
             if (value == "Amount in Rupees") {
-              data.utilisedLimi = (+data.utilisedLimi)
+              data.UTILISED_LIMIT = (data.UTILISED_LIMIT)
             } else {
-              data.utilisedLimi = ((+data.utilisedLimi) / 10000000)
+              data.UTILISED_LIMIT = ((data.UTILISED_LIMIT) / 10000000)
             }
           }
-          if (data.closingBalanc) {
+          if (data.ClosingBal) {
             if (value == "Amount in Rupees") {
-              data.closingBalanc = (+data.closingBalanc)
+              data.ClosingBal = (data.ClosingBal)
             } else {
-              data.closingBalanc = ((+data.closingBalanc) / 10000000)
+              data.ClosingBal = ((data.ClosingBal) / 10000000)
             }
           }
-          if (data.pendingAdjestmen) {
+          if (data.pendingAdj) {
             if (value == "Amount in Rupees") {
-              data.pendingAdjestmen = (+data.pendingAdjestmen)
+              data.pendingAdj = (data.pendingAdj)
             } else {
-              data.pendingAdjestmen = ((+data.pendingAdjestmen) / 10000000)
+              data.pendingAdj = ((data.pendingAdj) / 10000000)
             }
           }
         })
       })
-    } else {
-      let error = response.error;
-      this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-        duration: 8000,
-      });
-    }
     });
   }
 
@@ -413,43 +404,43 @@ export class CalareconcilationstatementComponent implements OnInit {
   // parse the XML data
   parseXMLAccount(data) {
     return new Promise(resolve => {
-      // var k: string | number;
-      // var a: string | number,
-      //   arr = [],
-      //   parser = new xml2js.Parser(
-      //     {
-      //       strict: false,
-      //       trim: true,
-      //       explicitArray: true
-      //     });
+      var k: string | number;
+      var a: string | number,
+        arr = [],
+        parser = new xml2js.Parser(
+          {
+            strict: false,
+            trim: true,
+            explicitArray: true
+          });
       let itemArrs = [];
-      // parser.parseString(data, function (err, result) {
-        // let totalCount;
-        // if(result.FIXML.Body === undefined){
-        //   var obj = result.FIXML.BODY[0].EXECUTEFINACLESCRIPTRESPONSE[0].EXECUTEFINACLESCRIPT_CUSTOMDATA[0].CALASUMMARYDTL[0];
-        //   totalCount = result.FIXML.BODY[0].EXECUTEFINACLESCRIPTRESPONSE[0].EXECUTEFINACLESCRIPT_CUSTOMDATA[0].TOTRECCNT;
-        // }else{
-        //   var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].CALASummaryDtl[0];
-        //   totalCount = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].totRecCnt;
-        // }
-        for (let k in data) {
+      parser.parseString(data, function (err, result) {
+        let totalCount;
+        if(result.FIXML.Body === undefined){
+          var obj = result.FIXML.BODY[0].EXECUTEFINACLESCRIPTRESPONSE[0].EXECUTEFINACLESCRIPT_CUSTOMDATA[0].CALASUMMARYDTL[0];
+          totalCount = result.FIXML.BODY[0].EXECUTEFINACLESCRIPTRESPONSE[0].EXECUTEFINACLESCRIPT_CUSTOMDATA[0].TOTRECCNT;
+        }else{
+          var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].CALASummaryDtl[0];
+          totalCount = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].totRecCnt;
+        }
+        for (k in obj) {
           const id = k.split(/([0-9]+)/)[1];
           const item = k.split(/([0-9]+)/).filter(Boolean)[0].slice(0, -1);
           if (itemArrs.length > 0) {
             const index = _.findIndex(itemArrs, { no: id });
             if (index == -1) {
-              itemArrs.push({ [`${item}`]: data[k], no: id });
+              itemArrs.push({ [`${item}`]: obj[k][0], no: id });
             } else {
-              itemArrs[index][item] = data[k]
+              itemArrs[index][item] = obj[k][0]
             }
           }
           else {
-            itemArrs.push({ [`${item}`]: data[k], no: id });
+            itemArrs.push({ [`${item}`]: obj[k][0], no: id });
           }
         }
-        let resolvedArrAcc = itemArrs
+        let resolvedArrAcc = [itemArrs, totalCount]
         resolve(resolvedArrAcc);
-      // });
+      });
     });
   }
   // // parse the XML data for dropdown

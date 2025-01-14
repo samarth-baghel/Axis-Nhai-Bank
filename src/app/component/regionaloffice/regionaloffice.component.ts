@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
-import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material';
 import { SubsidiaryaccountComponent } from '../subsidiaryaccount/subsidiaryaccount.component';
 import { ROProjectDirectorsComponent } from '../roproject-directors/roproject-directors.component';
 
@@ -23,7 +23,7 @@ export class RegionalofficeComponent implements OnInit {
   fromCount = 1;
   toCount = 10;
   projecrParsedData: any;
-  constructor(public dialog: MatDialog, public baseService: BaseService, public http: HttpClient,private _snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, public baseService: BaseService, public http: HttpClient) {
     this.radioValue2 = "Amount in Rupees";
   }
 
@@ -48,36 +48,29 @@ export class RegionalofficeComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-        let data = this.baseService.getResponseData(res, 'getRegionalOfficeDetailsResponse');
-        this.totalCount = data.totalRecordCount;
-        this.projecrParsedData = data.roDetails;
+    }).subscribe((res) => {
+      this.parseXML(res).then((parseData) => {
+        this.totalCount = parseData[1];
+        this.projecrParsedData = parseData[0];
         this.dataSource.data = this.projecrParsedData;
         let value = this.radioValue2;
         this.projecrParsedData.forEach((data) => {
-          if (data.totalLimit) {
+          if (data.TotLimit) {
             if (value == "Amount in Rupees") {
-              data.totalLimit = (data.totalLimit)
+              data.TotLimit = (data.TotLimit)
             } else {
-              data.totalLimit = ((data.totalLimit) / 10000000)
+              data.TotLimit = ((data.TotLimit) / 10000000)
             }
           }
-          if (data.usedLimit) {
+          if (data.UsedLimit) {
             if (value == "Amount in Rupees") {
-              data.usedLimit = (data.usedLimit)
+              data.UsedLimit = (data.UsedLimit)
             } else {
-              data.usedLimit = ((data.usedLimit) / 10000000)
+              data.UsedLimit = ((data.UsedLimit) / 10000000)
             }
           }
         });
-      } else {
-        let error = response.error;
-        this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-          duration: 8000,
-        });
-      }
+      });
     });
   }
 

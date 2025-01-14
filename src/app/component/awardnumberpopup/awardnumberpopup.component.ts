@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
-import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-awardnumberpopup',
@@ -17,7 +17,7 @@ export class AwardnumberpopupComponent implements OnInit {
   awardnumber: any;
   displayedColumns: string[] = ['accountno', 'holdername', 'opendate', 'limitdate', 'limitamount'];
 
-  constructor(public baseService: BaseService, public http: HttpClient,private _snackBar: MatSnackBar, @Inject(MAT_DIALOG_DATA) data) {
+  constructor(public baseService: BaseService, public http: HttpClient, @Inject(MAT_DIALOG_DATA) data) {
     this.acnumber = data.actNumber;
     this.awardnumber = data.awardNumber;
   }
@@ -41,21 +41,14 @@ export class AwardnumberpopupComponent implements OnInit {
 
 
     this.baseService._makeRequest(Url.awardnumberpopupXmlUrl,
-      this.baseService.encryptionFunctionObject(body),
+      body,
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-      let data = this.baseService.getResponseData(res,'fetchAwardDetailsResponse');
-      this.dataSource = data.awardDetail;
-    } else {
-      let error = response.error;
-      this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-        duration: 8000,
+    }).subscribe((res) => {
+      this.parseXML(res).then((parseData) => {
+        this.dataSource = parseData[0];
       });
-    }
     });
   }
 

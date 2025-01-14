@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
-import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-limitlewdger',
@@ -18,7 +18,7 @@ export class LimitlewdgerComponent implements OnInit {
   isLoading = true;
 
 
-  constructor(public baseService: BaseService, public http: HttpClient,private _snackBar: MatSnackBar,@Inject(MAT_DIALOG_DATA) data) {
+  constructor(public baseService: BaseService, public http: HttpClient,@Inject(MAT_DIALOG_DATA) data) {
     this.actNumber = data.actNumber;
   }
 
@@ -69,21 +69,16 @@ export class LimitlewdgerComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-        let data = this.baseService.getResponseData(res, 'fecthLimitDetailsResponse');
-        this.dataSource = data.accountInquiry.accountDetails;
+    }).subscribe((res) => {
+      this.parseXML(this.baseService.dencryptionFunction(res)).then((parseData) => {
+        this.dataSource = parseData[0];
+
         this.dataSource.data = this.dataSource;
-        this.totalCount = data.recordCount;
+        this.totalCount = parseData[1];
         this.isLoading = false;
-      } else {
+      }, (error) => {
         this.isLoading = false;
-        let error = response.error;
-        this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-          duration: 8000,
-        });
-      }
+      });
     }, (error) => {
       this.isLoading = false;
     });

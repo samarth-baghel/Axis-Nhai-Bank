@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
@@ -18,7 +18,7 @@ export class TotallimitsComponent implements OnInit {
   isLoading = true;
   displayedColumnstotallimit: string[] = ['no','dateoflimit','limitgrant','expiredlimit'];
 
-  constructor(public baseService: BaseService, public http: HttpClient,private _snackBar: MatSnackBar,@Inject(MAT_DIALOG_DATA) data) { 
+  constructor(public baseService: BaseService, public http: HttpClient,@Inject(MAT_DIALOG_DATA) data) { 
     this.actNumber = data.actNumber;
   }
 
@@ -45,21 +45,16 @@ export class TotallimitsComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-        let data = this.baseService.getResponseData(res, 'fecthLimitDetailsResponse');
-        this.dataSourcetotallimit = data.accountInquiry.accountDetails;
+    }).subscribe((res) => {
+      this.parseXML(this.baseService.dencryptionFunction(res)).then((parseData) => {
+        this.dataSourcetotallimit = parseData[0];
+
         this.dataSourcetotallimit.data = this.dataSourcetotallimit;
-        this.totalCount = data.recordCount;
+        this.totalCount = parseData[1];       
         this.isLoading = false;
-      } else {
+      }, (error) => {
         this.isLoading = false;
-        let error = response.error;
-        this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-          duration: 8000,
-        });
-      }
+      });
     }, (error) => {
       this.isLoading = false;
     });

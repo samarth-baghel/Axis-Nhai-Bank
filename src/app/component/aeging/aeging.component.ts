@@ -5,7 +5,7 @@ import xml2js from 'xml2js';
 import * as _ from 'lodash';
 import * as Highcharts from 'highcharts';
 import { Url } from 'src/app/core/services/url';
-import { MatSnackBar, MatTabChangeEvent } from '@angular/material';
+import { MatTabChangeEvent } from '@angular/material';
 
 
 @Component({
@@ -43,7 +43,7 @@ export class AegingComponent implements OnInit {
   utillizationChartOptions: any = {};
   limitsSanctionedChartOptions: any = {};
   clickedIndex: any;
-  constructor(public baseService: BaseService,private _snackBar: MatSnackBar) {
+  constructor(public baseService: BaseService) {
     this.ageingCurConv = "Amount in Rupees";
     this.clickedIndex = "As per account opening date";
 
@@ -114,11 +114,8 @@ export class AegingComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-      let decryptedText = this.baseService.getResponseData(res,'getCustomerAccountDetailsResponse');
-      this.parseXML(decryptedText, this.ageingCurConv).then((parseData) => {
+    }).subscribe((res) => {
+      this.parseXML(res, this.ageingCurConv).then((parseData) => {
         this.aegingParsedData = parseData;
         this.aegingParsedData.forEach((filteredData) => {
           this.options.series[0].data = [];
@@ -154,12 +151,6 @@ export class AegingComponent implements OnInit {
         Highcharts.chart('utillizationColumnChart', this.utillizationChartOptions);
         Highcharts.chart('limitsSanctionedColumnChart', this.limitsSanctionedChartOptions);
       })
-    } else {
-      let error = response.error;
-      this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-        duration: 8000,
-      });
-    }
     });
   }
 
@@ -206,20 +197,20 @@ export class AegingComponent implements OnInit {
   // parse the XML data
   parseXML(data, ageingCurConval) {
     return new Promise(resolve => {
-      // var k: string | number,
-      //   arr = [],
-      //   parser = new xml2js.Parser(
-      //     {
-      //       trim: true,
-      //       explicitArray: true
-      //     });
+      var k: string | number,
+        arr = [],
+        parser = new xml2js.Parser(
+          {
+            trim: true,
+            explicitArray: true
+          });
       let itemArr = [];
-      // parser.parseString(data, function (err, result) {
-        // var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].CustDtls[0];
+      parser.parseString(data, function (err, result) {
+        var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].CustDtls[0];
         let objCount = 0;
         let rowCount = 0;
         let rowArray: any = {};
-        for (const k in data) {
+        for (var k in obj) {
 
           if (objCount == 5) {
             objCount = 0;
@@ -227,7 +218,7 @@ export class AegingComponent implements OnInit {
             rowArray = {};
             rowCount = rowCount + 1;
           }
-          let amount = data[k];
+          let amount = obj[k][0];
           if (rowCount != 0) {
             if (ageingCurConval == "Amount in Crores") {
               amount = amount / 10000000;
@@ -264,7 +255,7 @@ export class AegingComponent implements OnInit {
         }
 
         resolve(itemArr);
-      // });
+      });
     });
   }
 }

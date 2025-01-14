@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
 import { PdfDownloadService } from 'src/app/services/pdf-download.service';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-backdatedfinancialsummary',
@@ -20,7 +19,7 @@ export class BackdatedfinancialsummaryComponent implements OnInit {
   backdatedValue: any;
   finBackAmtConv: string;
   constructor(
-    public baseService: BaseService, public http: HttpClient, private pdfService: PdfDownloadService,private _snackBar: MatSnackBar
+    public baseService: BaseService, public http: HttpClient, private pdfService: PdfDownloadService
   ) { 
     this.finBackAmtConv = "Amount in Rupees";
   }
@@ -89,27 +88,18 @@ export class BackdatedfinancialsummaryComponent implements OnInit {
       {
         responseType: 'application/xml',
         headers: headers
-      }).subscribe((res: any) => {
-        let response = this.baseService.getAPiData(res);
-      if (response.body) {
-        let decryptedText = this.baseService.getResponseData(res,'getFinancialSummaryBackdatedDetailsResponse');
-        this.parseXMLDeposit(decryptedText,this.finBackAmtConv).then((parseData) => {
+      }).subscribe((res) => {
+        this.parseXMLDeposit(res,this.finBackAmtConv).then((parseData) => {
           this.dataSources = parseData;
         })
 
-        this.parseXMLSummary(decryptedText,this.finBackAmtConv).then((parseDataSummary) => {
+        this.parseXMLSummary(res,this.finBackAmtConv).then((parseDataSummary) => {
           this.dataSource = parseDataSummary;
         })
 
-        this.parseXMLDisbursement(decryptedText,this.finBackAmtConv).then((parseDataDisbursement) => {
+        this.parseXMLDisbursement(res,this.finBackAmtConv).then((parseDataDisbursement) => {
           this.data = parseDataDisbursement;
         })
-      } else {
-        let error = response.error;
-        this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-          duration: 8000,
-        });
-      }
       })
   }
 
@@ -119,90 +109,124 @@ export class BackdatedfinancialsummaryComponent implements OnInit {
   // parse the XML data
   parseXMLDeposit(data,finBackAmtConv) {
     return new Promise(resolve => {
+      var k: string | number;
+      var a: string | number,
+        parser = new xml2js.Parser(
+          {
+            trim: true,
+            explicitArray: true
+          });
+      
+      parser.parseString(data, function (err, result) {
+        var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].FinanceSummaryDtl[0];
         let arra = [];
-        for (const k in data) {
+
+        for (k in obj) {
           const id = k.split(/([1-9]+)/)[1];
-          let calAmount = finBackAmtConv == "Amount in Rupees" ? +data[k] : ((+data[k])/10000000);
-          if (k == 'f01CumulativeDeposit') {
+
+          let calAmount = finBackAmtConv == "Amount in Rupees" ? obj[k][0] : ((obj[k][0])/10000000);
+          if (k == 'F01CumulativeDeposit') {
             arra.push({ no: id, deposit: 'Cumulative Deposit(YTD)', amount: calAmount })
           }
-          if (k == 'f02InterestCredited') {
+          if (k == 'F02InterestCredited') {
             arra.push({ no: id, deposit: 'Interest Credited(YTD)', amount: calAmount })
           }
-          if (k == 'f03TotalBalance') {
+          if (k == 'F03TotalBalance') {
             arra.push({ no: id, deposit: 'Total Balance(1+2)', amount: calAmount })
           }
         }
         resolve(arra);
       });
-    }
+    });
+  }
 
 
   // parse the XML data
   parseXMLSummary(data,finBackAmtConv) {
     return new Promise(resolve => {
+      var k: string | number;
+      var a: string | number,
+        parser = new xml2js.Parser(
+          {
+            trim: true,
+            explicitArray: true
+          });
+      parser.parseString(data, function (err, result) {
+        var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].FinanceSummaryDtl[0];
         let arra = [];
-        for (const k in data) {
+
+        for (k in obj) {
           const id = k.split(/([0-9]+)/)[1];
-          let calAmount = finBackAmtConv == "Amount in Rupees" ? +data[k] : ((+data[k])/10000000);
-          if (k == 'f08SABalance') {
+          let calAmount = finBackAmtConv == "Amount in Rupees" ? obj[k][0] : ((obj[k][0])/10000000);
+          if (k == 'F08SABalance') {
             arra.push({ no: id, summary: 'Central a/c Balance', amount: calAmount })
           }
-          if (k == 'f09CumLimAssigned') {
+          if (k == 'F09CumLimAssigned') {
             arra.push({ no: id, summary: 'Cumulative Limits Assigned', amount: calAmount })
           }
-          if (k == 'f10CreditReceived') {
+          if (k == 'F10CreditReceived') {
             arra.push({ no: id, summary: 'Credit Received/Return Credit in PD account', amount: calAmount })
           }
-          if (k == 'f11BalLimToBeAssigned') {
+          if (k == 'F11BalLimToBeAssigned') {
             arra.push({ no: id, summary: 'Balance Limits to be assigned(1-9)', amount: calAmount })
           }
-          if (k == 'f12InterestAccrued') {
+          if (k == 'F12InterestAccrued') {
             arra.push({ no: id, summary: 'Interest Accured Till Now', amount: calAmount })
           }
-          if (k == 'f13CreditException') {
+          if (k == 'F13CreditException') {
             arra.push({ no: id, summary: 'Exception Credits', amount: calAmount })
           }
         }
         resolve(arra);
       });
+    });
   }
 
   // parse the XML data
   parseXMLDisbursement(data,finBackAmtConv) {
     return new Promise(resolve => {
+      var k: string | number;
+      var a: string | number,
+        parser = new xml2js.Parser(
+          {
+            trim: true,
+            explicitArray: true
+          });
+        parser.parseString(data, function (err, result) {
+        var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].FinanceSummaryDtl[0];
         let arra = [];
-        for (const k in data) {
+
+        for (k in obj) {
           const id = k.split(/([1-9]+)/)[1];
-          let calAmount = finBackAmtConv == "Amount in Rupees" ? +data[k] : ((+data[k])/10000000);
-          if (k == 'f04CumulativeDisb') {
+          let calAmount = finBackAmtConv == "Amount in Rupees" ? obj[k][0] : ((obj[k][0])/10000000);
+          if (k == 'F04CumulativeDisb') {
             arra.push({ no: id, disbursement: 'Cumulative Disbursement', amount: calAmount })
           }
-          if (k == 'f04APaidToBene') {
+          if (k == 'F04APaidToBene') {
             arra.push({ no: '4A', disbursement: 'Paid to Beneficiary', amount: calAmount })
           }
-          if (k == 'f04BAdminExpense') {
+          if (k == 'F04BAdminExpense') {
             arra.push({ no: '4B', disbursement: 'Paid to Admin Expenses', amount: calAmount })
           }
-          if (k == 'f04CPaidForTDS') {
+          if (k == 'F04CPaidForTDS') {
             arra.push({ no: '4C', disbursement: 'Paid for TDS', amount: calAmount })
           }
-          if (k == 'f04DOtherDebit') {
+          if (k == 'F04DOtherDebit') {
             arra.push({ no: '4D', disbursement: 'Other Debits/Exception Debits', amount: calAmount })
           }
-          if (k == 'f05InterestTrf') {
+          if (k == 'F05InterestTrf') {
             arra.push({ no: id, disbursement: 'Interest Transfer', amount: calAmount })
           }
-          if (k == 'f06LastDayRtnTran') {
+          if (k == 'F06LastDayRtnTran') {
             arra.push({ no: id, disbursement: 'Last Day Returns Transaction', amount: calAmount })
           }
-          if (k == 'f07TotalBalance') {
+          if (k == 'F07TotalBalance') {
             arra.push({ no: id, disbursement: 'Net Cumulative Disbursements(4+5)', amount: calAmount })
           }
         }
         resolve(arra);
-      })
- 
+      });
+    });
   }
 
   onSearchbybackdate(value) {

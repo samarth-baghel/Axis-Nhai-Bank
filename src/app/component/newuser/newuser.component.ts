@@ -361,11 +361,9 @@ export class NewuserComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-        let data = this.baseService.getResponseData(res, 'getUserMgmtStateDetailsResponse');
-        this.stateList = data.userMgmtStateDetailsRecords;
+    }).subscribe((res) => {
+      this.parseZoneAndStateXML(res).then((parseData: string[]) => {
+        this.stateList = parseData;
         if (this.userData != undefined && this.userData != null) {
           if (this.userData.userState != "") {
             this.userAccountFormGroup.patchValue({
@@ -373,12 +371,7 @@ export class NewuserComponent implements OnInit {
             });
           }
         }
-      } else {
-        let error = response.error;
-        this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-          duration: 8000,
-        });
-      }
+      });
     });
   }
 

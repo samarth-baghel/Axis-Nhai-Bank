@@ -9,7 +9,6 @@ import { Url } from 'src/app/core/services/url';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SubsidiaryaccountComponent } from '../subsidiaryaccount/subsidiaryaccount.component';
 import { Constants } from 'src/app/core/services/constants';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-projectdirectors',
@@ -30,7 +29,7 @@ export class ProjectdirectorsComponent implements OnInit {
   pageIndex = 0;
 
   //@ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  constructor(public dialog: MatDialog, public baseService: BaseService, public http: HttpClient,private _snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, public baseService: BaseService, public http: HttpClient) {
     this.radioValue1 = "Account Number";
     this.radioValue2 = "Amount in Rupees";
     this.pageSize = 10;
@@ -76,35 +75,29 @@ export class ProjectdirectorsComponent implements OnInit {
       responseType: 'application/xml',
       headers: headers
     })
-      .subscribe((res: any) => {
-        let response = this.baseService.getAPiData(res);
-      if (response.body) {
-        let decryptedText = this.baseService.getResponseData(res,'getPDDetailsResponse');
-          this.totalCount = decryptedText.totalRecordCount;
-          this.projecrParsedData = decryptedText.pdDetails;
+      .subscribe((res) => {
+        this.parseXML(res).then((parseData) => {
+          this.totalCount = parseData[1];
+          this.projecrParsedData = parseData[0];
+         // this.dataSource.data = this.projecrParsedData;
           let value = this.radioValue2;
           this.projecrParsedData.forEach((data) => {
             if (data.TotLimit) {
               if (value == "Amount in Rupees") {
-                data.TotLimit = (+data.toLimit)
+                data.TotLimit = (data.TotLimit)
               } else {
-                data.TotLimit = ((+data.toLimit) / 10000000)
+                data.TotLimit = ((data.TotLimit) / 10000000)
               }
             }
             if (data.UsedLimit) {
               if (value == "Amount in Rupees") {
-                data.UsedLimit = (+data.toLimit)
+                data.UsedLimit = (data.UsedLimit)
               } else {
-                data.UsedLimit = ((+data.toLimit) / 10000000)
+                data.UsedLimit = ((data.UsedLimit) / 10000000)
               }
             }
           });
-        } else {
-          let error = response.error;
-          this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-            duration: 8000,
-          });
-        }
+        });
       });
   }
   // parse the XML data

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
+import { MatPaginator, MatDialogConfig, MatDialog } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 import xml2js from 'xml2js';
 import * as _ from 'lodash';
@@ -18,7 +18,7 @@ export class ZoneComponent implements OnInit {
   radioValue1: string;
   radioValue2: string;
 
-  constructor(public dialog: MatDialog,public baseService: BaseService, public http: HttpClient,private _snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog,public baseService: BaseService, public http: HttpClient) {
     this.radioValue2 = "Amount in Rupees";
   }
 
@@ -59,38 +59,33 @@ export class ZoneComponent implements OnInit {
       {
         responseType: 'application/xml',
         headers: headers
-      }).subscribe((res: any) => {
-        let response = this.baseService.getAPiData(res);
-        if (response.body) {
-          let decryptedText = this.baseService.getResponseData(res, 'zoneDetailsResponse');
-          // decryptedText = this.adjustZoneData(decryptedText);
-          this.dataSource = decryptedText.ZoneDetails;
+      }).subscribe((res) => {
+        this.parseXMLHeads(res).then((parseData) => {
+          parseData = this.adjustZoneData(parseData);
+
+          this.dataSource = parseData;
           let value = this.radioValue2;
           this.dataSource.forEach((data) => {
-            if (data.totalLimit) {
+            if (data.TotLimit) {
               if (value == "Amount in Rupees") {
-                data.totalLimit = (+data.totalLimit)
+                data.TotLimit = (data.TotLimit)
               } else {
-                data.totalLimit = ((+data.totalLimit) / 10000000)
+                data.TotLimit = ((data.TotLimit) / 10000000)
               }
             }
           });
 
           this.dataSource.forEach((data) => {
-            if (data.usedLimit) {
+            if (data.UsedLimit) {
               if (value == "Amount in Rupees") {
-                data.usedLimit = (+data.usedLimit)
+                data.UsedLimit = (data.UsedLimit)
               } else {
-                data.usedLimit = ((+data.usedLimit) / 10000000)
+                data.UsedLimit = ((data.UsedLimit) / 10000000)
               }
             }
           });
-        } else {
-          let error = response.error;
-          this._snackBar.open(`ESB - ${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-            duration: 8000,
-          });
-        }
+
+        })
       })
   }
 

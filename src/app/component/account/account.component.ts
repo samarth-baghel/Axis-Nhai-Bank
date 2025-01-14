@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { LimitlewdgerComponent } from '../limitlewdger/limitlewdger.component';
 import { TotallimitsComponent } from '../totallimits/totallimits.component';
-import {MatPaginator, MatSnackBar} from '@angular/material';
+import {MatPaginator} from '@angular/material';
 import {MatTableDataSource} from '@angular/material/table';
 import { HttpHeaders,HttpClient } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
@@ -29,7 +29,7 @@ export class AccountComponent implements OnInit {
   searchValue:any="";
 
   constructor(public dialog: MatDialog, public baseService: BaseService, 
-    public http: HttpClient,private _snackBar: MatSnackBar) { 
+    public http: HttpClient) { 
     this.radioValue1 = "Account Number";
     this.radioValue2 = "Amount in Rupees";
     this.pageSize = 10;
@@ -139,72 +139,65 @@ export class AccountComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-        let data = this.baseService.getResponseData(res, 'getAccoutDetailsResponse');
-          this.accountParsedArr = data.accountDetails;
-          this.accountParsedArr = this.accountParsedArr.map((x, index) => {
-            if (this.accountParsedArr[index].ACCOUNTNUMBER != undefined && this.accountParsedArr[index].ACCOUNTNUMBER.split('')[this.accountParsedArr[index].ACCOUNTNUMBER.split('').length - 1] == '=') {
-              x.ACCOUNTNUMBER = x.ACCOUNTNUMBER ? this.baseService.dencryptionFunction(x.ACCOUNTNUMBER) : '';
-              return x;
-            } else {
-              x.ACCOUNTNUMBER = x.ACCOUNTNUMBER;
-              return x
-            }
-          });
-          // this.totalCount = this.getTotalCount(this.accountParsedArr);
-          // this.totalCount = this.accountParsedArr[this.accountParsedArr.length-1].totalCount;
-          this.totalCount = data.totalCount
-
-          // this.accountParsedArr = this.accountParsedArr.filter((data) => { return (data['no'] != undefined); });
-          // this.dataSource.data = this.accountParsedArr;
-          let value = this.radioValue2;
-          this.accountParsedArr.forEach((data) => {
-            if (data.accountBalance) {
-              if (value == "Amount in Rupees") {
-                data.accountBalance = (data.accountBalance)
-              } else {
-                data.accountBalance = ((data.accountBalance) / 10000000)
-              }
-            }
-          })
-
-          this.accountParsedArr.forEach((data) => {
-            if (data.totalLimitGrantAmount) {
-              if (value == "Amount in Rupees") {
-                data.totalLimitGrantAmount = (data.totalLimitGrantAmount)
-              } else {
-                data.totalLimitGrantAmount = ((data.totalLimitGrantAmount) / 10000000)
-              }
-            }
-          });
-
-          this.accountParsedArr.forEach((data) => {
-            if (data.utilisedLimit) {
-              if (value == "Amount in Rupees") {
-                data.utilisedLimit = (data.utilisedLimit)
-              } else {
-                data.utilisedLimit = ((data.utilisedLimit) / 10000000)
-              }
-            }
-          });
-
-          this.accountParsedArr.forEach((data) => {
-            if (data.balanceLimit) {
-              if (value == "Amount in Rupees") {
-                data.balanceLimit = (data.balanceLimit)
-              } else {
-                data.balanceLimit = ((data.balanceLimit) / 10000000)
-              }
-            }
-          });
-      } else {
-        let error = response.error;
-        this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-          duration: 8000,
+    }).subscribe((res) => {
+    this.parseXML(this.baseService.dencryptionFunction(res)).then((parseData) => {
+        this.accountParsedArr = parseData;
+        this.accountParsedArr = this.accountParsedArr.map((x,index)=>{
+          if(this.accountParsedArr[index].ACCOUNTNUMBER!=undefined && this.accountParsedArr[index].ACCOUNTNUMBER.split('')[this.accountParsedArr[index].ACCOUNTNUMBER.split('').length-1] == '='){
+                      x.ACCOUNTNUMBER = x.ACCOUNTNUMBER?this.baseService.dencryptionFunction(x.ACCOUNTNUMBER):'';
+                      return x;
+                        } else{
+                          x.ACCOUNTNUMBER = x.ACCOUNTNUMBER;
+                          return x
+                        }
         });
-      }
+        this.totalCount = this.getTotalCount(this.accountParsedArr);
+        this.totalCount = this.accountParsedArr[this.accountParsedArr.length-1].TOTALCOUN;
+        
+        this.accountParsedArr = this.accountParsedArr.filter((data) => { return (data['no'] != undefined); });
+       // this.dataSource.data = this.accountParsedArr;
+        let value = this.radioValue2;
+        this.accountParsedArr.forEach((data)=>{
+          if(data.AcctBal){
+            if(value == "Amount in Rupees"){
+              data.AcctBal = (data.AcctBal)
+            }else{
+              data.AcctBal = ((data.AcctBal)/10000000)
+            }
+          }
+        })
+
+        this.accountParsedArr.forEach((data) => {
+          if (data.TotalLimitGrantAmt) {
+            if (value == "Amount in Rupees") {
+              data.TotalLimitGrantAmt = (data.TotalLimitGrantAmt)
+            } else {
+              data.TotalLimitGrantAmt = ((data.TotalLimitGrantAmt) / 10000000)
+            }
+          }
+        });
+
+        this.accountParsedArr.forEach((data) => {
+          if (data.UtilisedLimit) {
+            if (value == "Amount in Rupees") {
+              data.UtilisedLimit = (data.UtilisedLimit)
+            } else {
+              data.UtilisedLimit = ((data.UtilisedLimit) / 10000000)
+            }
+          }
+        });
+
+        this.accountParsedArr.forEach((data) => {
+          if (data.BalanceLimit) {
+            if (value == "Amount in Rupees") {
+              data.BalanceLimit = (data.BalanceLimit)
+            } else {
+              data.BalanceLimit = ((data.BalanceLimit) / 10000000)
+            }
+          }
+        });
+        
+      });
     });
   }
 
@@ -212,8 +205,8 @@ export class AccountComponent implements OnInit {
     let totalCount = 0;
     for(let i =0 ;i<accountParsedArr.length;i++){
       let actItem = accountParsedArr[i];
-      if(actItem.totalCount != undefined){
-        totalCount =  actItem.totalCount;
+      if(actItem.TotalCoun != undefined){
+        totalCount =  actItem.TotalCoun;
         break;
       }
     }
@@ -231,50 +224,50 @@ export class AccountComponent implements OnInit {
             explicitArray: true
           });
       let itemArr = [];
-      // parser.parseString(data, function (err, result) {
-        // console.log(result);
+      parser.parseString(data, function (err, result) {
+        console.log(result);
         
-        // if(result.FIXML.Body === undefined){
-        //   var obj = result.FIXML.BODY[0].EXECUTEFINACLESCRIPTRESPONSE[0].EXECUTEFINACLESCRIPT_CUSTOMDATA[0];
-        // }
-        // else{
-        //   var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0];
-        // }
-          Object.keys(data).forEach((ele,index)=>{
+        if(result.FIXML.Body === undefined){
+          var obj = result.FIXML.BODY[0].EXECUTEFINACLESCRIPTRESPONSE[0].EXECUTEFINACLESCRIPT_CUSTOMDATA[0];
+        }
+        else{
+          var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0];
+        }
+          Object.keys(obj).forEach((ele,index)=>{
             if(ele.includes('AccountNumber_')){
               let encryptedBase64Key="YWJjYWJjZGVmZGVmZ2hpZw==";
               let parsedBase64Key=CryptoJS.enc.Base64.parse(encryptedBase64Key);
-              let decryptedData = CryptoJS.AES.decrypt( data[ele], parsedBase64Key, {
+              let decryptedData = CryptoJS.AES.decrypt( obj[ele][0], parsedBase64Key, {
                 mode: CryptoJS.mode.ECB,
                 padding: CryptoJS.pad.Pkcs7
                 } );
-                data[ele]=decryptedData.toString(CryptoJS.enc.Utf8);
+              obj[ele]=decryptedData.toString(CryptoJS.enc.Utf8);
             }else{
-              data[ele] = data[ele];
+            obj[ele] = obj[ele][0];
             }
           });
-        for (k in data) {
+        for (k in obj) {
           const id = k.split(/([0-9]+)/)[1];
           const item = k.split(/([0-9]+)/).filter(Boolean)[0].slice(0, -1);
           if (itemArr.length > 0) {
             const index = _.findIndex(itemArr, { no: id });
             if (index == -1) {
-              itemArr.push({ [`${item}`]: data[k], no: id });
+              itemArr.push({ [`${item}`]: obj[k], no: id });
             } else {
               if ((item == "ACCT_OPN_DATE") || (item == "LAST_TRAN_DATE")) {
-                if ((data[k]) == "NA") {
-                  data[k] = "--"
+                if ((obj[k][0]) == "NA") {
+                  obj[k][0] = "--"
                 }
               }
-              itemArr[index][item] = data[k]
+              itemArr[index][item] = obj[k]
             }
           }
           else {
-            itemArr.push({ [`${item}`]: data[k], no: id });
+            itemArr.push({ [`${item}`]: obj[k], no: id });
           }
         }
         resolve(itemArr);
-      // });
+      });
     });
   }
 

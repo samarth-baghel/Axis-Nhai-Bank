@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
-import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material';
 import { ROProjectDirectorsComponent } from '../roproject-directors/roproject-directors.component';
 import { SubsidiaryaccountComponent } from '../subsidiaryaccount/subsidiaryaccount.component';
 @Component({
@@ -22,7 +22,7 @@ export class StateComponent implements OnInit {
   toCount = 10;
   pageSize: any = 10;
   totalCount: any;
-  constructor(public dialog: MatDialog,public baseService: BaseService, public http: HttpClient,private _snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog,public baseService: BaseService, public http: HttpClient) {
     this.radioValue2 = "Amount in Rupees";
   }
 
@@ -46,35 +46,28 @@ export class StateComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-      let decryptedText = this.baseService.getResponseData(res,'getStateWiseDetailsResponse');
-        this.dataSource = decryptedText.stateDetails;
-        this.totalCount = decryptedText.recordCount;
+    }).subscribe((res) => {
+      this.parseXML(res).then((parseData) => {
+        this.dataSource = parseData[0];
+        this.totalCount = parseData[1];
         let value = this.radioValue2;
         this.dataSource.forEach((data) => {
-          if (data.totalLimit) {
+          if (data.TotLimit) {
             if (value == "Amount in Rupees") {
-              data.totalLimit = (+data.totalLimit)
+              data.TotLimit = (data.TotLimit)
             } else {
-              data.totalLimit = ((+data.totalLimit) / 10000000)
+              data.TotLimit = ((data.TotLimit) / 10000000)
             }
           }
-          if (data.usedLimit) {
+          if (data.UsedLimit) {
             if (value == "Amount in Rupees") {
-              data.usedLimit = (+data.usedLimit)
+              data.UsedLimit = (data.UsedLimit)
             } else {
-              data.usedLimit = ((+data.usedLimit) / 10000000)
+              data.UsedLimit = ((data.UsedLimit) / 10000000)
             }
           }
         })
-      } else {
-        let error = response.error;
-        this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-          duration: 8000,
-        });
-      }
+      });
     });
   }
 

@@ -51,7 +51,8 @@ export class UseraccountComponent implements OnInit {
     this.userAccountFormGroup.controls.pds.disable();
     this.userAccountFormGroup.controls.calas.disable();
 
-    this.getZoneData();  
+    this.getZoneData();
+    
   }
 
   usertypes: UserTypes[] = [
@@ -288,17 +289,10 @@ export class UseraccountComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      let response = this.baseService.getAPiData(res);
-      if (response.body) {
-        let data = this.baseService.getResponseData(res, 'getUserMgmtStateDetailsResponse');
-        this.stateList = data.userMgmtStateDetailsRecords
-      } else {
-        let error = response.error;
-        this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-          duration: 8000,
-        });
-      }     
+    }).subscribe((res) => {
+      this.parseZoneAndStateXML(res).then((parseData:string[]) => {
+        this.stateList = parseData;
+      });
     });
   }
 

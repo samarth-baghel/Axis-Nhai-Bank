@@ -5,7 +5,7 @@ import { Url } from 'src/app/core/services/url';
 import xml2js from 'xml2js';
 import * as _ from 'lodash'; 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar, MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-subsidiaryaccount',
@@ -22,7 +22,7 @@ export class SubsidiaryaccountComponent implements OnInit {
   totalCount:any;
   pageSize:any = 10;
   dataSources = new MatTableDataSource;
-  constructor(public baseService: BaseService, public http: HttpClient,private _snackBar: MatSnackBar,@Inject(MAT_DIALOG_DATA) data) {
+  constructor(public baseService: BaseService, public http: HttpClient,@Inject(MAT_DIALOG_DATA) data) {
     this.pdName = data.pdName ? data.pdName : "";
     this.roName = data.roName ? data.roName : "";
     this.stateName = data.stateName ? data.stateName : "";
@@ -69,25 +69,11 @@ export class SubsidiaryaccountComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res: any) => {
-      if(this.roName != "" || this.stateName != "" || this.zoneName != ""){
-        let response = this.baseService.getAPiData(res);
-        if (response.body) {
-          let data = this.baseService.getResponseData(res, 'getPDAccountHyperlinkDetailsResponse');
-          this.totalCount = data.recordCount;
-          this.dataSources.data = data.pdDetails;
-        } else {
-          let error = response.error;
-          this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
-            duration: 8000,
-          });
-        }
-      } else {
-        this.parseXML(res).then((parseData) => {
-          this.dataSources.data = parseData[0];
-          this.totalCount = parseData[1];       
-        });
-      }
+    }).subscribe((res) => {
+      this.parseXML(res).then((parseData) => {
+        this.dataSources.data = parseData[0];
+        this.totalCount = parseData[1];       
+      });
     });
   }
 

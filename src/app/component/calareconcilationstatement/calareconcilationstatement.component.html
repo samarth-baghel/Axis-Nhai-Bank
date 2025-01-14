@@ -165,12 +165,12 @@
 
       <ng-container matColumnDef="accountnumber">
         <th mat-header-cell class="sr" *matHeaderCellDef> Account Number </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.accountNumbe == undefined ? element.ACCTNUM : element.accountNumbe}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.acctNum == undefined ? element.ACCTNUM : element.acctNum}} </td>
       </ng-container>
 
       <ng-container matColumnDef="accountname">
         <th mat-header-cell class="sr" *matHeaderCellDef>Account Name</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.accountNam == undefined ? element.ACCTNAME : element.accountNam}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.acctName == undefined ? element.ACCTNAME : element.acctName}} </td>
       </ng-container>
 
       <ng-container matColumnDef="reconformonthyear">
@@ -180,31 +180,31 @@
 
       <ng-container matColumnDef="openingbalance">
         <th mat-header-cell class="numberPaddings" *matHeaderCellDef>Opening Balance</th>
-        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{(element.openBalanc == undefined ? element.OPENBAL : element.openBalanc) | customCurrencyPipe}} </td>
+        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{(element.OpenBal == undefined ? element.OPENBAL : element.OpenBal) | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="limitgrant">
         <th mat-header-cell class="numberPaddings" *matHeaderCellDef>Limit Grant</th>
-        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{(element.allocatedLimit) | customCurrencyPipe}}
+        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{(element.ALLOCATEDLIMITS) | customCurrencyPipe}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="limitutilized">
         <th mat-header-cell class="numberPaddings" *matHeaderCellDef>Limit Utilized </th>
-        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{element.utilisedLimi | customCurrencyPipe}}
+        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{element.UTILISED_LIMIT | customCurrencyPipe}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="closingbalance">
         <th mat-header-cell class="numberPaddings" *matHeaderCellDef>Closing Balance</th>
-        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{(element.closingBalanc == undefined ? element.CLOSINGBAL : element.closingBalanc) | customCurrencyPipe}} </td>
+        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{(element.ClosingBal == undefined ? element.CLOSINGBAL : element.ClosingBal) | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="pendingadjustment">
         <th mat-header-cell class="sr" *matHeaderCellDef>Pending Adjustment</th>
         <td mat-cell class="sr" *matCellDef="let element">
           <a class="hyperLink"
-            (click)="openDialogPendingadjustment(element.accountNumbe,monthdate)">{{(element.pendingAdjestmen == undefined ? element.PENDINGADJ : element.pendingAdjestmen) | customCurrencyPipe}}
+            (click)="openDialogPendingadjustment(element.acctNum,monthdate)">{{(element.pendingAdj == undefined ? element.PENDINGADJ : element.pendingAdj) | customCurrencyPipe}}
           </a>
         </td>
       </ng-container>
