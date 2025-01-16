@@ -240,55 +240,59 @@ export class DatewiselimitComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parseXML(res).then((parseData) => {
-        this.dataSources = parseData[0];
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let data = this.baseService.getResponseData(res, 'fetchZoneSummaryDetailsResponse');
+        this.dataSources = data.records;
         let value = this.radioValue2;
         this.dataSources.forEach((data) => {
-          if (data.AllocatedLimit) {
-            let finVal = data.AllocatedLimit;
+          if (data.allocatedLimit) {
+            let finVal = data.allocatedLimit;
             if (value != "Amount in Rupees") {
-              finVal = finVal/10000000; 
+              finVal = finVal / 10000000;
             }
-            data.AllocatedLimit = parseFloat(finVal).toFixed(2);
+            data.allocatedLimit = parseFloat(finVal).toFixed(2);
           }
-          if (data.UnUtilizedLimit) {
-            let finVal = data.UnUtilizedLimit;
+          if (data.unUtilizedLimit) {
+            let finVal = data.unUtilizedLimit;
             if (value != "Amount in Rupees") {
-              finVal = finVal/10000000; 
+              finVal = finVal / 10000000;
             }
-            data.UnUtilizedLimit = parseFloat(finVal).toFixed(2);
+            data.unUtilizedLimit = parseFloat(finVal).toFixed(2);
           }
-          if (data.UtilizedLimit) {
-            let finVal = data.UtilizedLimit;
+          if (data.utilizedLimit) {
+            let finVal = data.utilizedLimit;
             if (value != "Amount in Rupees") {
-              finVal = finVal/10000000; 
+              finVal = finVal / 10000000;
             }
-            data.UtilizedLimit = parseFloat(finVal).toFixed(2);
+            data.utilizedLimit = parseFloat(finVal).toFixed(2);
           }
           if (data.TotalAllocatedLimit) {
             let finVal = data.TotalAllocatedLimit;
             if (value != "Amount in Rupees") {
-              finVal = finVal/10000000; 
+              finVal = finVal / 10000000;
             }
             data.TotalAllocatedLimit = parseFloat(finVal).toFixed(2);
           }
           if (data.TotalUtilizedLimit) {
             let finVal = data.TotalUtilizedLimit;
             if (value != "Amount in Rupees") {
-              finVal = finVal/10000000; 
+              finVal = finVal / 10000000;
             }
             data.TotalUtilizedLimit = parseFloat(finVal).toFixed(2);
           }
           if (data.TotalUnUtilizedLimit) {
             let finVal = data.TotalUnUtilizedLimit;
             if (value != "Amount in Rupees") {
-              finVal = finVal/10000000; 
+              finVal = finVal / 10000000;
             }
             data.TotalUnUtilizedLimit = parseFloat(finVal).toFixed(2);
           }
         })
-      });
+      } else {
+        this.baseService.getError(response)
+      }
     });
   }
 
@@ -339,7 +343,40 @@ export class DatewiselimitComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let data = this.baseService.getResponseData(res, 'fetchROSummaryDetailsResponse');
+        this.roParsedData = data.records;
+        this.rototalCount = data.totalRecordCount;
+        this.dataSources2.data = this.roParsedData;
+        let value = this.radioValue2;
+        this.roParsedData.forEach((data) => {
+          if (data.allocatedLimit) {
+            if (value == "Amount in Rupees") {
+              data.allocatedLimit = (data.allocatedLimit)
+            } else {
+              data.allocatedLimit = ((data.allocatedLimit) / 10000000)
+            }
+          }
+          if (data.unUtilizedLimit) {
+            if (value == "Amount in Rupees") {
+              data.unUtilizedLimit = (data.unUtilizedLimit)
+            } else {
+              data.unUtilizedLimit = ((data.unUtilizedLimit) / 10000000)
+            }
+          }
+          if (data.usedLimit) {
+            if (value == "Amount in Rupees") {
+              data.usedLimit = (data.usedLimit)
+            } else {
+              data.usedLimit = ((data.usedLimit) / 10000000)
+            }
+          }
+        })
+      } else {
+        this.baseService.getError(response);
+      }
       this.parseROXML(res).then((parseData) => {
         this.roParsedData = parseData[0];
         this.rototalCount = parseData[1];
@@ -419,36 +456,41 @@ export class DatewiselimitComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parsePOXML(res).then((parseData) => {
-        this.poParsedData = parseData[0];
-        this.pdtotalCounts = parseData[1];
-        this.dataSources3.data = this.poParsedData;
-        let value = this.radioValue2;
-        this.poParsedData.forEach((data) => {
-          if (data.AllocatedLimit) {
-            if (value == "Amount in Rupees") {
-              data.AllocatedLimit = (data.AllocatedLimit)
-            } else {
-              data.AllocatedLimit = ((data.AllocatedLimit) / 10000000)
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let data = this.baseService.getResponseData(res, 'fetchPDSummaryDetailsResponse');
+          this.poParsedData = data.summeryDetails;          ;
+          this.pdtotalCounts = data.totalRecordCount;
+          this.dataSources3.data = this.poParsedData;
+          let value = this.radioValue2;
+          this.poParsedData.forEach((data) => {
+            if (data.allocatedLimit) {
+              if (value == "Amount in Rupees") {
+                data.allocatedLimit = (data.allocatedLimit)
+              } else {
+                data.allocatedLimit = ((data.allocatedLimit) / 10000000)
+              }
             }
-          }
-          if (data.UnutilisedLimit) {
-            if (value == "Amount in Rupees") {
-              data.UnutilisedLimit = (data.UnutilisedLimit)
-            } else {
-              data.UnutilisedLimit = ((data.UnutilisedLimit) / 10000000)
+            if (data.unutilisedLimit) {
+              if (value == "Amount in Rupees") {
+                data.unutilisedLimit = (data.unutilisedLimit)
+              } else {
+                data.unutilisedLimit = ((data.unutilisedLimit) / 10000000)
+              }
             }
-          }
-          if (data.UsedLimit) {
-            if (value == "Amount in Rupees") {
-              data.UsedLimit = (data.UsedLimit)
-            } else {
-              data.UsedLimit = ((data.UsedLimit) / 10000000)
+            if (data.usedLimit) {
+              if (value == "Amount in Rupees") {
+                data.usedLimit = (data.usedLimit)
+              } else {
+                data.usedLimit = ((data.usedLimit) / 10000000)
+              }
             }
-          }
-        })
-      });
+          })
+      } else {
+        this.baseService.getError(response)
+      }
+
     });
   }
 

@@ -118,7 +118,6 @@ export class LoginComponent implements OnInit {
   }
 
   getNavigationData(mode?: String, userID?: String, userName?: String, firstLogin?: String) {
-    console.log(this.baseService.dencryptionFunction(Url.navicUser))
     //If user account is valid then it will come here, so resetting the value.
     this.loginAttempts = 5;
 
@@ -131,7 +130,16 @@ export class LoginComponent implements OnInit {
       url = Url.navicAdminMaker;
     } else if (mode == "AdminChecker") {
       url = Url.navicAdminChecker;
+    } else if (mode == 'hqUserOrInternaluser') {
+      url = Url.headQuaterUser;
+    } else if (mode == 'roUser') {
+      url = Url.regionalOfficeUser;
+    } else if (mode == 'pdUser') {
+      url = Url.projectDirectorUser;
+    } else if (mode == 'calaUser') {
+      url = Url.calaUser;
     }
+
     if (firstLogin == "true") {
       firstLogin = "true"
     } else {
@@ -232,7 +240,17 @@ export class LoginComponent implements OnInit {
           let userID = response.UserID;
           let firstLogin = response.FirstLogin;
           if (status == 'Success') {
-            this.getNavigationData("user", userID, userName, firstLogin);
+            if ((response.UserType == 'axis-0' && response.UserLevel == 'head-0') || (response.UserType == 'nhai-1')) {
+              this.getNavigationData("hqUserOrInternaluser", userID, userName, firstLogin);
+            } else if (response.UserType == 'axis-0' && !response.UserLevel) {
+              this.getNavigationData("roUser", userID, userName, firstLogin);
+            } else if (response.UserType == 'axis-0' && response.UserLevel == 'pd-4') {
+              this.getNavigationData("pdUser", userID, userName, firstLogin);
+            } else if (response.UserType == 'axis-0' && response.UserLevel == 'cala-5') {
+              this.getNavigationData("calaUser", userID, userName, firstLogin);
+            } else {
+              this.getNavigationData("user", userID, userName, firstLogin);
+            }
           } else if (status == 'PasswordFailed') {
             this._snackBar.open("Login failed wrong user credentials", "", {
               duration: 4000,

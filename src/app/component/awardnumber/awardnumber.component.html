@@ -54,34 +54,34 @@
 
       <ng-container matColumnDef="ACnumber">
         <th mat-header-cell class="sr" *matHeaderCellDef> A/C Number </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.AccountNum |maskData:4}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.accountNumber |maskData:4}} </td>
       </ng-container>
 
       <ng-container class="bg-white" matColumnDef="AwardNumber">
         <th mat-header-cell class="sr" *matHeaderCellDef> Award Number</th>
         <td class="sr tbl" mat-cell *matCellDef="let element">
           <a class="hyperLink"
-            (click)="openDialogAwardNumber(element.AWARDNum,element.AccountNum)">{{element.AWARDNum}}</a></td>
+            (click)="openDialogAwardNumber(element.awardNumber,element.accountNumber)">{{element.awardNumber}}</a></td>
       </ng-container>
 
       <ng-container matColumnDef="AwardNumberDate">
         <th mat-header-cell class="sr" *matHeaderCellDef> Award Number Date </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.AWARDNumDate}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.awardNumberDate}} </td>
       </ng-container>
 
       <ng-container matColumnDef="UniqueNumber">
         <th mat-header-cell class="sr" *matHeaderCellDef> Unique Number </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.uniqueNum}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.uniqueNumber}} </td>
       </ng-container>
 
       <ng-container matColumnDef="LimitDate">
         <th mat-header-cell class="sr" *matHeaderCellDef> Limit Date </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.dateOfTOD}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.dateOfTod}} </td>
       </ng-container>
 
       <ng-container matColumnDef="LimitNumber">
         <th mat-header-cell class="sr" *matHeaderCellDef> Limit Number </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.TODAmt}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.todAmount}} </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

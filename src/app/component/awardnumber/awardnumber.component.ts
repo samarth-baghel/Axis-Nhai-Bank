@@ -138,24 +138,26 @@ export class AwardnumberComponent implements OnInit {
       responseType: 'application/xml',
       headers: headers
     })
-      .subscribe((res) => {
-        this.parseXML(res).then((parseData) => {
-          this.dataSourcesawardnumber = parseData[0];
-          this.totalCount = parseData[1];
+      .subscribe((res: any) => {
+        let response = this.baseService.getAPiData(res);
+        if (response.body) {
+          let data = this.baseService.getResponseData(res, 'accountAwardDetailsResponse');
+          this.dataSourcesawardnumber = data.awardDetail;
+          this.totalCount = data.totalRecord;
           let value = this.radioValue2;
           this.dataSourcesawardnumber.forEach((data) => {
-            if (data.TODAmt) {
+            if (data.todAmount) {
               if (value == "Amount in Rupees") {
-                data.TODAmt = (data.TODAmt)
+                data.todAmount = (data.todAmount)
               } else {
-                data.TODAmt = ((data.TODAmt) / 10000000)
+                data.todAmount = ((data.todAmount) / 10000000)
               }
             }
           })
-        })
-
+        } else {
+          this.baseService.getError(response)
+        }
       });
-
   }
 
   // parse the XML data

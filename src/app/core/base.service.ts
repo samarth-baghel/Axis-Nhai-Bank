@@ -8,6 +8,7 @@ import xml2js from 'xml2js';
 import * as _ from 'lodash';
 import * as CryptoJS from 'crypto-js';
 import { StateServiceService } from './services/state-service.service';
+import { MatSnackBar } from '@angular/material';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ import { StateServiceService } from './services/state-service.service';
 })
 export class BaseService {
 
-  constructor(protected http: HttpClient, protected csrfService: CsrfService, private stateService: StateServiceService) { }
+  constructor(protected http: HttpClient, protected csrfService: CsrfService, private stateService: StateServiceService,private _snackBar: MatSnackBar) { }
   /**
  * Common request function with basic mapping.
  * @param url Request URL.
@@ -400,6 +401,13 @@ export class BaseService {
       console.error('Error parsing API data:', error);
       return null;
     }
+  }
+
+  getError(err){
+    let error = err.error;
+    this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
+      duration: 8000,
+    });
   }
 
 }

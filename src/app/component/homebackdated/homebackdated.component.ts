@@ -177,11 +177,11 @@ export class HomebackdatedComponent implements OnInit {
           })
         });
 
-        this.parseXMLAccountType(res).then((parseDatas) => {
+        this.parseXMLAccountType(this.baseService.dencryptionFunction(res)).then((parseDatas) => {
           this.dataSources = parseDatas;
         });
 
-        this.parseXMLFinancialYearHeads(res, this.radioValue2).then((parseData) => {
+        this.parseXMLFinancialYearHeads(this.baseService.dencryptionFunction(res), this.radioValue2).then((parseData) => {
           this.finDataSource = parseData;
           let value = this.radioValue2;
           this.finDataSource.forEach((data) => {

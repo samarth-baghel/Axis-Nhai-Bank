@@ -328,12 +328,31 @@ export class TransactionComponent implements OnInit {
       {
         responseType: 'application/xml',
         headers: headers
-      }).subscribe((res) => {
+      }).subscribe((res: any) => {
         let dRes:any;
-        if(this.creditTypes == 'singleCredit')
-        {
-          dRes = this.baseService.dencryptionFunction(res)
-        }else dRes = res;
+        if (this.creditTypes == 'singleCredit') {
+          let response = this.baseService.getAPiData(res);
+          if (response.body) {
+            let data = this.baseService.getResponseData(res, 'fetchAccountTransactionsResponse');
+            this.accountParsedArr = data.subsidiaryTransaction;
+            this.totalCount = data.totalRecordCount;
+            if (this.radioValuecurrency1 == "Amount in Crores") {
+              this.accountParsedArr.forEach((data) => {
+                if (data.amount) {
+                  data.amount = ((data.amount) / 10000000)
+                }
+
+                if (data.runingBalance) {
+                  data.runingBalance = ((data.runingBalance) / 10000000)
+                }
+              })
+              data.subsidiaryTransaction = this.accountParsedArr;
+            }
+            this.dataSource.data = this.accountParsedArr;
+          } else {
+            this.baseService.getError(response);
+          }
+        } else dRes = res;
         this.parseXML(dRes,this.creditTypes).then((parseData) => {
           this.accountParsedArr = parseData[0];
 

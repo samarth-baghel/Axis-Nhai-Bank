@@ -177,7 +177,12 @@ export class Url {
 
     static readonly userData = "assets/userdetails.json";
 
-    static readonly beneficiaryUploadTemplate = "./assets/beneficiary.csv"
+    static readonly beneficiaryUploadTemplate = "./assets/beneficiary.csv";
+    
+    static readonly headQuaterUser = "assets/hQUsers.json";
+    static readonly regionalOfficeUser = "assets/rOUsers.json";
+    static readonly projectDirectorUser = "assets/pdUsers.json";
+    static readonly calaUser = "assets/calaUsers.json";
 
     /**
      * Validation Helpers
