@@ -78,21 +78,24 @@ export class ExceptionComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parseXML(res).then((parseData) => {
-        this.exceptionParsedData = parseData[0];
-        this.totalCount = parseData[1];
-        //this.dataSource.data = this.exceptionParsedData;
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let data = this.baseService.getResponseData(res, 'fetchExceptionDetailsResponse');
+        this.exceptionParsedData = data.exceptionDetails;
+        this.totalCount = data.totalCount;
         this.exceptionParsedData.forEach((data) => {
-          if (data.TranAmount) {
+          if (data.transactionAmount) {
             if (this.radioValue == Constants.amountInRupees) {
-              data.TranAmount = (data.TranAmount)
+              data.transactionAmount = (data.transactionAmount)
             } else {
-              data.TranAmount = ((data.TranAmount) / 10000000)
+              data.transactionAmount = ((data.transactionAmount) / 10000000)
             }
           }
         })
-      })
+      } else {
+        this.baseService.getError(response)
+      }
     })
   }
 

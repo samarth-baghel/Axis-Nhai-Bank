@@ -47,42 +47,42 @@
     <table mat-table [dataSource]="exceptionParsedData" class="mat-elevation-z8 ">
       <ng-container matColumnDef="no">
         <th mat-header-cell class="sr" *matHeaderCellDef> S.NO. </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.no}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.recordCount}} </td>
       </ng-container>
 
       <ng-container matColumnDef="subsidiaryaccountno">
         <th mat-header-cell class="sr" *matHeaderCellDef>Account Number</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.SubsidiaryAcctNumber | maskData:4}}</td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryAccountNumber | maskData:4}}</td>
       </ng-container>
 
       <ng-container matColumnDef="subsidiaryaccountname">
         <th mat-header-cell class="sr" *matHeaderCellDef>Account Name</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.SubsidiaryAcctName}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryAccountName}} </td>
       </ng-container>
 
       <ng-container matColumnDef="subsidiaryaccountopendate">
         <th mat-header-cell class="sr" *matHeaderCellDef>Account Open Date</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.SubsidiaryAcctOpenDate}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryAccountOpenDate}} </td>
       </ng-container>
 
       <ng-container matColumnDef="date">
         <th mat-header-cell class="sr" *matHeaderCellDef> Date </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.SubsidiaryTranDate}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryTransactionDate}} </td>
       </ng-container>
 
       <ng-container matColumnDef="debitcredit">
         <th mat-header-cell class="sr" *matHeaderCellDef>Debit/Credit</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.SubsidiaryDebitCredit}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryDebitCredit}} </td>
       </ng-container>
 
       <ng-container matColumnDef="tranparticulars">
         <th mat-header-cell class="sr" *matHeaderCellDef>Tran Particulars</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.TranParticulars}} </td>
+        <td mat-cell class="sr" *matCellDef="let element"> {{element.transactionParticulars}} </td>
       </ng-container>
 
       <ng-container matColumnDef="amount">
         <th mat-header-cell class="numberPadding" *matHeaderCellDef>Amount</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.TranAmount | customCurrencyPipe}} </td>
+        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.transactionAmount | customCurrencyPipe}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

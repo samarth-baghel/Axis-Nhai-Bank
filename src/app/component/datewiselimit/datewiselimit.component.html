@@ -205,9 +205,8 @@
 
                     <ng-container matColumnDef="no">
                         <th mat-header-cell class="sr" *matHeaderCellDef> S.No. </th>
-                        <td mat-cell class="right" *matCellDef="let element ;">
-                            {{element.no}}
-                        </td>
+                        <td mat-cell class="right" *matCellDef="let element; let i = index;">
+                            {{i + 1}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="zone">
@@ -234,7 +233,7 @@
 
                     <ng-container matColumnDef="AccountNo">
                         <th mat-header-cell class="sr" *matHeaderCellDef> Account Number </th>
-                        <td mat-cell class="sr" *matCellDef="let element"> {{element.acctNum}} </td>
+                        <td mat-cell class="sr" *matCellDef="let element"> {{element.accountNumber}} </td>
                     </ng-container>
 
                     <!-- <ng-container matColumnDef="subsidiaries">
@@ -245,19 +244,19 @@
                     <ng-container matColumnDef="limitsgranted">
                         <th mat-header-cell class="numberPadding" *matHeaderCellDef> Limits Granted </th>
                         <td mat-cell class="numberPadding" *matCellDef="let element">
-                            {{element.AllocatedLimits | customCurrencyPipe}} </td>
+                            {{element.allocatedLimits | customCurrencyPipe}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="limitUnutilized">
                         <th mat-header-cell class="numberPadding" *matHeaderCellDef> Limits Unutilized </th>
                         <td mat-cell class="numberPadding" *matCellDef="let element">
-                            {{element.UnUtilizedLimit | customCurrencyPipe}} </td>
+                            {{element.unUtilizedLimit | customCurrencyPipe}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="limitUtilized">
                         <th mat-header-cell class="numberPadding" *matHeaderCellDef> Limits Utilized </th>
                         <td mat-cell class="numberPadding" *matCellDef="let element">
-                            {{element.UtilizedLimit | customCurrencyPipe}} </td>
+                            {{element.utilizedLimit | customCurrencyPipe}} </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>

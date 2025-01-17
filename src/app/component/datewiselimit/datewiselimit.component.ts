@@ -377,35 +377,6 @@ export class DatewiselimitComponent implements OnInit {
       } else {
         this.baseService.getError(response);
       }
-      this.parseROXML(res).then((parseData) => {
-        this.roParsedData = parseData[0];
-        this.rototalCount = parseData[1];
-        this.dataSources2.data = this.roParsedData;
-        let value = this.radioValue2;
-        this.roParsedData.forEach((data) => {
-          if (data.AllocatedLimit) {
-            if (value == "Amount in Rupees") {
-              data.AllocatedLimit = (data.AllocatedLimit)
-            } else {
-              data.AllocatedLimit = ((data.AllocatedLimit) / 10000000)
-            }
-          }
-          if (data.UnutilizedLimit) {
-            if (value == "Amount in Rupees") {
-              data.UnutilizedLimit = (data.UnutilizedLimit)
-            } else {
-              data.UnutilizedLimit = ((data.UnutilizedLimit) / 10000000)
-            }
-          }
-          if (data.UsedLimit) {
-            if (value == "Amount in Rupees") {
-              data.UsedLimit = (data.UsedLimit)
-            } else {
-              data.UsedLimit = ((data.UsedLimit) / 10000000)
-            }
-          }
-        })
-      });
     });
   }
 
@@ -542,40 +513,40 @@ export class DatewiselimitComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parseCALAXML(res).then((parseData) => {
-        try{
-          this.calaParsedData = parseData[0];
-          this.totalCountCALA = parseData[1];
-          this.dataSources4.data = this.calaParsedData;
-          let value = this.radioValue2;
-          this.calaParsedData.forEach((data) => {
-            if (data.AllocatedLimits) {
-              if (value == "Amount in Rupees") {
-                data.AllocatedLimits = (data.AllocatedLimits)
-              } else {
-                data.AllocatedLimits = ((data.AllocatedLimits) / 10000000)
-              }
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let data = this.baseService.getResponseData(res, 'fetchCALASummarydtlsResponse');
+        this.calaParsedData = data.calaSummaryDetails;
+        this.totalCountCALA = data.totalRecordCount;
+        this.dataSources4.data = this.calaParsedData;
+        let value = this.radioValue2;
+        this.calaParsedData.forEach((data) => {
+          if (data.allocatedLimits) {
+            if (value == "Amount in Rupees") {
+              data.allocatedLimits = (data.allocatedLimits)
+            } else {
+              data.allocatedLimits = ((data.allocatedLimits) / 10000000)
             }
-            if (data.UtilizedLimit) {
-              if (value == "Amount in Rupees") {
-                data.UtilizedLimit = (data.UtilizedLimit)
-              } else {
-                data.UtilizedLimit = ((data.UtilizedLimit) / 10000000)
-              }
+          }
+          if (data.utilizedLimit) {
+            if (value == "Amount in Rupees") {
+              data.utilizedLimit = (data.utilizedLimit)
+            } else {
+              data.utilizedLimit = ((data.utilizedLimit) / 10000000)
             }
-            if (data.UnUtilizedLimit) {
-              if (value == "Amount in Rupees") {
-                data.UnUtilizedLimit = (data.UnUtilizedLimit)
-              } else {
-                data.UnUtilizedLimit = ((data.UnUtilizedLimit) / 10000000)
-              }
+          }
+          if (data.unUtilizedLimit) {
+            if (value == "Amount in Rupees") {
+              data.unUtilizedLimit = (data.unUtilizedLimit)
+            } else {
+              data.unUtilizedLimit = ((data.unUtilizedLimit) / 10000000)
             }
-          });
-        }catch(error){
-
-        }
-      });
+          }
+        })
+      } else {
+        this.baseService.getError(response)
+      }
     });
   }
 
