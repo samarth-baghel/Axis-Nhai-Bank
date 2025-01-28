@@ -117,7 +117,8 @@ export class AegingComponent implements OnInit {
     }).subscribe((res: any) => {
       let response = this.baseService.getAPiData(res);
       if (response.body) {
-      let decryptedText = this.baseService.getResponseData(res,'getCustomerAccountDetailsResponse');
+        let keyName = datetypevalue == 'As per account opening date' ? 'getCustomerAccountDetailsResponse' : datetypevalue == 'As per last transaction date' ? 'getCustAgeingSummaryLastdateDetailsResponse' : 'getCustAgeingWiseDetailsResponse';
+        let decryptedText = this.baseService.getResponseData(res, keyName);
       this.parseXML(decryptedText, this.ageingCurConv).then((parseData) => {
         this.aegingParsedData = parseData;
         this.aegingParsedData.forEach((filteredData) => {

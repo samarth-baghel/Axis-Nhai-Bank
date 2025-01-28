@@ -53,12 +53,13 @@ export class CalareconcilationstatementComponent implements OnInit {
     this.getDropdownData();
   }
 
-  openDialogPendingadjustment(accountNumber?: any, roconmonthvalue?: any) {
+  openDialogPendingadjustment(accountNumber?: any, roconmonthvalue?: any,accountName?: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.data = {
       actNumber: accountNumber,
-      Reconvalue: roconmonthvalue
+      Reconvalue: roconmonthvalue,
+      actName: accountName
     }
     const dialogRef = this.dialog.open(CalaPendingAdjustmentpopupComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
@@ -134,106 +135,109 @@ export class CalareconcilationstatementComponent implements OnInit {
       responseType: 'application/xml',
       headers: headers
     })
-      .subscribe((res) => {
-        this.parseXML(res).then((parseData) => {
-          this.dataSourcecala = parseData[0];
-          this.totalCount = parseData[1];
-          //this.dataSource.data = this.dataSourcecala;
+      .subscribe((res: any) => {
+        let response = this.baseService.getAPiData(res);
+        if (response.body) {
+          let data = this.baseService.getResponseData(res, 'fetchCALAStatementDetailsResponse');
+          this.dataSourcecala = data.CALAStatementDetails;
+          this.totalCount = data.totalCount;
           let value = this.radioValue2;
           this.dataSourcecala.forEach((data) => {
-            if (data.AllocatedLimits) {
+            if (data.allocatedLimits) {
               if (value == "Amount in Rupees") {
-                data.AllocatedLimits = (data.AllocatedLimits)
+                data.allocatedLimits = (data.allocatedLimits)
               } else {
-                data.AllocatedLimits = ((data.AllocatedLimits) / 10000000)
+                data.allocatedLimits = ((data.allocatedLimits) / 10000000)
               }
             }
-            if (data.UtilizedLimitTillPrvMonth) {
+            if (data.utilizedLimitTillPreviousMonth) {
               if (value == "Amount in Rupees") {
-                data.UtilizedLimitTillPrvMonth = (data.UtilizedLimitTillPrvMonth)
+                data.utilizedLimitTillPreviousMonth = (data.utilizedLimitTillPreviousMonth)
               } else {
-                data.UtilizedLimitTillPrvMonth = ((data.UtilizedLimitTillPrvMonth) / 10000000)
+                data.utilizedLimitTillPreviousMonth = ((data.utilizedLimitTillPreviousMonth) / 10000000)
               }
             }
-            if (data.UtilizedLimitInCurrMonth) {
+            if (data.utilizedLimitInCurrentMonth) {
               if (value == "Amount in Rupees") {
-                data.UtilizedLimitInCurrMonth = (data.UtilizedLimitInCurrMonth)
+                data.utilizedLimitInCurrentMonth = (data.utilizedLimitInCurrentMonth)
               } else {
-                data.UtilizedLimitInCurrMonth = ((data.UtilizedLimitInCurrMonth) / 10000000)
+                data.utilizedLimitInCurrentMonth = ((data.utilizedLimitInCurrentMonth) / 10000000)
               }
             }
-            if (data.PaidForTDS) {
+            if (data.PaidForTds) {
               if (value == "Amount in Rupees") {
-                data.PaidForTDS = (data.PaidForTDS)
+                data.PaidForTds = (data.PaidForTds)
               } else {
-                data.PaidForTDS = ((data.PaidForTDS) / 10000000)
+                data.PaidForTds = ((data.PaidForTds) / 10000000)
               }
             }
-            if (data.OtherDebit) {
+            if (data.otherDebit) {
               if (value == "Amount in Rupees") {
-                data.OtherDebit = (data.OtherDebit)
+                data.otherDebit = (data.otherDebit)
               } else {
-                data.OtherDebit = ((data.OtherDebit) / 10000000)
+                data.otherDebit = ((data.otherDebit) / 10000000)
               }
             }
-            if (data.ElecTrf) {
+            if (data.elecTarif) {
               if (value == "Amount in Rupees") {
-                data.ElecTrf = (data.ElecTrf)
+                data.elecTarif = (data.elecTarif)
               } else {
-                data.ElecTrf = ((data.ElecTrf) / 10000000)
+                data.elecTarif = ((data.elecTarif) / 10000000)
               }
             }
-            if (data.Returns) {
+            if (data.returns) {
               if (value == "Amount in Rupees") {
-                data.Returns = (data.Returns)
+                data.returns = (data.returns)
               } else {
-                data.Returns = ((data.Returns) / 10000000)
+                data.returns = ((data.returns) / 10000000)
               }
             }
-            if (data.DDdebit) {
+            if (data.ddDebit) {
               if (value == "Amount in Rupees") {
-                data.DDdebit = (data.DDdebit)
+                data.ddDebit = (data.ddDebit)
               } else {
-                data.DDdebit = ((data.DDdebit) / 10000000)
+                data.ddDebit = ((data.ddDebit) / 10000000)
               }
             }
-            if (data.ClearingDr) {
+            if (data.clearingDr) {
               if (value == "Amount in Rupees") {
-                data.ClearingDr = (data.ClearingDr)
+                data.clearingDr = (data.clearingDr)
               } else {
-                data.ClearingDr = ((data.ClearingDr) / 10000000)
+                data.clearingDr = ((data.clearingDr) / 10000000)
               }
             }
-            if (data.CrBkToAcct) {
+            if (data.creditBankToAccount) {
               if (value == "Amount in Rupees") {
-                data.CrBkToAcct = (data.CrBkToAcct)
+                data.creditBankToAccount = (data.creditBankToAccount)
               } else {
-                data.CrBkToAcct = ((data.CrBkToAcct) / 10000000)
+                data.creditBankToAccount = ((data.creditBankToAccount) / 10000000)
               }
             }
-            if (data.OutChqRet) {
+            if (data.outChequeRet) {
               if (value == "Amount in Rupees") {
-                data.OutChqRet = (data.OutChqRet)
+                data.outChequeRet = (data.outChequeRet)
               } else {
-                data.OutChqRet = ((data.OutChqRet) / 10000000)
+                data.outChequeRet = ((data.outChequeRet) / 10000000)
               }
             }
-            if (data.OtherCredit) {
+            if (data.otherCredit) {
               if (value == "Amount in Rupees") {
-                data.OtherCredit = (data.OtherCredit)
+                data.otherCredit = (data.otherCredit)
               } else {
-                data.OtherCredit = ((data.OtherCredit) / 10000000)
+                data.otherCredit = ((data.otherCredit) / 10000000)
               }
             }
-            if (data.UnUtilizedLimit) {
+            if (data.unUtilizedLimit) {
               if (value == "Amount in Rupees") {
-                data.UnUtilizedLimit = (data.UnUtilizedLimit)
+                data.unUtilizedLimit = (data.unUtilizedLimit)
               } else {
-                data.UnUtilizedLimit = ((data.UnUtilizedLimit) / 10000000)
+                data.unUtilizedLimit = ((data.unUtilizedLimit) / 10000000)
               }
             }
           })
-        })
+        } else {
+          this.baseService.getError(response)
+        }
       });
   }
   getAccountData() {
@@ -360,12 +364,15 @@ export class CalareconcilationstatementComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parseXMLDropdown(res).then((parseDatas) => {
-        this.dataSourcecaladrp = parseDatas[0];
-        this.dataSourcecaladrp = this.dataSourcecaladrp.filter((data) => { return (data['no'] != undefined); });
-        this.dataSourcecaladrp = this.dataSourcecaladrp.map((data) => { return (data['AccountNumber']); });
-      })
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let data = this.baseService.getResponseData(res, 'fetchAccountDetailsResponse');
+        this.dataSourcecaladrp = data.accountDetails;
+        this.dataSourcecaladrp = this.dataSourcecaladrp.map((data) => { return (data['accountNumber']); });
+      } else {
+        this.baseService.getError(response)
+      }
     });
   }
 

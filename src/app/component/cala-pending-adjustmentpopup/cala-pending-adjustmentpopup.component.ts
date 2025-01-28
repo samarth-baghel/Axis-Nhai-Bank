@@ -16,12 +16,14 @@ export class CalaPendingAdjustmentpopupComponent implements OnInit {
   AccountNumberdata:any;
   ReconMonth :any;
   ReconYear :any;
+  accountName :any;
   displayedColumns: string[] = ['no','accountno', 'holdername', 'opendate', 'month', 'debitcredit','transparticulars','amount'];
   constructor(public baseService: BaseService, public http: HttpClient, @Inject(MAT_DIALOG_DATA) data) {
     this.AccountNumberdata = data.actNumber;
     this.ReconMonthdata = data.Reconvalue;
     this.ReconMonth = this.baseService.dateformataspermm(this.ReconMonthdata);
     this.ReconYear = this.baseService.dateformatasperyy(this.ReconMonthdata);
+    this.accountName = data.actName;
    }
 
   ngOnInit() {
@@ -40,16 +42,20 @@ export class CalaPendingAdjustmentpopupComponent implements OnInit {
     body.accNo = this.AccountNumberdata;
     body.month = this.ReconMonth;
     body.year = this.ReconYear;
+    body.accName = this.accountName;
     this.baseService._makeRequest(Url.calapendingadjustmentXmlUrl,
       body,
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parseXML(res).then((parseData) => {
-        this.dataSource = parseData[0];
-        this.dataSource = this.dataSource.filter((data) => { return (data['no'] != undefined); });
-      });
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let data = this.baseService.getResponseData(res, 'fetchPendingAdjustmentDetailsResponse');
+        this.dataSource = data.pendingAdjustmentDetails;
+      } else {
+        this.baseService.getError(response)
+      }
     });
 
   }
