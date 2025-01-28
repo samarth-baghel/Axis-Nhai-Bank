@@ -433,7 +433,6 @@ export class TransactionComponent implements OnInit {
       parser.parseString(data,(err, result)=>{
         let arra = [];
         let subTransaction;
-        console.log("Parsed --> ",result);
         if(type==="singleCredit"){       
           if(result.FIXML.Body === undefined){
             var arr = result.FIXML.BODY[0].EXECUTEFINACLESCRIPTRESPONSE[0].EXECUTEFINACLESCRIPT_CUSTOMDATA[0];

@@ -78,7 +78,6 @@ export class EnterotpforgotpasswordComponent implements OnInit {
       const headers =this.baseService.getHeaders();
       body.entry = (this.targetVal).toString();
       body.code = (this.otpEntered).toString();
-      console.log(body);
       
       this.baseService._makeRequest(Url.validateOTP,
         this.baseService.encryptionFunctionObject(body),

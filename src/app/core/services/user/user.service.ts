@@ -23,14 +23,11 @@ export class UserService {
   }
   
   logoutFromErrorPage() {
-    console.log("akjdbskjfdjk")
       this.jwtService.destroyTokens();
-      console.log("uweiywuiyu")
       this.sendLogoutInfo();
   }
 
   sendLogoutInfo() {
-    console.log("shdgshgdjgskhd")
     let userData = this.statesService.data;
     if(userData != undefined && userData != null){
       if (userData.length > 0) {
