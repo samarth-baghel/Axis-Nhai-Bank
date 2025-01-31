@@ -296,49 +296,47 @@ export class CalareconcilationstatementComponent implements OnInit {
     }).subscribe((res: any) => {
       let response = this.baseService.getAPiData(res);
       if (response.body) {
-      let data = this.baseService.getResponseData(res,'getCalaStatementNewDetailsResponse');
-      this.parseXMLAccount(data.calaSummaryDetails).then((parseDatas) => {
-        this.dataSourcecalaacc = parseDatas;
+        let data = this.baseService.getResponseData(res, 'getCalaStatementNewDetailsResponse');
+        this.dataSourcecalaacc = data.calaSummaryDetails;
         this.totalCountAcc = data.totalRecordCount;
         let value = this.radioValue2;
         this.dataSourcecalaacc.forEach((data) => {
-          if (data.openBalanc) {
+          if (data.openBalance) {
             if (value == "Amount in Rupees") {
-              data.openBalanc = (+data.openBalanc)
+              data.openBalance = (+data.openBalance)
             } else {
-              data.openBalanc = ((+data.openBalanc) / 10000000)
+              data.openBalance = ((+data.openBalance) / 10000000)
             }
           }
-          if (data.allocatedLimit) {
+          if (data.allocatedLimits) {
             if (value == "Amount in Rupees") {
-              data.allocatedLimit = (+data.allocatedLimit)
+              data.allocatedLimits = (+data.allocatedLimits)
             } else {
-              data.allocatedLimit = ((+data.allocatedLimit) / 10000000)
+              data.allocatedLimits = ((+data.allocatedLimits) / 10000000)
             }
           }
-          if (data.utilisedLimi) {
+          if (data.utilisedLimit) {
             if (value == "Amount in Rupees") {
-              data.utilisedLimi = (+data.utilisedLimi)
+              data.utilisedLimit = (+data.utilisedLimit)
             } else {
-              data.utilisedLimi = ((+data.utilisedLimi) / 10000000)
+              data.utilisedLimit = ((+data.utilisedLimit) / 10000000)
             }
           }
-          if (data.closingBalanc) {
+          if (data.closingBalance) {
             if (value == "Amount in Rupees") {
-              data.closingBalanc = (+data.closingBalanc)
+              data.closingBalance = (+data.closingBalance)
             } else {
-              data.closingBalanc = ((+data.closingBalanc) / 10000000)
+              data.closingBalance = ((+data.closingBalance) / 10000000)
             }
           }
-          if (data.pendingAdjestmen) {
+          if (data.pendingAdjestment) {
             if (value == "Amount in Rupees") {
-              data.pendingAdjestmen = (+data.pendingAdjestmen)
+              data.pendingAdjestment = (+data.pendingAdjestment)
             } else {
-              data.pendingAdjestmen = ((+data.pendingAdjestmen) / 10000000)
+              data.pendingAdjestment = ((+data.pendingAdjestment) / 10000000)
             }
           }
         })
-      })
     } else {
       let error = response.error;
       this._snackBar.open(`${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
@@ -577,7 +575,7 @@ export class CalareconcilationstatementComponent implements OnInit {
     body.accNo = actnumber.toString();
     body.precisionType = this.radioValue2;
 
-    this.baseService.downloadFile(url,body,"calaStatement.xls");
+    this.baseService.downloadFile(url,body,"newCalaStatement.xls");
 
     localStorage.setItem('popUpManagement', 'false');
   }
