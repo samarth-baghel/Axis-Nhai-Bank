@@ -239,14 +239,15 @@ export class LoginComponent implements OnInit {
           let userName = response.UserName;
           let userID = response.UserID;
           let firstLogin = response.FirstLogin;
+          localStorage.setItem("CalaNumber",response.CalaNumber)
           if (status == 'Success') {
-            if ((response.UserType == 'axis-0' && response.UserLevel == 'head-0') || (response.UserType == 'nhai-1')) {
+            if ((response.UserType == 'nhai-1' && response.UserLevel == 'head-0') || (response.UserType == 'axis-0')) {
               this.getNavigationData("hqUserOrInternaluser", userID, userName, firstLogin);
-            } else if (response.UserType == 'axis-0' && !response.UserLevel) {
+            } else if (response.UserType == 'nhai-1' && !response.UserLevel) {
               this.getNavigationData("roUser", userID, userName, firstLogin);
-            } else if (response.UserType == 'axis-0' && response.UserLevel == 'pd-4') {
+            } else if (response.UserType == 'nhai-1' && response.UserLevel == 'pd-4') {
               this.getNavigationData("pdUser", userID, userName, firstLogin);
-            } else if (response.UserType == 'axis-0' && response.UserLevel == 'cala-5') {
+            } else if (response.UserType == 'nhai-1' && response.UserLevel == 'cala-5') {
               this.getNavigationData("calaUser", userID, userName, firstLogin);
             } else {
               this.getNavigationData("user", userID, userName, firstLogin);
