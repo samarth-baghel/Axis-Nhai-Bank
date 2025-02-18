@@ -27,6 +27,7 @@ export class AccountComponent implements OnInit {
   fromCount = 1;
   toCount = 10;
   searchValue:any="";
+  showHide: boolean = true;
 
   constructor(public dialog: MatDialog, public baseService: BaseService, 
     public http: HttpClient,private _snackBar: MatSnackBar) { 
@@ -36,6 +37,11 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem('CalaNumber')){
+      this.showHide = false;
+    } else {
+      this.showHide = true;
+    }
     this.getXmlDataForAccountsOnInit();
   }
 
@@ -69,7 +75,7 @@ export class AccountComponent implements OnInit {
     let body: any = {};
     body.RequestUUID = requestUUID;
     body.MessageDateTime = messageDateTime;
-    body.ActNum = actNumber.toString();
+    body.ActNum = localStorage.getItem('CalaNumber') ? localStorage.getItem('CalaNumber') : actNumber.toString();
     body.ActName = actName.toString();
     body.fromCount = "1";
     body.toCount = (this.toCount).toString();
@@ -129,7 +135,7 @@ export class AccountComponent implements OnInit {
     } 
 
     body.AcctName = actName;
-    body.AcctNum =  this.baseService.encryptionFunction(actNumber) ;
+    body.AcctNum = localStorage.getItem('CalaNumber') ?  this.baseService.encryptionFunction( localStorage.getItem('CalaNumber')) : this.baseService.encryptionFunction(actNumber) ;
     body.Acct_opn_date = finalVal;
     body.From_count = (this.fromCount).toString();
     body.To_count = (this.toCount).toString();

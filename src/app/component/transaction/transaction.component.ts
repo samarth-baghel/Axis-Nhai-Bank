@@ -34,6 +34,7 @@ export class TransactionComponent implements OnInit {
   account: any;
   url:any;
   creditTypes:any;
+  showHide :boolean = true
 
 
   constructor(private _snackBar: MatSnackBar, public baseService: BaseService) {
@@ -44,7 +45,15 @@ export class TransactionComponent implements OnInit {
   datasources: any;
   dataSource = new MatTableDataSource;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  ngOnInit() { }
+  ngOnInit() {
+    if(localStorage.getItem('CalaNumber')){
+      this.accountnumber = localStorage.getItem('CalaNumber');
+      this.showHide = false;
+    } else {
+      this.accountnumber = '';
+      this.showHide = true
+    }
+   }
 
   onRefreshClick() {
     this.getXmlDataAccounttransactionOnInit();

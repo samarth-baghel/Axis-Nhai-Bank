@@ -54,6 +54,10 @@ export class BeneficiarymasterComponent implements OnInit {
     let url = Url.beneficiaryMaster + "?fromCount=" + this.fromCount + '&toCount='+this.toCount +
     '&messageDateTime=' + messageDateTime;
 
+    if(localStorage.getItem('CalaNumber')){
+      url = url+'&accountno='+localStorage.getItem('CalaNumber');
+    }
+
     this.baseService._makeRequest(url,
       {},
       'GET', {

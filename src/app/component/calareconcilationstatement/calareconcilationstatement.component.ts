@@ -42,6 +42,7 @@ export class CalareconcilationstatementComponent implements OnInit {
   private drpValue: AutocompleteDisplayComponent;
   accNumber: any;
   dataSourcecaladrp: any;
+  showHide: boolean = true;
 
   constructor(public baseService: BaseService, public dialog: MatDialog, private _formBuilder: FormBuilder,private _snackBar: MatSnackBar) {
     this.radioValue2 = "Amount in Rupees";
@@ -49,6 +50,15 @@ export class CalareconcilationstatementComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem('CalaNumber')){
+      this.accountnumber = localStorage.getItem('CalaNumber');
+      this.accNumber = localStorage.getItem('CalaNumber');
+      this.showHide = false;
+    } else {
+      this.accountnumber = '';
+      this.accNumber = '';
+      this.showHide = true
+    }
     this.getxmldataforCALAOnInit();
     this.getDropdownData();
   }

@@ -26,7 +26,7 @@
 <h6 class="color searchMargin"> Search Criteria :</h6>
 
 <div class="row floarleft">
-  <div>
+  <div *ngIf="showHide">
     <input class="displayinline searchMargin" type="radio" value="Account Number" name="AmountStyle" id="test1"
       [(ngModel)]='account' (click)='multiRadioBtn("acc")' />
     <mat-form-field appearance="outline" class="actNumber">

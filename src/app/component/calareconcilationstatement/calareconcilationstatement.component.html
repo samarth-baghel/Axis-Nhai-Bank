@@ -28,7 +28,7 @@
         <mat-datepicker-toggle matSuffix [for]="picker1" class="color"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="actNumber">
+      <mat-form-field appearance="outline" class="actNumber" *ngIf="showHide">
         <mat-label>Account Number</mat-label>
         <input type="number" matInput class="acc" [(ngModel)]='accountnumber'>
       </mat-form-field>
@@ -150,7 +150,7 @@
       </mat-datepicker>
     </mat-form-field>
     <div class="row">
-      <autocomplete-filter [dropdowndata]='dataSourcecaladrp' class="paddinglf"></autocomplete-filter>
+      <autocomplete-filter *ngIf="showHide" [dropdowndata]='dataSourcecaladrp' class="paddinglf"></autocomplete-filter>
       <button mat-raised-button id="btnlimitasondate" class="searchBtns" (click)="onSearchclicks()">Search</button>
     </div>
   </div>

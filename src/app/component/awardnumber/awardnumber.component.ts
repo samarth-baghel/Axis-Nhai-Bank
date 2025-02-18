@@ -25,12 +25,20 @@ export class AwardnumberComponent implements OnInit {
   awardnumber:any = "";
   fromdate:any;
   todate:any;
+  showHide: boolean = true;
   constructor(public baseService: BaseService, public dialog: MatDialog) {
     this.radioValue2 = "Amount in Rupees";
     this.pageSize = 10;
   }
 
   ngOnInit() {
+    if(localStorage.getItem('CalaNumber')){
+      this.showHide = false;
+      this.accountnumber = localStorage.getItem('CalaNumber')
+    } else {
+      this.showHide = true;
+      this.accountnumber = ''
+    }
     this.getxmldataforAwardNumberOnInit();
   }
 

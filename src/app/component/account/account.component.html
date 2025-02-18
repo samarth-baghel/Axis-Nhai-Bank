@@ -20,9 +20,9 @@
       <div class="col-md-6">
         <div>
           <span>Search Criteria : &nbsp;</span>
-          <input type="radio" class="AmountStyle with-gap displayinline" value="Account Number"
+          <input *ngIf="showHide" type="radio" class="AmountStyle with-gap displayinline" value="Account Number"
             name="Account" id="test1" [(ngModel)]='radioValue1' />
-          <label class="color marginlefttwo" for="test1"> Account Number</label>
+          <label *ngIf="showHide" class="color marginlefttwo" for="test1"> Account Number</label>
 
           <input type="radio" class="AmountStyle displayinline marginleft" value="Account Name"
             name="Account" id="test2" [(ngModel)]='radioValue1' />

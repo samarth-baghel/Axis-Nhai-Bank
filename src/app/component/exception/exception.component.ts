@@ -29,6 +29,11 @@ export class ExceptionComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem('CalaNumber')){
+      this.accountnumber = localStorage.getItem('CalaNumber');
+    } else {
+      this.accountnumber = '';
+    }
     this.getXmlDataForExceptionsOnInit();
   }
 
