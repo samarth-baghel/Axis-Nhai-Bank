@@ -179,6 +179,10 @@ export class LoginComponent implements OnInit {
         flag:false
       }
       this.userService.changePassword(dialogConfig);
+    } else if(mode == 'roUser'){
+      this.router.navigateByUrl('/main/state')
+    }else if(mode == 'pdUser' || mode == 'calaUser'){
+      this.router.navigateByUrl('/main/projectdirectors')
     }else{
       this.router.navigateByUrl('/main/home');
     }

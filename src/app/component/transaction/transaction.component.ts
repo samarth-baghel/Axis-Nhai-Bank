@@ -64,67 +64,122 @@ export class TransactionComponent implements OnInit {
 
   onSearchclick(serachcriteria, accountno, fromvalue, tovalue, transacionday) {
 
-    if (!this.account && !this.fromDates && !this.accTransaction) {
-      this._snackBar.open("Please Select atleast Two options", "", {
-        duration: 4000,
-      });
-      accountno = '',
-        fromvalue = '',
-        tovalue = '',
-        transacionday = ''
-      return
+    if (localStorage.getItem('CalaNumber')) {
+      if (!this.fromDates && !this.accTransaction) {
+        this._snackBar.open("Please Select atleast One options", "", {
+          duration: 4000,
+        });
+        accountno = '',
+          fromvalue = '',
+          tovalue = '',
+          transacionday = ''
+        return
+      }
+    } else {
+      if (!this.account && !this.fromDates && !this.accTransaction) {
+        this._snackBar.open("Please Select atleast Two options", "", {
+          duration: 4000,
+        });
+        accountno = '',
+          fromvalue = '',
+          tovalue = '',
+          transacionday = ''
+        return
+      }
     }
 
-    if ((!this.account || !this.fromDates) && (!this.account || !this.accTransaction) && (!this.fromDates || !this.accTransaction)) {
-      this._snackBar.open("Please Select atleast Two Search Criteria", "", {
-        duration: 4000,
-      });
-      accountno = '',
-        fromvalue = '',
-        tovalue = '',
-        transacionday = ''
-      this.dataSource.data = [];
+    if (localStorage.getItem('CalaNumber')) {
+      if ((!this.fromDates && !this.accTransaction)) {
+        this._snackBar.open("Please Select atleast One Search Criteria", "", {
+          duration: 4000,
+        });
+        accountno = '',
+          fromvalue = '',
+          tovalue = '',
+          transacionday = ''
+        this.dataSource.data = [];
 
 
-      return
-    } else {
-      if (this.account) {
-
-        if (!accountno) {
-          this._snackBar.open("Please Enter the Account Number", "", {
-            duration: 4000,
-          });
-          accountno = ''
-          return;
-        }
+        return
       } else {
-        accountno = ''
-      }
-      if (this.fromDates) {
-        if (!fromvalue || !tovalue) {
-          this._snackBar.open("Please Pick the both dates.", "", {
-            duration: 4000,
-          });
+        if (this.fromDates) {
+          if (!fromvalue || !tovalue) {
+            this._snackBar.open("Please Pick the both dates.", "", {
+              duration: 4000,
+            });
+            fromvalue = '';
+            tovalue = '';
+            return;
+          }
+        } else {
           fromvalue = '';
           tovalue = '';
-          return;
         }
-      } else {
-        fromvalue = '';
-        tovalue = '';
-      }
-      if (this.accTransaction) {
-        if (!transacionday) {
-          this._snackBar.open("Please Pick  the Transaction Date.", "", {
-            duration: 4000,
-          });
+        if (this.accTransaction) {
+          if (!transacionday) {
+            this._snackBar.open("Please Pick  the Transaction Date.", "", {
+              duration: 4000,
+            });
+            transacionday = ''
+            return;
+          }
+        } else {
           transacionday = ''
-          return;
         }
+      }
+    } else {
+      if ((!this.account || !this.fromDates) && (!this.account || !this.accTransaction) && (!this.fromDates || !this.accTransaction)) {
+        this._snackBar.open("Please Select atleast Two Search Criteria", "", {
+          duration: 4000,
+        });
+        accountno = '',
+          fromvalue = '',
+          tovalue = '',
+          transacionday = ''
+        this.dataSource.data = [];
+
+
+        return
       } else {
-        transacionday = ''
+        if (this.account) {
+
+          if (!accountno) {
+            this._snackBar.open("Please Enter the Account Number", "", {
+              duration: 4000,
+            });
+            accountno = ''
+            return;
+          }
+        } else {
+          accountno = ''
+        }
+        if (this.fromDates) {
+          if (!fromvalue || !tovalue) {
+            this._snackBar.open("Please Pick the both dates.", "", {
+              duration: 4000,
+            });
+            fromvalue = '';
+            tovalue = '';
+            return;
+          }
+        } else {
+          fromvalue = '';
+          tovalue = '';
+        }
+        if (this.accTransaction) {
+          if (!transacionday) {
+            this._snackBar.open("Please Pick  the Transaction Date.", "", {
+              duration: 4000,
+            });
+            transacionday = ''
+            return;
+          }
+        } else {
+          transacionday = ''
+        }
       }
     }
+
 
     this.getXmlDataAccounttransactionOnInit(serachcriteria, accountno, fromvalue, tovalue, transacionday);
 
@@ -388,39 +443,70 @@ export class TransactionComponent implements OnInit {
   displayedColumns: string[] = ['REC_CNT', 'ACCOUNT_NUMBER', 'ACCOUNT_NAME', 'ACCOUNT_OPEN_DATE', 'TRAN_DATE', 'DR_CR_IND', 'AMOUNT', 'BENEFICIARY_NAME', 'BENEFICIARY_BANK_ACCT', 'IFSI_CODE', 'UTR', 'RUNING_BALANCE'];
 
   selectedValue(credit: any, accountno, fromvalue, tovalue, transacionday) {
-    if (!credit) {
-      this._snackBar.open("Select the credit !!", "", {
-        duration: 4000,
-      });
-    } else if ((!this.account || !this.fromDates) && (!this.account || !this.accTransaction) && (!this.fromDates || !this.accTransaction)) {
-      this._snackBar.open("Please Select atleast Two Search Criteria(Account option must be selected)", "", {
-        duration: 4000,
-      });
-      accountno = '',
-        fromvalue = '',
-        tovalue = '',
-        transacionday = ''
-      this.dataSource.data = [];
-      return
-    }
-    else {
-      if (!this.account) {
-
-        this._snackBar.open("Account Number must selected", "", {
+    if(localStorage.getItem('CalaNumber')){
+      if (!credit) {
+        this._snackBar.open("Select the credit !!", "", {
           duration: 4000,
         });
+      } else if ( (!this.fromDates && !this.accTransaction)) {
+        this._snackBar.open("Please Select atleast One Search Criteria", "", {
+          duration: 4000,
+        });
+        accountno = '',
+          fromvalue = '',
+          tovalue = '',
+          transacionday = ''
+        this.dataSource.data = [];
+        return
       }
       else {
-        if (credit === "singleCredit") {
-          this.url=Url.accounttransactionsXmlUrl
-          this.onSearchclick(this.radioValue1, this.accountnumber, this.fromdate, this.todate, this.transactiondate)
+        
+          if (credit === "singleCredit") {
+            this.url=Url.accounttransactionsXmlUrl
+            this.onSearchclick(this.radioValue1, this.accountnumber, this.fromdate, this.todate, this.transactiondate)
+          }
+          else if (credit === "multiCredit") {
+            this.url=Url.accountsXmlUrlmulticredit;
+            this.onSearchclick(this.radioValue1, this.accountnumber, this.fromdate, this.todate, this.transactiondate)
+          }
         }
-        else if (credit === "multiCredit") {
-          this.url=Url.accountsXmlUrlmulticredit;
-          this.onSearchclick(this.radioValue1, this.accountnumber, this.fromdate, this.todate, this.transactiondate)
+      
+    } else {
+      if (!credit) {
+        this._snackBar.open("Select the credit !!", "", {
+          duration: 4000,
+        });
+      } else if ((!this.account || !this.fromDates) && (!this.account || !this.accTransaction) && (!this.fromDates || !this.accTransaction)) {
+        this._snackBar.open("Please Select atleast Two Search Criteria(Account option must be selected)", "", {
+          duration: 4000,
+        });
+        accountno = '',
+          fromvalue = '',
+          tovalue = '',
+          transacionday = ''
+        this.dataSource.data = [];
+        return
+      }
+      else {
+        if (!this.account) {
+  
+          this._snackBar.open("Account Number must selected", "", {
+            duration: 4000,
+          });
+        }
+        else {
+          if (credit === "singleCredit") {
+            this.url=Url.accounttransactionsXmlUrl
+            this.onSearchclick(this.radioValue1, this.accountnumber, this.fromdate, this.todate, this.transactiondate)
+          }
+          else if (credit === "multiCredit") {
+            this.url=Url.accountsXmlUrlmulticredit;
+            this.onSearchclick(this.radioValue1, this.accountnumber, this.fromdate, this.todate, this.transactiondate)
+          }
         }
       }
     }
+
   }
 
   creditValue(ele:any){

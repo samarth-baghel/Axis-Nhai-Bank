@@ -83,7 +83,12 @@ export class CalareconcilationstatementComponent implements OnInit {
     this.getxmldataforCALAOnInit();
   }
   onSearchclicks() {
-    this.accNumber = this.drpValue.myControl.value;
+    if(localStorage.getItem('CalaNumber')){
+      this.accNumber = localStorage.getItem('CalaNumber');
+    } else {
+      this.accNumber = this.drpValue.myControl.value;
+    }
+
     this.getxmldataforCALAOnInit();
   }
   pageEvent(event) {
