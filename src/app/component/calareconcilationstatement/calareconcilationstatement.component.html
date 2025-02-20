@@ -131,7 +131,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [length]="totalCount" [pageSize]="pageSize" [pageSizeOptions]="[10,30,50,100]"
+    <mat-paginator *ngIf="showHide" [length]="totalCount" [pageSize]="pageSize" [pageSizeOptions]="[10,30,50,100]"
       (page)="pageEvent($event)" showFirstLastButtons></mat-paginator>
   </div>
   <br />
@@ -213,7 +213,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumn;"></tr>
     </table>
 
-    <mat-paginator #uploadPaginator [length]="totalCountAcc" [pageSize]="accpageSize" [pageSizeOptions]="[10,30,50,100]"
+    <mat-paginator *ngIf="showHide" #uploadPaginator [length]="totalCountAcc" [pageSize]="accpageSize" [pageSizeOptions]="[10,30,50,100]"
       (page)="pageEventForAcc($event)" showFirstLastButtons></mat-paginator>
   </div>
 </div>

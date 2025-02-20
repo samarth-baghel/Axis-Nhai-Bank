@@ -22,6 +22,7 @@ export class ExceptionComponent implements OnInit {
   fromCount = 1;
   toCount = 10;
   accountnumber:any = "";
+  showHide: boolean = true;
 
   constructor(public baseService: BaseService, public http: HttpClient) {
     this.radioValue = Constants.amountInRupees;
@@ -31,8 +32,10 @@ export class ExceptionComponent implements OnInit {
   ngOnInit() {
     if(localStorage.getItem('CalaNumber')){
       this.accountnumber = localStorage.getItem('CalaNumber');
+      this.showHide = false;
     } else {
       this.accountnumber = '';
+      this.showHide = true
     }
     this.getXmlDataForExceptionsOnInit();
   }

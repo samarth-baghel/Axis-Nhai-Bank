@@ -98,6 +98,9 @@ export class AegingComponent implements OnInit {
 
     if (dateVal) {
       finDateVal = this.baseService.dateformatasperdaymonthyear(dateVal);
+    } else {
+      let dateVal = new Date()
+      finDateVal = this.baseService.dateformatasperdaymonthyear(dateVal);
     }
 
     var messageDateTime = new Date().toISOString().slice(0, -1);

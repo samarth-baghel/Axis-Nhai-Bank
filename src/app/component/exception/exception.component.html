@@ -32,7 +32,7 @@
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
       &nbsp;&nbsp;
-      <mat-form-field appearance="outline" class="actNumber">
+      <mat-form-field appearance="outline" class="actNumber" *ngIf="showHide">
         <mat-label>Account Number</mat-label>
         <input matInput [(ngModel)]='accountnumber' type='number'>
       </mat-form-field>
