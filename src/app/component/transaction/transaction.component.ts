@@ -357,6 +357,10 @@ export class TransactionComponent implements OnInit {
       }
       aco=this.baseService.encryptionFunction(accountnumber);
     }
+
+    if(localStorage.getItem('CalaNumber')){
+      aco=this.baseService.encryptionFunction(accountnumber);
+    }
     if (this.fromDates == "from date") {
       if (fromdate == undefined || todate == undefined) {
         frmdate = '';
@@ -380,7 +384,6 @@ export class TransactionComponent implements OnInit {
     body.ToCount = (this.toCount).toString();
 
     const headers = this.baseService.getHeaders();
-    console.log(body);
     let eBody:any;
     if(this.creditTypes == 'singleCredit')
     {
