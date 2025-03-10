@@ -181,8 +181,10 @@ export class LoginComponent implements OnInit {
       this.userService.changePassword(dialogConfig);
     } else if(mode == 'roUser'){
       this.router.navigateByUrl('/main/state')
-    }else if(mode == 'pdUser' || mode == 'calaUser'){
+    }else if(mode == 'pdUser'){
       this.router.navigateByUrl('/main/projectdirectors')
+    } else if(mode == 'calaUser'){
+      this.router.navigateByUrl('/main/account')
     }else{
       this.router.navigateByUrl('/main/home');
     }
