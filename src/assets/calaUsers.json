@@ -1,11 +1,6 @@
 {
     "NavicTree": [
         {
-            "linkTitle": "Project Directors",
-            "link": "/main/projectdirectors",
-            "imgUrl": "assets/img/projectdirectors.png"
-        },
-        {
             "linkTitle": "Accounts",
             "link": "/main/account",
             "imgUrl": "assets/img/account.png"
@@ -14,16 +9,6 @@
             "linkTitle": "Transactions",
             "link": "/main/transaction",
             "imgUrl": "assets/img/transaction.png"
-        },
-        {
-            "linkTitle": "Date wise Limit",
-            "link": "/main/datewiselimit",
-            "imgUrl": "assets/img/datewiselimit.png"
-        },
-        {
-            "linkTitle": "Ageing",
-            "link": "/main/aeging",
-            "imgUrl": "assets/img/aeging.png"
         },
         {
             "linkTitle": "Award Number",
@@ -39,11 +24,6 @@
             "linkTitle": "CALA Reconciliation Statement",
             "link": "/main/calareconcilationstatement",
             "imgUrl": "assets/img/cala.png"
-        },
-        {
-            "linkTitle": "Beneficiary Master",
-            "link": "/main/beneficiarymaster",
-            "imgUrl": "assets/img/role.png"
         }
     ]
 }
