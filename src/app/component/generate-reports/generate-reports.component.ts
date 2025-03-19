@@ -73,7 +73,7 @@ export class GenerateReportsComponent implements OnInit {
       if (datetodate.getTime() == date2.getTime()) {
         datetodate = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate() - 1);
       }
-      toFinal = this.baseService.dateFormatDDMMYYY(date2);
+      toFinal = this.baseService.dateFormatDDMMYYY(datetodate);
     }
 
     let url = Url.ageingReportDownload;
