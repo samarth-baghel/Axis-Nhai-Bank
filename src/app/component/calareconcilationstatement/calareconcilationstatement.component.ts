@@ -59,7 +59,7 @@ export class CalareconcilationstatementComponent implements OnInit {
       this.accNumber = '';
       this.showHide = true
     }
-    this.getxmldataforCALAOnInit();
+    this.getxmldataforCALAOnInit(true,false);
     this.getDropdownData();
   }
 
@@ -77,10 +77,10 @@ export class CalareconcilationstatementComponent implements OnInit {
   }
 
   onItemChange(value?: any) {
-    this.getxmldataforCALAOnInit();
+    this.getxmldataforCALAOnInit(true,true);
   }
   onSearchclick() {
-    this.getxmldataforCALAOnInit();
+    this.getxmldataforCALAOnInit(true,false);
   }
   onSearchclicks() {
     if(localStorage.getItem('CalaNumber')){
@@ -89,25 +89,29 @@ export class CalareconcilationstatementComponent implements OnInit {
       this.accNumber = this.drpValue.myControl.value;
     }
 
-    this.getxmldataforCALAOnInit();
+    this.getxmldataforCALAOnInit(false,true);
   }
   pageEvent(event) {
     this.fromCount = (event.pageIndex * event.pageSize) + 1;
     this.toCount = (event.pageIndex + 1) * event.pageSize;
-    this.getxmldataforCALAOnInit();
+    this.getxmldataforCALAOnInit(true,false);
   }
   pageEventForAcc(event) {
     this.accfromCount = (event.pageIndex * event.pageSize) + 1;
     this.acctoCount = (event.pageIndex + 1) * event.pageSize;
-    this.getxmldataforCALAOnInit();
+    this.getxmldataforCALAOnInit(false,true);
   }
 
   displayedColumns: string[] = ['no', 'accountnumber', 'accountname', 'totalsanctionedlimits', 'limitsutilizedperprevyear', 'limitsutilizedincurryear', 'unutilizedlimit', 'electtrf', 'tdstrf', 'otherdrtrf', 'returns', 'dddebit', 'clearingdebit', 'lessfundscrbcktoacctmiss', 'lessoutwardchequereturn', 'othercreditdepsits'];
   displayedColumn: string[] = ['accountnumber', 'accountname', 'reconformonthyear', 'openingbalance', 'limitgrant', 'limitutilized', 'closingbalance', 'pendingadjustment'];
 
-  private getxmldataforCALAOnInit() {
-    this.getAccountData();
+  private getxmldataforCALAOnInit(firstTable , secondTable) {
+    if(secondTable){
+      this.getAccountData();
+    }
+    if(firstTable){
     this.getFirstTableData();
+    }
     // this.getDropdownData();
   }
 
@@ -547,7 +551,7 @@ export class CalareconcilationstatementComponent implements OnInit {
   }
 
   onRefreshClick() {
-    this.getxmldataforCALAOnInit();
+    this.getxmldataforCALAOnInit(true,false);
   }
   onAccExcelDownload() {
     var messageDateTime = new Date().toISOString().slice(0, -1);
@@ -596,6 +600,6 @@ export class CalareconcilationstatementComponent implements OnInit {
   }
 
   onAccRefreshClick() {
-    this.getxmldataforCALAOnInit();
+    this.getxmldataforCALAOnInit(false,true);
   }
 }

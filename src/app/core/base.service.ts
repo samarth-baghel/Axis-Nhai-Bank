@@ -318,7 +318,8 @@ export class BaseService {
      return encryptedData.toString();
   }
 
-  AES_PASSWORD = 'NHAILMS0277d40bc0aee6011ef08d5400a0904e9';
+  AES_PASSWORD = 'NHAILMS0277d40bc0aee6011ef08d5400a0904e9'; // UAT
+  // AES_PASSWORD = 'NHAILMS02fdc5afe0aee6011ef08d5400a0904e9'; // prod
 
   /**
    * Decrypts the given encrypted text using AES-128 in CBC mode with PKCS5Padding.
