@@ -116,6 +116,8 @@ export class CalareconcilationstatementComponent implements OnInit {
   }
 
   getFirstTableData() {
+    this.totalCount = 0;
+    this.dataSourcecala = []
     const headers = this.baseService.getHeaders();
 
     var messageDateTime = new Date().toISOString().slice(0, -1);
@@ -260,6 +262,8 @@ export class CalareconcilationstatementComponent implements OnInit {
       });
   }
   getAccountData() {
+    this.totalCountAcc = 0;
+    this.dataSourcecalaacc = []
     const headers = this.baseService.getHeaders();
 
     var messageDateTime = new Date().toISOString().slice(0, -1);
