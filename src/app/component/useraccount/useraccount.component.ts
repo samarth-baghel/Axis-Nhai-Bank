@@ -258,10 +258,17 @@ export class UseraccountComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parseZoneAndStateXML(res).then((parseData:string[]) => {
-        this.zoneList = parseData;
-      });
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let decryptedText = this.baseService.getResponseData(res, 'getUserMgmtZoneDetailsResponse');
+        this.zoneList = decryptedText.records;
+      } else {
+        let error = response.error;
+        this._snackBar.open(`ESB - ${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
+          duration: 8000,
+        });
+      }
     });
   }
 
@@ -346,10 +353,17 @@ export class UseraccountComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parseXML(res).then((parseData: string[]) => {
-        this.regionList = parseData;
-      });
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let decryptedText = this.baseService.getResponseData(res, 'getUserMgmtRODetailsResponse');
+        this.regionList = decryptedText.records;
+      } else {
+        let error = response.error;
+        this._snackBar.open(`ESB - ${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
+          duration: 8000,
+        });
+      }
     });
   }
 
@@ -373,10 +387,17 @@ export class UseraccountComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parseXML(res).then((parseData: string[]) => {
-        this.pdList = parseData;
-      });
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let decryptedText = this.baseService.getResponseData(res, 'getUserMgmtPDDetailsResponse');
+        this.pdList = decryptedText.records;
+      } else {
+        let error = response.error;
+        this._snackBar.open(`ESB - ${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
+          duration: 8000,
+        });
+      }
     });
   }
 
@@ -425,16 +446,23 @@ export class UseraccountComponent implements OnInit {
       'POST', {
       responseType: 'application/xml',
       headers: headers
-    }).subscribe((res) => {
-      this.parseCALAXML(res).then((parseData: string[]) => {
-       let status = parseData[0];
-       if(status.toUpperCase() != "TRUE" ){
+    }).subscribe((res: any) => {
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let decryptedText = this.baseService.getResponseData(res, 'getUserMgmtCALADetailsResponse');
+        let status = decryptedText.status
+        if (status.toUpperCase() != "TRUE") {
           this._snackBar.open("CALA Account is not matching on the system", "", {
             duration: 4000,
           });
           this.userAccountFormGroup.controls.calas.reset();
-       }
-      });
+        }
+      } else {
+        let error = response.error;
+        this._snackBar.open(`ESB - ${error.errorCode} - ${error.errorDesc ? error.errorDesc : error.message}`, "", {
+          duration: 8000,
+        });
+      }
     });
   }
 
