@@ -467,7 +467,7 @@ export class NewuserComponent implements OnInit {
     body.RequestUUID = requestUUID;
     body.MessageDateTime = messageDateTime;
     let index = regionalOffice.indexOf('-(');
-    body.ro_name = regionalOffice.substring(0, index);
+    body.ro_name = regionalOffice;
 
     this.baseService._makeRequest(Url.userPD,
       body,

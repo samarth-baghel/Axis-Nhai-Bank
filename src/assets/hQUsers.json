@@ -79,6 +79,11 @@
             "linkTitle": "Beneficiary Master",
             "link": "/main/beneficiarymaster",
             "imgUrl": "assets/img/role.png"
+        },
+        {
+            "linkTitle": "Reports",
+            "link": "/main/generatereports",
+            "imgUrl": "assets/img/reports.png"
         }
     ]
 }
