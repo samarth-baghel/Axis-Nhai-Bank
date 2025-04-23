@@ -3,7 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
 import xml2js from 'xml2js';
-import * as _ from 'lodash'; 
+import * as _ from 'lodash';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material';
 
@@ -38,14 +38,14 @@ export class ROProjectDirectorsComponent implements OnInit {
 
     var messageDateTime = new Date().toISOString().slice(0, -1);
     var requestUUID = this.baseService.getRansdomWithUser(true);
-  
+
     let body: any = {};
     body.RequestUUID = requestUUID;
     body.MessageDateTime = messageDateTime;
     body.From_count = (this.fromCount).toString();
     body.To_count = (this.toCount).toString();
 
-    let url = Url.roProjectDirectorsUrl;  
+    let url = Url.roProjectDirectorsUrl;
     if(this.roName != ""){
       body.ROName = this.roName;
     }else if(this.stateName != ""){
@@ -54,18 +54,24 @@ export class ROProjectDirectorsComponent implements OnInit {
     }else if(this.zoneName != ""){
       body.zone = this.zoneName;
       url = Url.zoneProjectDirectorUrl;
-    }     
-    
-    this.baseService._makeRequest(url, 
+    }
+
+    this.baseService._makeRequest(url,
       body,
       'POST', {
-      responseType: 'application/xml',
+        responseType: 'application/json',
       headers: headers
-    }).subscribe((res) => {
-      this.parseXML(res).then((parseData) => {
-        this.dataSources.data = parseData[0];
-        this.totalCount = parseData[1];       
-      });
+    }).subscribe((res: any) => {
+
+      let response = this.baseService.getAPiData(res);
+      if (response.body) {
+        let decryptedText = this.baseService.getResponseData(res, 'fetchpanelDetailsResponse');
+
+        this.parseXML(decryptedText).then((parseData) => {
+          this.dataSources.data = parseData[0];
+          this.totalCount = parseData[1];
+        });
+      }
     });
   }
 
@@ -73,28 +79,32 @@ export class ROProjectDirectorsComponent implements OnInit {
     return new Promise(resolve => {
       var k: string | number;
       var a: string | number,
-        arr = [],
-        parser = new xml2js.Parser(
-          {
-            trim: true,
-            explicitArray: true
-          });
+        arr = []
+      // parser = new xml2js.Parser(
+      //   {
+      //     trim: true,
+      //     explicitArray: true
+      //   });
       let itemArr = [];
-      parser.parseString(data, function (err, result) {
-        var arr = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].PDDetails;
-        var totalcount = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].totRecCnt[0];
-        let arra = [];
+      // parser.parseString(data, function (err, result) {
+      //   var arr = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].PDDetails;
+      //   var totalcount = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].totRecCnt[0];
+      //   let arra = [];
 
-        arr.forEach(element => {
-          for (a in element) {
-            element[a] = element[a][0];
-          }
-           arra.push(element);
-        });
-        let resolvedArr = [arra,totalcount]
-        resolve(resolvedArr);
-      });
+      var arr: any[] = data['pdDetails']
+      var totalcount = data['totalRecordCount'];
+      let arra = arr;
+
+      // arr.forEach(element => {
+      //   for (a in element) {
+      //     element[a] = element[a][0];
+      //   }
+      //    arra.push(element);
+      // });
+      let resolvedArr = [arra, totalcount]
+      resolve(resolvedArr);
     });
+    // });
   }
 
 

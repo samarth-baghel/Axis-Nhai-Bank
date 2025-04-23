@@ -48,62 +48,78 @@ export class InterestPaidTableComponent implements OnInit {
       this.baseService.encryptionFunctionObject(body),
       'POST',
       {
-        responseType: 'application/xml',
+        responseType: 'application/json',
         headers: headers
-      }).subscribe((res) => {
-        let data = this.baseService.dencryptionFunction(res);
-        this.parseXMLHeads(data).then((parseData) => {
-          this.dataSource = parseData;
-          this.dataSource.forEach((data) => {
-            if (data.interestPaid) {
-              if (this.homeValue.radioValue2 == "Amount in Rupees") {
-                data.interestPaid = (data.interestPaid);
-              } else if (this.homeValue.radioValue2 == "Amount in Crores") {
-                data.interestPaid = ((data.interestPaid) / 10000000);
-              }
-            }
-          });
+      }).subscribe((res: any) => {
 
-        });
+        let response = this.baseService.getAPiData(res);
+        if (response.body) {
+          let decryptedText = this.baseService.getResponseData(res, 'intersetDetailsResponse');
+
+          // let data = this.baseService.dencryptionFunction(res);
+          let data = decryptedText;
+          this.parseXMLHeads(data).then((parseData) => {
+            this.dataSource = parseData;
+            this.dataSource.forEach((data) => {
+              if (data.interestPaid) {
+                if (this.homeValue.radioValue2 == "Amount in Rupees") {
+                  data.interestPaid = (data.interestPaid);
+                } else if (this.homeValue.radioValue2 == "Amount in Crores") {
+                  data.interestPaid = ((data.interestPaid) / 10000000);
+                }
+              }
+            });
+
+          });
+        }
       });
+  }
+
+  convertObj(data) {
+    let result = {};
+    for (let [key, value] of Object.entries(data)) {
+      result[key] = [value];
+    }
+    return result;
   }
   parseXMLHeads(data) {
     const T = [];
     return new Promise(resolve => {
-      var parser = new xml2js.Parser(
-        {
-          trim: true,
-          explicitArray: true
-        });
-      parser.parseString(data, function (err, result) {
-        var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].IntPaid;
-        obj.forEach(element => {
-          Object.keys(element).forEach(ele=>{
-            if(ele=='ACCT_NUM'){
-              let encryptedBase64Key="YWJjYWJjZGVmZGVmZ2hpZw==";
-              let parsedBase64Key=CryptoJS.enc.Base64.parse(encryptedBase64Key);
+      // var parser = new xml2js.Parser(
+      //   {
+      //     trim: true,
+      //     explicitArray: true
+      //   });
+      // parser.parseString(data, function (err, result) {
+      //   var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0].IntPaid;
+
+      var obj = data['intPaid'];
+      obj.forEach(element => {
+        Object.keys(element).forEach(ele => {
+          if (ele == 'accountNumber') {
+            let encryptedBase64Key = "YWJjYWJjZGVmZGVmZ2hpZw==";
+            let parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
               let decryptedData = CryptoJS.AES.decrypt( element[ele][0], parsedBase64Key, {
                 mode: CryptoJS.mode.ECB,
                 padding: CryptoJS.pad.Pkcs7
                 } );
-              element[ele]=decryptedData.toString(CryptoJS.enc.Utf8);
+            element[ele] = decryptedData.toString(CryptoJS.enc.Utf8);
             }else{
             element[ele] = element[ele][0];
-            }
-          })         
-          });
-        Object.values(obj).forEach((data: { ACCT_NUM: string[], VALUE_DATE: string[], NARRATION: string[], INT_AMOUNT: string[] }) => {
-          T.push({
-            accountNumber: data.ACCT_NUM,
-            transactionDate: data.VALUE_DATE,
-            narration: data.NARRATION,
-            interestPaid: data.INT_AMOUNT
-          })
-        });
-        resolve(T);
-
+          }
+        })
       });
-    }
-    )
+      Object.values(obj).forEach((data: { accountNumber: string[], valueDate: string[], narration: string[], interestAmount: string[] }) => {
+        T.push({
+          accountNumber: data.accountNumber,
+          transactionDate: data.valueDate,
+          narration: data.narration,
+          interestPaid: data.interestAmount
+        })
+      });
+      resolve(T);
+
+    });
+    // })
   };
 }

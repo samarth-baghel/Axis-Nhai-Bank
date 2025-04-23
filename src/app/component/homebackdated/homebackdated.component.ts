@@ -72,14 +72,14 @@ export class HomebackdatedComponent implements OnInit {
 
     let url = Url.homeBackDatedDetailsDownload;
     localStorage.setItem('popUpManagement', 'true');
-    
+
     let body: any = {};
     body.requestUUID = requestUUID;
     body.messageDateTime = messageDateTime;
     body.fromDate = finalVal.toString();
     body.toDate = toDateValue.toString();
     body.precisionType = this.radioValue2;
-    
+
     this.baseService.downloadFile(url,body,"homeBackdatedDetails.xls");
 
     localStorage.setItem('popUpManagement', 'false');
@@ -147,7 +147,7 @@ export class HomebackdatedComponent implements OnInit {
       finalVal = this.baseService.dateformatasperddmmyy(fromDate);
       toDateValue = finalVal;
     }
-    
+
     let body: any = {};
     body.RequestUUID = requestUUID;
     body.MessageDateTime = messageDateTime;
@@ -158,49 +158,59 @@ export class HomebackdatedComponent implements OnInit {
       this.baseService.encryptionFunctionObject(body),
       'POST',
       {
-        responseType: 'application/xml',
+        responseType: 'application/json',
         headers: headers
-      }).subscribe((res) => {
-        this.parseXMLHeads(this.baseService.dencryptionFunction(res)).then((parseData) => {
-          this.dataSource = parseData;
-          let value = this.radioValue2;
-          this.dataSource.forEach((data) => {
-            if (data.amount) {
-              if (value == "Amount in Rupees") {
-                data.amount = (data.amount)
-              } else {
-                if(data.heads != "Limit Utilization (%)"){
-                  data.amount = ((data.amount) / 10000000);
+      }).subscribe((res: any) => {
+
+        let response = this.baseService.getAPiData(res);
+        if (response.body) {
+          let decryptedText = this.baseService.getResponseData(res, 'backDateDetailsResponse');
+
+          // this.parseXMLHeads(this.baseService.dencryptionFunction(res)).then((parseData) => {
+
+          this.parseXMLHeads(decryptedText).then((parseData) => {
+            this.dataSource = parseData;
+            let value = this.radioValue2;
+            this.dataSource.forEach((data) => {
+              if (data.amount) {
+                if (value == "Amount in Rupees") {
+                  data.amount = (data.amount)
+                } else {
+                  if (data.heads != "Limit Utilization (%)") {
+                    data.amount = ((data.amount) / 10000000);
+                  }
                 }
               }
-            }
-          })
-        });
+            })
+          });
 
-        this.parseXMLAccountType(this.baseService.dencryptionFunction(res)).then((parseDatas) => {
-          this.dataSources = parseDatas;
-        });
+          // this.parseXMLAccountType(this.baseService.dencryptionFunction(res)).then((parseDatas) => {
+          this.parseXMLAccountType(decryptedText).then((parseDatas) => {
+            this.dataSources = parseDatas;
+          });
 
-        this.parseXMLFinancialYearHeads(this.baseService.dencryptionFunction(res), this.radioValue2).then((parseData) => {
-          this.finDataSource = parseData;
-          let value = this.radioValue2;
-          this.finDataSource.forEach((data) => {
-            if (data.LimitGrantAmt && data.UtilisedLimit && data.UnutilizedLimit && data.TotalInterestPaidInterest !== 'null') {
-              if (value == "Amount in Rupees") {
-                data.LimitGrantAmt = (data.LimitGrantAmt);
-                data.UtilisedLimit = (data.UtilisedLimit);
-                data.UnutilizedLimit = (data.UnutilizedLimit);
-                data.TotalInterestPaidInterest = (data.TotalInterestPaidInterest);
+          // this.parseXMLFinancialYearHeads(this.baseService.dencryptionFunction(res), this.radioValue2).then((parseData) => {
+          this.parseXMLFinancialYearHeads(decryptedText, this.radioValue2).then((parseData) => {
+            this.finDataSource = parseData;
+            let value = this.radioValue2;
+            this.finDataSource.forEach((data) => {
+              if (data.LimitGrantAmt && data.UtilisedLimit && data.UnutilizedLimit && data.TotalInterestPaidInterest !== 'null') {
+                if (value == "Amount in Rupees") {
+                  data.LimitGrantAmt = (data.LimitGrantAmt);
+                  data.UtilisedLimit = (data.UtilisedLimit);
+                  data.UnutilizedLimit = (data.UnutilizedLimit);
+                  data.TotalInterestPaidInterest = (data.TotalInterestPaidInterest);
 
-              } else {
-                data.LimitGrantAmt = ((data.LimitGrantAmt) / 10000000);
-                data.UtilisedLimit = ((data.UtilisedLimit) / 10000000);
-                data.UnutilizedLimit = ((data.UnutilizedLimit) / 10000000);
-                data.TotalInterestPaidInterest = ((data.TotalInterestPaidInterest) / 10000000);
+                } else {
+                  data.LimitGrantAmt = ((data.LimitGrantAmt) / 10000000);
+                  data.UtilisedLimit = ((data.UtilisedLimit) / 10000000);
+                  data.UnutilizedLimit = ((data.UnutilizedLimit) / 10000000);
+                  data.TotalInterestPaidInterest = ((data.TotalInterestPaidInterest) / 10000000);
+                }
               }
-            }
-          })
-        });
+            })
+          });
+        }
       });
   }
 
@@ -208,70 +218,79 @@ export class HomebackdatedComponent implements OnInit {
     this.displayedColumns = event.target.value;
   }
 
+  convertObj(data) {
+    let result = {};
+    for (let [key, value] of Object.entries(data)) {
+      result[key] = [value];
+    }
+    return result;
+  }
+
   // parse the XML Heads table for backdated
   parseXMLHeads(data) {
     return new Promise(resolve => {
       var k: string | number,
-          a: string | number,
-          parser = new xml2js.Parser({
-            trim: true,
-            explicitArray: true
-          });
-      parser.parseString(data, function (err, result) {
-        var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0];
-        let arra = [];
+        a: string | number;
+      //     parser = new xml2js.Parser({
+      //       trim: true,
+      //       explicitArray: true
+      //     });
+      // parser.parseString(data, function (err, result) {
+      //   var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0];
+      var obj = this.convertObj(data);
+      let arra = [];
 
-        let grantAmount=0,utilizedAmt=0;
-        for(a in obj){
-          if (k == 'LimitGrantAmt') {
-            grantAmount = obj[k][0];
-          }
-          if (k == 'UtilisedLimit') {
-            utilizedAmt = obj[k][0];
-          }
+      let grantAmount = 0, utilizedAmt = 0;
+      for (a in obj) {
+        if (k == 'limitGrantAmount') {
+          grantAmount = obj[k][0];
         }
-
-        for (k in obj) {
-
-          if (k == 'effAvailableAmt') {
-            arra.push({ heads: 'Central Account Balance', amount: obj[k][0] })
-          }
-          if (k == 'LimitGrantAmt') {
-            arra.push({ heads: 'Allocated Limits', amount: obj[k][0] })
-          }
-          if (k == 'UtilisedLimit') {
-            arra.push({ heads: 'Utilized Limits', amount: obj[k][0] })
-          }
-          if (k == 'UnutilizedLimit') {
-            arra.push({ heads: 'Un-Utilized Limit', amount: obj[k][0] })
-          }
-          if(k == 'LimitUtilization'){
-            let value = obj[k][0];
-            if (obj[k][0] == "No Records Found") {
-              if(grantAmount == 0){
-                grantAmount = 1;
-              }
-              value = (utilizedAmt/grantAmount)*100;
-            }
-            arra.push({ heads: 'Limit Utilization (%)', amount: value })
-          }
-          if (k == 'AccruedInterest') {
-            let value = obj[k][0];
-            if (obj[k][0] == "No Records Found") {
-              value = 0;
-            }
-            arra.push({ heads: 'Quarter to Date-Accrued Interest', amount: value })
-          }
-          if (k == 'TotalInterestPaidInterest') {
-            arra.push({ heads: 'Actual Interest', amount: obj[k][0] })
-          }
-          if (k == 'PendingAdjustments') {
-            arra.push({ heads: 'Pending Adjustments', amount: obj[k][0] })
-          }
+        if (k == 'utilisedLimit') {
+          utilizedAmt = obj[k][0];
         }
-        resolve(arra);
-      });
+      }
+
+      for (k in obj) {
+
+        if (k == 'effectiveAvailableAmount') {
+          arra.push({ heads: 'Central Account Balance', amount: obj[k][0] })
+        }
+        if (k == 'limitGrantAmount') {
+          arra.push({ heads: 'Allocated Limits', amount: obj[k][0] })
+        }
+        if (k == 'utilisedLimit') {
+          arra.push({ heads: 'Utilized Limits', amount: obj[k][0] })
+        }
+        if (k == 'unUtilizedLimit') {
+          arra.push({ heads: 'Un-Utilized Limit', amount: obj[k][0] })
+        }
+        if (k == 'limitUtilization') {
+          let value = obj[k][0];
+          if (obj[k][0] == "No Records Found") {
+            if (grantAmount == 0) {
+              grantAmount = 1;
+            }
+            value = (utilizedAmt / grantAmount) * 100;
+          }
+          arra.push({ heads: 'Limit Utilization (%)', amount: value })
+        }
+        if (k == 'accruedInterest') {
+          let value = obj[k][0];
+          if (obj[k][0] == "No Records Found") {
+            value = 0;
+          }
+          arra.push({ heads: 'Quarter to Date-Accrued Interest', amount: value })
+        }
+        if (k == 'totalInterestPaidInterest') {
+          arra.push({ heads: 'Actual Interest', amount: obj[k][0] })
+        }
+        if (k == 'pendingAdjustments') {
+          arra.push({ heads: 'Pending Adjustments', amount: obj[k][0] })
+        }
+      }
+      resolve(arra);
     });
+    // });
   }
 
 
@@ -279,25 +298,26 @@ export class HomebackdatedComponent implements OnInit {
   parseXMLAccountType(data) {
     return new Promise(resolve => {
       var k: string | number;
-      var a: string | number,
-        parser = new xml2js.Parser(
-          {
-            trim: true,
-            explicitArray: true
-          });
+      var a: string | number;
+      //   parser = new xml2js.Parser(
+      //     {
+      //       trim: true,
+      //       explicitArray: true
+      //     });
 
-      parser.parseString(data, function (err, result) {
-        var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0];
-        let accounttype = [];
+      // parser.parseString(data, function (err, result) {
+      //   var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0];
+      var obj = this.convertObj(data);
+      let accounttype = [];
 
-        for (a in obj) {
-          if (a == 'TotalCount') {
-            accounttype.push({ accounttype: 'Number of Subsidiary Accounts', totalcount: obj[a][0] })
-          }
+      for (a in obj) {
+        if (a == 'totalCount') {
+          accounttype.push({ accounttype: 'Number of Subsidiary Accounts', totalcount: obj[a][0] })
         }
-        resolve(accounttype);
-      });
+      }
+      resolve(accounttype);
     });
+    // });
   }
 
   /**
@@ -305,53 +325,54 @@ export class HomebackdatedComponent implements OnInit {
    */
   parseXMLFinancialYearHeads(data, convAmoutVal) {
     return new Promise(resolve => {
-      var k: string | number,
-        parser = new xml2js.Parser(
-          {
-            trim: true,
-            explicitArray: true
-          });
+      var k: string | number;
+      //   parser = new xml2js.Parser(
+      //     {
+      //       trim: true,
+      //       explicitArray: true
+      //     });
 
-      parser.parseString(data, function (err, result) {
-        var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0];
-        let arra = [];
-        let year = '';
-        let finYear: any = {};
-        let count = 0;
-        for (k in obj) {
-          if (k != 'effAvailableAmt' && k != 'LimitGrantAmt' && k != 'UtilisedLimit'
-            && k != 'UnutilizedLimit' && k != 'LimitUtilization' && k != 'AccruedInterest' && k != 'TotalInterestPaidInterest'
-            && k != 'PendingAdjustments' && k != 'TotalCount') {
-            if (k.substr(0, 2) == 'FY') {
-              year = k.substr(2, 4);
-              if (Object.keys(finYear).length != 0) {
-                arra.push(finYear);
-                finYear = {};
-              }
-              count = count + 1
-              finYear.no = count;
-              finYear.finYear = obj[k][0];
-            } else {
-              let amount = obj[k][0];
-              if (k == 'LimitGrantAmt' + year) {
-                finYear.LimitGrantAmt = amount;
-              } else if (k == 'UtilisedLimit' + year) {
-                finYear.UtilisedLimit = amount;
-              } else if (k == 'UnutilizedLimit' + year) {
-                finYear.UnutilizedLimit = amount;
-              } else if (k == 'TotalInterestPaidInterest' + year) {
-                finYear.TotalInterestPaidInterest = amount;
-              }
-              else if (k == 'TotalCount' + year) {
-                finYear.TotalCount = amount;
-              }
+      // parser.parseString(data, function (err, result) {
+      //   var obj = result.FIXML.Body[0].executeFinacleScriptResponse[0].executeFinacleScript_CustomData[0];
+      var obj = this.convertObj(data);
+      let arra = [];
+      let year = '';
+      let finYear: any = {};
+      let count = 0;
+      for (k in obj) {
+        if (k != 'effectiveAvailableAmount' && k != 'limitGrantAmount' && k != 'utilisedLimit'
+          && k != 'unUtilizedLimit' && k != 'limitUtilization' && k != 'accruedInterest' && k != 'totalInterestPaidInterest'
+          && k != 'pendingAdjustments' && k != 'totalCount') {
+          if (k.substr(0, 2) == 'fy') {
+            year = k.substr(2, 4);
+            if (Object.keys(finYear).length != 0) {
+              arra.push(finYear);
+              finYear = {};
+            }
+            count = count + 1
+            finYear.no = count;
+            finYear.finYear = obj[k][0];
+          } else {
+            let amount = obj[k][0];
+            if (k == 'limitGrantAmount' + year) {
+              finYear.LimitGrantAmt = amount;
+            } else if (k == 'utilisedLimit' + year) {
+              finYear.UtilisedLimit = amount;
+            } else if (k == 'unUtilizedLimit' + year) {
+              finYear.UnutilizedLimit = amount;
+            } else if (k == 'totalInterestPaidInterest' + year) {
+              finYear.TotalInterestPaidInterest = amount;
+            }
+            else if (k == 'totalCount' + year) {
+              finYear.TotalCount = amount;
             }
           }
         }
-        arra.push(finYear);
-        resolve(arra);
-      });
+      }
+      arra.push(finYear);
+      resolve(arra);
     });
+    // });
   }
 
   onPDFDownload(){
