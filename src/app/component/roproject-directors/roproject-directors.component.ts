@@ -65,7 +65,7 @@ export class ROProjectDirectorsComponent implements OnInit {
 
       let response = this.baseService.getAPiData(res);
       if (response.body) {
-        let decryptedText = this.baseService.getResponseData(res, 'fetchpanelDetailsResponse');
+        let decryptedText = this.baseService.getResponseData(res, 'fetchPanelDetailsResponse');
 
         this.parseXML(decryptedText).then((parseData) => {
           this.dataSources.data = parseData[0];

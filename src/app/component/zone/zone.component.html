@@ -32,11 +32,11 @@
         <th mat-header-cell class="sr" *matHeaderCellDef> No. of Project Directors </th>
         <td mat-cell class="right" *matCellDef="let element">
           <div *ngIf="element.zone=='ALL'">
-            {{element.numberOfPd}}
+            {{element.numberOfPanelDetails}}
           </div>
           <div *ngIf="element.zone != 'ALL'">
             <a class="itc-lb-more-info-link" (click)="getProjectDirectors(element.zone)">
-              {{element.numberOfPd}}
+              {{element.numberOfPanelDetails}}
             </a>
           </div>
         </td>
