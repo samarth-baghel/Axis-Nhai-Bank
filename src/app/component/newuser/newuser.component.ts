@@ -27,6 +27,7 @@ export class NewuserComponent implements OnInit {
   adressDefault: any = "NA";
   title: String = "Create User";
   userData: any;
+  userLevel: string = '';
   constructor(private _snackBar: MatSnackBar, private fb: FormBuilder,
     public baseService: BaseService, public http: HttpClient,
     @Inject(MAT_DIALOG_DATA) data, private dialogRef: MatDialogRef<NewuserComponent>) {

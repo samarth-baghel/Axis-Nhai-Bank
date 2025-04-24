@@ -26,7 +26,7 @@
                 <h6>User Level</h6>
                 <mat-form-field appearance="outline" class="beneficiaryFields">
                   <mat-label>--Select--</mat-label>
-                  <mat-select formControlName="userLevel" name="userLevel" required autocomplete="off"
+                  <mat-select formControlName="userLevel" name="userLevel" [(ngModel)]="userLevel" required autocomplete="off"
                     (selectionChange)="onUserLevelChange($event.value)">
                     <mat-option *ngFor="let level of userlevels" [value]="level.value">
                       {{level.viewValue}}
@@ -72,7 +72,7 @@
                   </mat-select>
                 </mat-form-field>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-6" *ngIf="userLevel != 'cala-5'">
                 <h6>Project Director</h6>
                 <mat-form-field appearance="outline" class="beneficiaryFields">
                   <mat-label>--Select--</mat-label>
