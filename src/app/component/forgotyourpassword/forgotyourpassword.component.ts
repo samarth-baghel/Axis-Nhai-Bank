@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { OtpforgotyourpasswordComponent } from '../otpforgotyourpassword/otpforgotyourpassword.component';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';

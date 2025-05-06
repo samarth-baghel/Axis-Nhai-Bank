@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { BaseService } from 'src/app/core/base.service';
-import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AfterVerifyUserNameComponent } from '../after-verify-user-name/after-verify-user-name.component';
 import { HttpHeaders } from '@angular/common/http';
 import { Url } from 'src/app/core/services/url';

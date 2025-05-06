@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
 import { PdfDownloadService } from 'src/app/services/pdf-download.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-backdatedfinancialsummary',

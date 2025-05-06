@@ -5,7 +5,7 @@ import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
 import xml2js from 'xml2js';
 import * as _ from 'lodash'; 
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface UserTypes {
   value: string;

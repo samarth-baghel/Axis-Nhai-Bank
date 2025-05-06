@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { BaseService } from 'src/app/core/base.service';
 import { BeneficiarypopupComponent } from '../beneficiarypopup/beneficiarypopup.component';
 import { HttpHeaders, HttpParams } from '@angular/common/http';

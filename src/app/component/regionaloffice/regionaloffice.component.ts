@@ -6,7 +6,8 @@ import * as _ from 'lodash';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
-import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SubsidiaryaccountComponent } from '../subsidiaryaccount/subsidiaryaccount.component';
 import { ROProjectDirectorsComponent } from '../roproject-directors/roproject-directors.component';
 

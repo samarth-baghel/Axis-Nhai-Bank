@@ -5,7 +5,8 @@ import xml2js from 'xml2js';
 import * as _ from 'lodash';
 import * as Highcharts from 'highcharts';
 import { Url } from 'src/app/core/services/url';
-import { MatSnackBar, MatTabChangeEvent } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 
 @Component({

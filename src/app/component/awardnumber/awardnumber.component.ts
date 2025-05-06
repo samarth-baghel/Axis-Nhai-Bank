@@ -6,7 +6,7 @@ import xml2js from 'xml2js';
 import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AwardnumberpopupComponent } from '../awardnumberpopup/awardnumberpopup.component';
 
 @Component({

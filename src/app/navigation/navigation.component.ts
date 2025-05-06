@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import { StateServiceService } from '../core/services/state-service.service';
 import { BaseService } from '../core/base.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Url } from '../core/services/url';
 import { HttpHeaders } from '@angular/common/http';

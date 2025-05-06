@@ -4,7 +4,9 @@ import * as _ from 'lodash';
 import { HttpHeaders } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
-import { MatTableDataSource, MatPaginator, MatDatepicker } from '@angular/material';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';

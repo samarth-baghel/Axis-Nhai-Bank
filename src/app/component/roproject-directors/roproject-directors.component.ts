@@ -5,7 +5,7 @@ import { Url } from 'src/app/core/services/url';
 import xml2js from 'xml2js';
 import * as _ from 'lodash';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-roproject-directors',

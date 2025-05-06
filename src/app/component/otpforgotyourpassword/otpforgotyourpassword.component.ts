@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EnterotpforgotpasswordComponent } from '../enterotpforgotpassword/enterotpforgotpassword.component';
 import { BaseService } from 'src/app/core/base.service';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StateServiceService } from 'src/app/core/services/state-service.service';
 
 @Component({

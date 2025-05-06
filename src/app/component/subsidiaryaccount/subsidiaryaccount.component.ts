@@ -5,7 +5,8 @@ import { Url } from 'src/app/core/services/url';
 import xml2js from 'xml2js';
 import * as _ from 'lodash'; 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar, MatTableDataSource } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-subsidiaryaccount',

@@ -5,7 +5,8 @@ import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
 import xml2js from 'xml2js';
 import * as _ from 'lodash';
-import { MatSnackBar, MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ValueTransformer } from '@angular/compiler/src/util';
 import { DataSource } from '@angular/cdk/collections';

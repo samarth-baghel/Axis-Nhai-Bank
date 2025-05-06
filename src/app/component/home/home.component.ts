@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
 import { PdfDownloadService } from 'src/app/services/pdf-download.service';
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { InterestPaidTableComponent } from 'src/app/component/interest-paid-table/interest-paid-table.component';
 
 @Component({

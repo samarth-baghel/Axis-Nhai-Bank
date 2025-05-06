@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from "@angular/material/icon";
 import { BaseService } from 'src/app/core/base.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Url } from 'src/app/core/services/url';
 import { element } from 'protractor';
 import { dateFormat } from 'highcharts';

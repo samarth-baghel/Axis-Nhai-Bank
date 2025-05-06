@@ -3,7 +3,8 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import xml2js from 'xml2js';
 import * as _ from 'lodash';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LockunlockpreviewComponent } from '../popupsonpreviewbutton/lockunlockpreview/lockunlockpreview.component';
 
 import { CreateuserpreviewComponent } from '../popupsonpreviewbutton/createuserpreview/createuserpreview.component';

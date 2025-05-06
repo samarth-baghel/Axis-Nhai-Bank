@@ -8,7 +8,7 @@ import xml2js from 'xml2js';
 import * as _ from 'lodash';
 import * as CryptoJS from 'crypto-js';
 import { StateServiceService } from './services/state-service.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Injectable({

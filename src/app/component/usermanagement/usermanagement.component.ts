@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogConfig, MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { BaseService } from 'src/app/core/base.service';
 import { DeleteusermanagementdatapopupComponent } from '../deleteusermanagementdatapopup/deleteusermanagementdatapopup.component';
 import { Routes, RouterModule, Router } from '@angular/router';

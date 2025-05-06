@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EnterotpforgotusernameComponent } from '../enterotpforgotusername/enterotpforgotusername.component';
 import { BaseService } from 'src/app/core/base.service';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StateServiceService } from 'src/app/core/services/state-service.service';
 
 @Component({

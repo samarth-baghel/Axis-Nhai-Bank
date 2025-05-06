@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StateServiceService } from 'src/app/core/services/state-service.service';
-import { MatDialogConfig, MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseService } from 'src/app/core/base.service';
 import { Router } from '@angular/router';
 import { ForgetpasswordComponent } from 'src/app/component/forgetpassword/forgetpassword.component';

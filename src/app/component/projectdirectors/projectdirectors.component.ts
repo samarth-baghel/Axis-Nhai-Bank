@@ -9,7 +9,7 @@ import { Url } from 'src/app/core/services/url';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SubsidiaryaccountComponent } from '../subsidiaryaccount/subsidiaryaccount.component';
 import { Constants } from 'src/app/core/services/constants';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-projectdirectors',

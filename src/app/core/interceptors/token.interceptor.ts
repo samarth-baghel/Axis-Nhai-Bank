@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { JwtService } from '../services/jwt/jwt.service';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import 'rxjs/add/operator/do';
 import { UserService } from '../services/user/user.service';
 @Injectable()

@@ -6,7 +6,7 @@ import xml2js from 'xml2js';
 import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as CryptoJS from 'crypto-js';
 
 @Component({

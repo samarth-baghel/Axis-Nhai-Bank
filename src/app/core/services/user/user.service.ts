@@ -5,7 +5,7 @@ import { StateServiceService } from '../state-service.service';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../../base.service';
 import { Url } from 'src/app/core/services/url';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ForgetpasswordComponent } from 'src/app/component/forgetpassword/forgetpassword.component';
 
 @Injectable({
