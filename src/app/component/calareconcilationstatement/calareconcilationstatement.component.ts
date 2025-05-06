@@ -18,7 +18,7 @@ import { AutocompleteDisplayComponent } from '../autocomplete-display/autocomple
 })
 
 export class CalareconcilationstatementComponent implements OnInit {
-  @ViewChild('content', { static: false }) content: ElementRef;
+  @ViewChild('content') content: ElementRef;
   dataSourcecala: any;
   pageSize: any;
   fromCount = 1;
@@ -38,7 +38,7 @@ export class CalareconcilationstatementComponent implements OnInit {
   selectedMonth: Date;
   filteredvalue: any[];
   @Input() myControl: any;
-  @ViewChild(AutocompleteDisplayComponent, { static: false })
+  @ViewChild(AutocompleteDisplayComponent)
   private drpValue: AutocompleteDisplayComponent;
   accNumber: any;
   dataSourcecaladrp: any;
