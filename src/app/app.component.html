@@ -1,3 +1,10 @@
 <p (window:beforeunload)="doBeforeUnload($event)" class="appMargin"></p>
-<ng4-loading-spinner [threshold]="500" [timeout]="6000" [zIndex]="99999999999"></ng4-loading-spinner>
+ <ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-spin"
+  [fullScreen]="true">
+</ngx-spinner>
+
 <router-outlet (activate)="onActivate($event)"></router-outlet>

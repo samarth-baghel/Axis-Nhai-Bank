@@ -54,11 +54,10 @@ import { EnterotpforgotpasswordComponent } from './component/enterotpforgotpassw
 import { ForgotyourusernameComponent } from './component/forgotyourusername/forgotyourusername.component';
 import { OtpforgotyourusernameComponent } from './component/otpforgotyourusername/otpforgotyourusername.component';
 import { EnterotpforgotusernameComponent } from './component/enterotpforgotusername/enterotpforgotusername.component';
-import { NgOtpInputModule } from  'ng-otp-input';
 import { AfterVerifyUserNameComponent } from './component/after-verify-user-name/after-verify-user-name.component';
 import { AfterVerifypasswordComponent } from './component/after-verifypassword/after-verifypassword.component';
 import { BotDetectCaptchaModule } from 'angular-captcha';
-import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { NewuserComponent } from './component/newuser/newuser.component';
 import { UserchangeworlflowComponent } from './component/userchangeworkflowfolder/userchangeworlflow/userchangeworlflow.component';
 
@@ -141,7 +140,6 @@ import {Error404Component} from './component/error404/error404.component';
   entryComponents: [InterestPaidTableComponent],
   imports: [
     BrowserModule,
-    NgOtpInputModule,
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
@@ -155,7 +153,7 @@ import {Error404Component} from './component/error404/error404.component';
     ReactiveFormsModule,
     BotDetectCaptchaModule,
     MatDialogModule,
-    Ng4LoadingSpinnerModule.forRoot()
+    NgxSpinnerModule
     
   ],
   providers: [CurrencyPipe,
