@@ -149,6 +149,9 @@ export class AwardnumberComponent implements OnInit {
     body.AWARD_NUM = this.awardnumber;
     body.FromCount = (this.fromCount).toString();
     body.ToCount = (this.toCount).toString();
+    if(localStorage.getItem('UserLevel') === "cala-5") {
+      body.isCala = "true";
+    }
 
     this.baseService._makeRequest(Url.awardnumnberXmlUrl,
       body,

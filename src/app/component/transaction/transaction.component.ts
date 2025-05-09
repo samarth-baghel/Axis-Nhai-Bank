@@ -391,6 +391,9 @@ export class TransactionComponent implements OnInit {
     body.ToDate = tod ? todate : finalValtransactiondate;
     body.FromCount = (this.fromCount).toString();
     body.ToCount = (this.toCount).toString();
+    if(localStorage.getItem('UserLevel') === "cala-5") {
+      body.isCala = "true";
+    }
 
     const headers = this.baseService.getHeaders();
     let eBody:any;

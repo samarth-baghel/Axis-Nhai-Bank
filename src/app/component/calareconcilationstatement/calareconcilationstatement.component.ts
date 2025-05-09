@@ -159,6 +159,9 @@ export class CalareconcilationstatementComponent implements OnInit {
     body.to_date = finalValforodate;
     body.RecFromNum = (this.fromCount).toString();
     body.RecToNum = (this.toCount).toString();
+    if(localStorage.getItem('UserLevel') === "cala-5") {
+      body.isCala = "true";
+    }
 
     this.baseService._makeRequest(Url.calareconsilation,
       body,
@@ -320,6 +323,9 @@ export class CalareconcilationstatementComponent implements OnInit {
     body.year = finalYearVal;
     body.recFromNo = (this.accfromCount).toString();
     body.recToNo = (this.acctoCount).toString();
+    if(localStorage.getItem('UserLevel') === "cala-5") {
+      body.isCala = "true";
+    }
 
     this.baseService._makeRequest(Url.calareconsilationAccXmlUrl,
       this.baseService.encryptionFunctionObject(body),
@@ -389,6 +395,9 @@ export class CalareconcilationstatementComponent implements OnInit {
     let body: any = {};
     body.requestUUID = requestUUID;
     body.messageDateTime = messageDateTime;
+    if(localStorage.getItem('UserLevel') === "cala-5") {
+      body.isCala = "true";
+    }
 
     this.baseService._makeRequest(Url.calareconsilationDropXmlUrl,
       body,
