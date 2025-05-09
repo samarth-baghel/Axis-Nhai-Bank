@@ -23,6 +23,7 @@ export class ExceptionComponent implements OnInit {
   toCount = 10;
   accountnumber:any = "";
   showHide: boolean = true;
+  paginationShow: any;
 
   constructor(public baseService: BaseService, public http: HttpClient) {
     this.radioValue = Constants.amountInRupees;
@@ -30,12 +31,14 @@ export class ExceptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem('CalaNumber')){
-      this.accountnumber = localStorage.getItem('CalaNumber');
+    this.accountnumber = localStorage.getItem('CalaNumber') === "null" ? JSON.parse(localStorage.getItem('CalaNumber')) : localStorage.getItem('CalaNumber');
+    if(localStorage.getItem('UserLevel') === "cala-5") {
       this.showHide = false;
-    } else {
-      this.accountnumber = '';
-      this.showHide = true
+      this.paginationShow = false
+    }
+    else {
+      this.showHide = true;
+      this.paginationShow = true
     }
     this.getXmlDataForExceptionsOnInit();
   }

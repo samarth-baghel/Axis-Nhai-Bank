@@ -213,7 +213,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumn;"></tr>
     </table>
 
-    <mat-paginator *ngIf="showHide" #uploadPaginator [length]="totalCountAcc" [pageSize]="accpageSize" [pageSizeOptions]="[10,30,50,100]"
+    <mat-paginator *ngIf="paginationShow" #uploadPaginator [length]="totalCountAcc" [pageSize]="accpageSize" [pageSizeOptions]="[10,30,50,100]"
       (page)="pageEventForAcc($event)" showFirstLastButtons></mat-paginator>
   </div>
 </div>

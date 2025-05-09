@@ -43,6 +43,7 @@ export class CalareconcilationstatementComponent implements OnInit {
   accNumber: any;
   dataSourcecaladrp: any;
   showHide: boolean = true;
+  paginationShow: any;
 
   constructor(public baseService: BaseService, public dialog: MatDialog, private _formBuilder: FormBuilder,private _snackBar: MatSnackBar) {
     this.radioValue2 = "Amount in Rupees";
@@ -61,6 +62,15 @@ export class CalareconcilationstatementComponent implements OnInit {
     }
     this.getxmldataforCALAOnInit(true,false);
     this.getDropdownData();
+    this.accountnumber = localStorage.getItem('CalaNumber') === "null" ? JSON.parse(localStorage.getItem('CalaNumber')) : localStorage.getItem('CalaNumber');
+    if(localStorage.getItem('UserLevel') === "cala-5") {
+      this.showHide = false;
+      this.paginationShow = false
+    }
+    else {
+      this.showHide = true;
+      this.paginationShow = true
+    }
   }
 
   openDialogPendingadjustment(accountNumber?: any, roconmonthvalue?: any,accountName?: any) {

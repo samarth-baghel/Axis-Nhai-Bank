@@ -32,7 +32,7 @@
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
       &nbsp;&nbsp;
-      <mat-form-field appearance="outline" class="actNumber" *ngIf="showHide">
+      <mat-form-field appearance="outline" *ngIf="showHide">
         <mat-label>Account Number</mat-label>
         <input matInput [(ngModel)]='accountnumber' type='number'>
       </mat-form-field>
@@ -90,7 +90,7 @@
     </table>
 
     <!-- <mat-paginator [length]="totalCount" [pageSize]="pageSize" [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>  -->
-    <mat-paginator [length]="totalCount" [pageSize]="pageSize" [pageSizeOptions]="[5,10,30,50,100]"
+    <mat-paginator *ngIf="paginationShow" [length]="totalCount" [pageSize]="pageSize" [pageSizeOptions]="[5,10,30,50,100]"
       (page)="pageEvent($event,dateValue1,dateValue2)" showFirstLastButtons>
     </mat-paginator>
   </div>

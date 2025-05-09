@@ -26,6 +26,7 @@ export class AwardnumberComponent implements OnInit {
   fromdate:any;
   todate:any;
   showHide: boolean = true;
+  paginationShow: any;
   constructor(public baseService: BaseService, public dialog: MatDialog) {
     this.radioValue2 = "Amount in Rupees";
     this.pageSize = 10;
@@ -40,6 +41,15 @@ export class AwardnumberComponent implements OnInit {
       this.accountnumber = ''
     }
     this.getxmldataforAwardNumberOnInit();
+
+    if(localStorage.getItem('UserLevel') === "cala-5") {
+      this.showHide = false;
+      this.paginationShow = false
+    }
+    else {
+      this.showHide = true;
+      this.paginationShow = true
+    }
   }
 
   openDialogAwardNumber(awardNumber?: any, accountNumber?: any) {

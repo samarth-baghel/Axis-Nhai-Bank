@@ -35,7 +35,7 @@ export class TransactionComponent implements OnInit {
   url:any;
   creditTypes:any;
   showHide :boolean = true
-
+  paginationShow: any;
 
   constructor(private _snackBar: MatSnackBar, public baseService: BaseService) {
     this.radioValue1 = "Account Number";
@@ -52,6 +52,15 @@ export class TransactionComponent implements OnInit {
     } else {
       this.accountnumber = '';
       this.showHide = true
+    }
+    this.accountnumber = localStorage.getItem('CalaNumber') === "null" ? JSON.parse(localStorage.getItem('CalaNumber')) : localStorage.getItem('CalaNumber');
+    if(localStorage.getItem('UserLevel') === "cala-5") {
+      this.showHide = false;
+      this.paginationShow = false
+    }
+    else {
+      this.showHide = true;
+      this.paginationShow = true
     }
    }
 

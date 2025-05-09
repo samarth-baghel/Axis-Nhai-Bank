@@ -246,6 +246,7 @@ export class LoginComponent implements OnInit {
           let userID = response.UserID;
           let firstLogin = response.FirstLogin;
           localStorage.setItem("CalaNumber",response.CalaNumber)
+          localStorage.setItem("UserLevel",response.UserLevel)
           if (status == 'Success') {
             if ((response.UserType == 'nhai-1' && response.UserLevel == 'head-0') || (response.UserType == 'axis-0')) {
               this.getNavigationData("hqUserOrInternaluser", userID, userName, firstLogin);

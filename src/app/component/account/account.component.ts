@@ -28,6 +28,7 @@ export class AccountComponent implements OnInit {
   toCount = 10;
   searchValue:any="";
   showHide: boolean = true;
+  paginationShow: any;
 
   constructor(public dialog: MatDialog, public baseService: BaseService, 
     public http: HttpClient,private _snackBar: MatSnackBar) { 
@@ -43,6 +44,15 @@ export class AccountComponent implements OnInit {
       this.showHide = true;
     }
     this.getXmlDataForAccountsOnInit();
+
+    if(localStorage.getItem('UserLevel') === "cala-5") {
+      this.showHide = false;
+      this.paginationShow = false
+    }
+    else {
+      this.showHide = true;
+      this.paginationShow = true
+    }
   }
 
   displayedColumns: string[] = ['no', 'AccountOpenDate', 'lastOperatinDate', 'NoOfdayssincelastTransaction', 'AccountID', 'AccountName', 'TotalLimit', 'UsedLimit', 'NoofdaysinceAccountopned', 'FundsUsed', 'BalanceLimit', 'AccountBalance'];
