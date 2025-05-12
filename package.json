@@ -36,7 +36,7 @@
     "jspdf-autotable": "^3.4.4",
     "lato-font": "^3.0.0",
     "moment": "^2.24.0",
-    "ngx-spinner": "^10.0.1",
+    "ngx-spinner": "^11.0.0",
     "ngx-take-until-destroy": "^5.4.0",
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
