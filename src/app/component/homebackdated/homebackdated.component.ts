@@ -12,7 +12,7 @@ import { PdfDownloadService } from 'src/app/services/pdf-download.service';
   styleUrls: ['./homebackdated.component.scss']
 })
 export class HomebackdatedComponent implements OnInit {
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content',{ static: false }) content: ElementRef;
   homeParsedArr: any;
   dataSource: any;
   dataSources: any;

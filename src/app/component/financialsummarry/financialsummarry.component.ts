@@ -12,7 +12,7 @@ import { PdfDownloadService } from 'src/app/services/pdf-download.service';
   styleUrls: ['./financialsummarry.component.scss']
 })
 export class FinancialsummarryComponent implements OnInit {
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content',{ static: false }) content: ElementRef;
   dataSources: any;
   dataSource: any;
   datas: any;

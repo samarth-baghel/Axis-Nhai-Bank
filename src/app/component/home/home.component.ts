@@ -16,7 +16,7 @@ import { InterestPaidTableComponent } from 'src/app/component/interest-paid-tabl
 
 
 export class HomeComponent implements OnInit {
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content',{ static: false }) content: ElementRef;
   accountParsedArr: any;
   homeParsedArr: any;
   dataSource: any;

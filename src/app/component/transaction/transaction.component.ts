@@ -44,7 +44,7 @@ export class TransactionComponent implements OnInit {
   }
   datasources: any;
   dataSource = new MatTableDataSource;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator,{ static: false }) paginator: MatPaginator;
   ngOnInit() {
     if(localStorage.getItem('CalaNumber')){
       this.accountnumber = localStorage.getItem('CalaNumber');

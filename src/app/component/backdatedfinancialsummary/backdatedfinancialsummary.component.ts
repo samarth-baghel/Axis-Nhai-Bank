@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./backdatedfinancialsummary.component.scss']
 })
 export class BackdatedfinancialsummaryComponent implements OnInit {
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content',{ static: false }) content: ElementRef;
   dataSources: any;
   dataSource: any;
   data: any;
