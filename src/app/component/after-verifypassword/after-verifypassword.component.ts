@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
+import {UntypedFormControl, FormGroupDirective, NgForm, Validators, UntypedFormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { BaseService } from 'src/app/core/base.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -18,13 +18,13 @@ export class AfterVerifypasswordComponent implements OnInit {
   hide = true;
   hideNewPassword = true;
   hideOldPassword = true;
-  passwordForm = new FormGroup({
-    newpasswordFormControl : new FormControl('', [
+  passwordForm = new UntypedFormGroup({
+    newpasswordFormControl : new UntypedFormControl('', [
       Validators.required,
         //Validators.email,
          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
       ]),
-      confirmpasswordFormControl :new FormControl('', [
+      confirmpasswordFormControl :new UntypedFormControl('', [
         Validators.required,
           //Validators.email,
            Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
@@ -102,7 +102,7 @@ export class AfterVerifypasswordComponent implements OnInit {
 }
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }

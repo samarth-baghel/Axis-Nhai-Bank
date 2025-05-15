@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
@@ -24,24 +24,24 @@ interface UserLevels {
 })
 
 export class UseraccountComponent implements OnInit {
-  userAccountFormGroup: FormGroup;
+  userAccountFormGroup: UntypedFormGroup;
   adressDefault:any = "NA";
-  constructor(private _snackBar: MatSnackBar,private fb: FormBuilder,public baseService: BaseService, public http: HttpClient) { }
+  constructor(private _snackBar: MatSnackBar,private fb: UntypedFormBuilder,public baseService: BaseService, public http: HttpClient) { }
 
   ngOnInit() {
     this.userAccountFormGroup = this.fb.group({
-      userType: new FormControl('', Validators.required),
-      userLevel: new FormControl('', Validators.required),
-      zone: new FormControl('', Validators.required),
-      state: new FormControl('', Validators.required),
-      regions: new FormControl('', Validators.required),
-      pds: new FormControl('', Validators.required),
-      calas: new FormControl('', Validators.required),
-      firstname: new FormControl('', Validators.required),
-      lastname: new FormControl('', Validators.required),
-      mobile: new FormControl('', [Validators.pattern(/^[6-9]\d{9}$/)]),
-      email: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)]),
-      address: new FormControl('', Validators.required),
+      userType: new UntypedFormControl('', Validators.required),
+      userLevel: new UntypedFormControl('', Validators.required),
+      zone: new UntypedFormControl('', Validators.required),
+      state: new UntypedFormControl('', Validators.required),
+      regions: new UntypedFormControl('', Validators.required),
+      pds: new UntypedFormControl('', Validators.required),
+      calas: new UntypedFormControl('', Validators.required),
+      firstname: new UntypedFormControl('', Validators.required),
+      lastname: new UntypedFormControl('', Validators.required),
+      mobile: new UntypedFormControl('', [Validators.pattern(/^[6-9]\d{9}$/)]),
+      email: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)]),
+      address: new UntypedFormControl('', Validators.required),
     });
     
     this.userAccountFormGroup.controls.userLevel.disable();
@@ -68,16 +68,16 @@ export class UseraccountComponent implements OnInit {
     { value: 'cala-5', viewValue: 'CALA' },
   ];
 
-  zones = new FormControl();
+  zones = new UntypedFormControl();
   zoneList: string[] = ['East', 'West', 'North', 'South'];
 
-  states = new FormControl();
+  states = new UntypedFormControl();
   stateList: string[] = ['Andrapradesh', 'Telangana', 'Mumbai', 'Chennai'];  
 
-  regions = new FormControl();
+  regions = new UntypedFormControl();
   regionList: string[] = ['Region1', 'Region2', 'Region3', 'Region4'];
 
-  pds = new FormControl();
+  pds = new UntypedFormControl();
   pdList: string[] = ['PD1', 'PD2', 'PD3', 'PD4'];
 
   onUserTypeChange(userType: any) {

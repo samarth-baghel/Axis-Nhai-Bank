@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { from, Observable } from 'rxjs';
 import { CalaPendingAdjustmentpopupComponent } from '../cala-pending-adjustmentpopup/cala-pending-adjustmentpopup.component';
 import { startWith, map } from 'rxjs/operators';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AutocompleteDisplayComponent } from '../autocomplete-display/autocomplete-display.component';
 
 @Component({
@@ -45,7 +45,7 @@ export class CalareconcilationstatementComponent implements OnInit {
   dataSourcecaladrp: any;
   showHide: boolean = true;
 
-  constructor(public baseService: BaseService, public dialog: MatDialog, private _formBuilder: FormBuilder,private _snackBar: MatSnackBar) {
+  constructor(public baseService: BaseService, public dialog: MatDialog, private _formBuilder: UntypedFormBuilder,private _snackBar: MatSnackBar) {
     this.radioValue2 = "Amount in Rupees";
     this.pageSize = 10;
   }

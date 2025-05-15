@@ -118,7 +118,6 @@
       }
     }
   },
-  "defaultProject": "AxisNhai",
   "cli": {
     "analytics": false
   }

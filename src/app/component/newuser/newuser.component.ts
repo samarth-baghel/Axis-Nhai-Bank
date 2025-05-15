@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { BaseService } from 'src/app/core/base.service';
 import { Url } from 'src/app/core/services/url';
@@ -24,12 +24,12 @@ interface UserLevels {
   styleUrls: ['./newuser.component.scss']
 })
 export class NewuserComponent implements OnInit {
-  userAccountFormGroup: FormGroup;
+  userAccountFormGroup: UntypedFormGroup;
   adressDefault: any = "NA";
   title: String = "Create User";
   userData: any;
   userLevel: string = '';
-  constructor(private _snackBar: MatSnackBar, private fb: FormBuilder,
+  constructor(private _snackBar: MatSnackBar, private fb: UntypedFormBuilder,
     public baseService: BaseService, public http: HttpClient,
     @Inject(MAT_DIALOG_DATA) data, private dialogRef: MatDialogRef<NewuserComponent>) {
     if (data) {
@@ -45,17 +45,17 @@ export class NewuserComponent implements OnInit {
 
   ngOnInit() {
     this.userAccountFormGroup = this.fb.group({
-      userType: new FormControl('', Validators.required),
-      userLevel: new FormControl('', Validators.required),
-      zone: new FormControl('', Validators.required),
-      state: new FormControl('', Validators.required),
-      regions: new FormControl('', Validators.required),
-      pds: new FormControl('', Validators.required),
-      calas: new FormControl('', Validators.required),
-      firstname: new FormControl('',[Validators.required,Validators.pattern(/^[a-zA-Z0-9]+$/)]),
-      lastname: new FormControl('',[Validators.required,Validators.pattern(/^[a-zA-Z0-9]+$/)]),
-      mobile: new FormControl('', [Validators.pattern(/^[6-9]\d{9}$/)]),
-      email: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)])
+      userType: new UntypedFormControl('', Validators.required),
+      userLevel: new UntypedFormControl('', Validators.required),
+      zone: new UntypedFormControl('', Validators.required),
+      state: new UntypedFormControl('', Validators.required),
+      regions: new UntypedFormControl('', Validators.required),
+      pds: new UntypedFormControl('', Validators.required),
+      calas: new UntypedFormControl('', Validators.required),
+      firstname: new UntypedFormControl('',[Validators.required,Validators.pattern(/^[a-zA-Z0-9]+$/)]),
+      lastname: new UntypedFormControl('',[Validators.required,Validators.pattern(/^[a-zA-Z0-9]+$/)]),
+      mobile: new UntypedFormControl('', [Validators.pattern(/^[6-9]\d{9}$/)]),
+      email: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)])
     });
 
     this.userAccountFormGroup.controls.userLevel.disable();
@@ -118,16 +118,16 @@ export class NewuserComponent implements OnInit {
     { value: 'cala-5', viewValue: 'CALA' },
   ];
 
-  zones = new FormControl();
+  zones = new UntypedFormControl();
   zoneList: string[];
 
-  states = new FormControl();
+  states = new UntypedFormControl();
   stateList: string[];
 
-  regions = new FormControl();
+  regions = new UntypedFormControl();
   regionList: string[];
 
-  pds = new FormControl();
+  pds = new UntypedFormControl();
   pdList: string[];
 
   onUserTypeChange(userType: any) {

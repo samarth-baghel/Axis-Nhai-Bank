@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseService } from 'src/app/core/base.service';
@@ -12,7 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
   styleUrls: ['./beneficiarypopup.component.scss']
 })
 export class BeneficiarypopupComponent implements OnInit {
-  BenificiarypopupFormGroup: FormGroup;
+  BenificiarypopupFormGroup: UntypedFormGroup;
   // beneficiaryName:any = "";
   // accountnumber:any = "";
   // ifscCode:any = "";
@@ -23,17 +23,17 @@ export class BeneficiarypopupComponent implements OnInit {
   upladUrl = "";
   uploadedFile: File;
   file:any;
-  constructor(private _snackBar: MatSnackBar, private fb: FormBuilder,public baseService: BaseService, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) data,private dialogRef:MatDialogRef<BeneficiarypopupComponent>) { }
+  constructor(private _snackBar: MatSnackBar, private fb: UntypedFormBuilder,public baseService: BaseService, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) data,private dialogRef:MatDialogRef<BeneficiarypopupComponent>) { }
 
   ngOnInit() {
     this.upladUrl = Url.uploadBeneficiaryDetails;
     this.BenificiarypopupFormGroup = this.fb.group({
-      BenificiaryNamecontorl: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9_-]*$/)]),
-      ActNumbercontorl: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9]*$/)]),
-      Ifsccodecontorl: new FormControl('', [Validators.pattern(/^[A-Z0-9]*$/)]),
-      amountcontorl: new FormControl('', [Validators.pattern(/^[0-9]*$/)]),
-      debitactcontorl: new FormControl('', [Validators.pattern(/^[0-9]*$/)]),
-      calaactcontorl: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9]*$/)])
+      BenificiaryNamecontorl: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z0-9_-]*$/)]),
+      ActNumbercontorl: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z0-9]*$/)]),
+      Ifsccodecontorl: new UntypedFormControl('', [Validators.pattern(/^[A-Z0-9]*$/)]),
+      amountcontorl: new UntypedFormControl('', [Validators.pattern(/^[0-9]*$/)]),
+      debitactcontorl: new UntypedFormControl('', [Validators.pattern(/^[0-9]*$/)]),
+      calaactcontorl: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z0-9]*$/)])
     });
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OtpforgotyourpasswordComponent } from '../otpforgotyourpassword/otpforgotyourpassword.component';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {UntypedFormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { StateServiceService } from 'src/app/core/services/state-service.service';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { Url } from 'src/app/core/services/url';
   styleUrls: ['./forgotyourpassword.component.scss']
 })
 export class ForgotyourpasswordComponent implements OnInit {
-  emailFormControl = new FormControl('', [
+  emailFormControl = new UntypedFormControl('', [
     Validators.required,
     //Validators.email,
      Validators.pattern(/^([6-9]\d{9})|([A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3})$/)
@@ -68,7 +68,7 @@ export class ForgotyourpasswordComponent implements OnInit {
 }
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }

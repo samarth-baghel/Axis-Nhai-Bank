@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { BaseService } from 'src/app/core/base.service';
@@ -15,7 +15,7 @@ import * as _ from 'lodash';
   styleUrls: ['autocomplete-display.component.scss'],
 })
 export class AutocompleteDisplayComponent implements OnInit {
-  myControl = new FormControl();
+  myControl = new UntypedFormControl();
   @Input() dropdowndata: string[];
   constructor(public baseService: BaseService) {
    

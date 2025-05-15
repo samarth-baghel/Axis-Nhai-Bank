@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Variable } from '@angular/compiler/src/render3/r3_ast';
+// import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { BaseService } from 'src/app/core/base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import xml2js from 'xml2js';
@@ -11,6 +11,8 @@ import { PdfDownloadService } from 'src/app/services/pdf-download.service';
   templateUrl: './financialsummarry.component.html',
   styleUrls: ['./financialsummarry.component.scss']
 })
+
+
 export class FinancialsummarryComponent implements OnInit {
   @ViewChild('content',{ static: false }) content: ElementRef;
   dataSources: any;
