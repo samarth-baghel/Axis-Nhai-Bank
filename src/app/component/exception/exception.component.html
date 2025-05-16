@@ -36,7 +36,7 @@
         <mat-label>Account Number</mat-label>
         <input matInput [(ngModel)]='accountnumber' type='number'>
       </mat-form-field>
-      <button mat-raised-button id="btnlimitasondate" class="exceptionSearch"
+      <button id="btnlimitasondate" class="exceptionSearch mat-raised-button"
         (click)="onExceptionsSearch(dateValue1,dateValue2)">Search</button>
     </div><br />
     <div class="icon">
@@ -46,43 +46,43 @@
     </div><br /><br />
     <table mat-table [dataSource]="exceptionParsedData" class="mat-elevation-z8 ">
       <ng-container matColumnDef="no">
-        <th mat-header-cell class="sr" *matHeaderCellDef> S.NO. </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.recordCount}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef> S.NO. </th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.recordCount}} </td>
       </ng-container>
 
       <ng-container matColumnDef="subsidiaryaccountno">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Account Number</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryAccountNumber | maskData:4}}</td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Account Number</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.subsdiaryAccountNumber | maskData:4}}</td>
       </ng-container>
 
       <ng-container matColumnDef="subsidiaryaccountname">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Account Name</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryAccountName}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Account Name</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.subsdiaryAccountName}} </td>
       </ng-container>
 
       <ng-container matColumnDef="subsidiaryaccountopendate">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Account Open Date</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryAccountOpenDate}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Account Open Date</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.subsdiaryAccountOpenDate}} </td>
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <th mat-header-cell class="sr" *matHeaderCellDef> Date </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryTransactionDate}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef> Date </th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.subsdiaryTransactionDate}} </td>
       </ng-container>
 
       <ng-container matColumnDef="debitcredit">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Debit/Credit</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.subsdiaryDebitCredit}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Debit/Credit</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.subsdiaryDebitCredit}} </td>
       </ng-container>
 
       <ng-container matColumnDef="tranparticulars">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Tran Particulars</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.transactionParticulars}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Tran Particulars</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.transactionParticulars}} </td>
       </ng-container>
 
       <ng-container matColumnDef="amount">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Amount</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.transactionAmount | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Amount</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.transactionAmount | customCurrencyPipe}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -15,43 +15,43 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tbla">
 
       <ng-container matColumnDef="no">
-        <th mat-header-cell class="sr" *matHeaderCellDef>S.NO. </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.no}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>S.NO. </th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.no}} </td>
       </ng-container>
 
       <ng-container matColumnDef="beneficiaryname">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Beneficiary Name</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.beneficiaryname}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Beneficiary Name</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.beneficiaryname}} </td>
       </ng-container>
 
       <ng-container matColumnDef="beneficiarybankaccount">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Beneficiary Bank A/C</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.beneficiarybankaccount | maskData:4}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Beneficiary Bank A/C</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.beneficiarybankaccount | maskData:4}} </td>
       </ng-container>
 
       <ng-container matColumnDef="beneficiarybankname">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Beneficiary Bank Name</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.beneficiarybankname}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Beneficiary Bank Name</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.beneficiarybankname}} </td>
       </ng-container>
       
       <ng-container matColumnDef="ifsccode">
-        <th mat-header-cell class="sr" *matHeaderCellDef>IFSC Code</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.ifsicode}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>IFSC Code</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.ifsicode}} </td>
       </ng-container>
 
       <ng-container class="tblb" matColumnDef="balance">
-        <th mat-header-cell class="right tblb" *matHeaderCellDef>Balance</th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.balance}} </td>
+        <th class="right tblb mat-header-cell" *matHeaderCellDef>Balance</th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.balance}} </td>
       </ng-container>
 
       <ng-container matColumnDef="debitAct">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Debit Account</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.debitAct}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Debit Account</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.debitAct}} </td>
       </ng-container>
 
       <ng-container matColumnDef="calaActName">
-        <th mat-header-cell class="sr" *matHeaderCellDef>CALA Account Name</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.calaActName}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>CALA Account Name</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.calaActName}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

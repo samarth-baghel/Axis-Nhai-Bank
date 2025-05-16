@@ -21,33 +21,33 @@
         <table mat-table [dataSource]="dataSources" class="mat-elevation-z8">
 
             <ng-container matColumnDef="userid">
-                <th mat-header-cell class="sr" *matHeaderCellDef>User ID
+                <th class="sr mat-header-cell" *matHeaderCellDef>User ID
                 </th>
-                <td mat-cell class="right" *matCellDef="let element">{{element.userid}}</td>
+                <td class="right mat-cell" *matCellDef="let element">{{element.userid}}</td>
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell class="sr" *matHeaderCellDef>Action</th>
-                <td mat-cell class="right" *matCellDef="let element">{{element.action}}
+                <th class="sr mat-header-cell" *matHeaderCellDef>Action</th>
+                <td class="right mat-cell" *matCellDef="let element">{{element.action}}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th mat-header-cell class="sr" *matHeaderCellDef>Status</th>
-                <td mat-cell class="right" *matCellDef="let element"> {{element.status}}
+                <th class="sr mat-header-cell" *matHeaderCellDef>Status</th>
+                <td class="right mat-cell" *matCellDef="let element"> {{element.status}}
                 </td>
             </ng-container>
 
 
             <ng-container matColumnDef="comment">
-                <th mat-header-cell class="sr widthComment" *matHeaderCellDef>Comments </th>
-                <td mat-cell class="right" *matCellDef="let element">
+                <th class="sr mat-header-cell widthComment" *matHeaderCellDef>Comments </th>
+                <td class="right mat-cell" *matCellDef="let element">
                     {{element.comment}} </td>
             </ng-container>
 
             <ng-container matColumnDef="buttons">
-                <th mat-header-cell class="sr" *matHeaderCellDef> </th>
-                <td class="textAlignCenter" mat-cell *matCellDef="let row" class="p-0 align-center">
+                <th class="sr mat-header-cell" *matHeaderCellDef> </th>
+                <td class="textAlignCenter mat-cell" *matCellDef="let row" class="p-0 align-center">
                     <button mat-raised-button (click)="openDialogpreview(row)" [disabled]='getStatus(row)'>
                         <span class="material-icons btnReview">
                             rate_review

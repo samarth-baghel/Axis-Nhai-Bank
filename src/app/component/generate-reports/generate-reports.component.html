@@ -48,7 +48,7 @@
           </mat-form-field> -->
         </td>
         <td>
-          <button mat-raised-button id="genROBOByDayReport" value="Amount in Rupees" class="genReport"
+          <button id="genROBOByDayReport" value="Amount in Rupees" class="genReport mat-raised-button"
             (click)="onROBOByDayClk(fromdate,todate)">
             <span class="genReportTxt">Generate Report</span>
             <img src="assets/img/excel.png" width="24px" height="24px" style="margin-left: 5px;margin-top: 2px;">
@@ -73,7 +73,7 @@
           </mat-form-field>
         </td>
         <td>
-          <button mat-raised-button id="genROByBracketReport" class="genReport"
+          <button id="genROByBracketReport" class="genReport mat-raised-button"
             (click)="onROPDBrackertWiseClk(dateValue3)">
             <span class="genReportTxt">Generate Report</span>
             <img src="assets/img/excel.png" width="24px" height="24px" style="margin-left: 5px;margin-top: 2px;">
@@ -97,7 +97,7 @@
           </form>
         </td>
         <td>
-          <button mat-raised-button id="genMonthBracketReport" class="genReport" (click)="onMonthlyReport(FY)"
+          <button id="genMonthBracketReport" class="genReport mat-raised-button" (click)="onMonthlyReport(FY)"
          >
             <span class="genReportTxt">Generate Report</span>
             <img src="assets/img/excel.png" width="24px" height="24px" style="margin-left: 5px;margin-top: 2px;">
@@ -109,7 +109,7 @@
           <mat-label class="reportLabel">Credit Report</mat-label>
         </td>
         <td>
-          <button mat-raised-button id="genCRReport" class="genReportSpecial" (click)="onCRGenerateReportClk()">
+          <button id="genCRReport" class="genReportSpecial mat-raised-button" (click)="onCRGenerateReportClk()">
             <span class="genReportTxt">Generate Report</span>
             <img src="assets/img/excel.png" width="24px" height="24px" style="margin-left: 5px;margin-top: 2px;">
           </button>

@@ -12,7 +12,7 @@
   width: 100%;
 }
 .frdate{
-  margin-left:25px;width: 10rem
+  margin-left:25px;width: 14rem
 }
 .todate{
   margin-left: 5px;width: 10rem
@@ -57,6 +57,7 @@ h5 {
 
 table {
   width: 1500px;
+  background-color: rgb(151,20,77);
 }
 
 .mat-cell {
@@ -87,10 +88,11 @@ hr {
 
 tr,td,th {
   border: 1px solid black;
+  width: 1000px;
 }
 
 .sr {
-  width: 100px;
+  width: 600px;
   text-align: center;
   padding-left: 4px;
   padding-right: 4px;
@@ -192,7 +194,7 @@ tr,td,th {
 .searchBtn {
   margin-left: 5px;
   background-color: rgb(151, 20, 77);
-  padding: 0px 30px;
+  padding: 0px 20px;
   margin-top: 4px;
   height: 42px;
   font-family: Lato !important;
@@ -236,7 +238,7 @@ tr,td,th {
   padding-right: 25px;
 }
 .searchBtns {
-  margin-left: 5px;
+  margin-left: 25px;
   background-color: rgb(151, 20, 77);
   padding-left: 15px;
   margin-top: 4px;

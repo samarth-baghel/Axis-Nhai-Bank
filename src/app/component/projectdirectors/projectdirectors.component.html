@@ -24,54 +24,54 @@
         <table mat-table [dataSource]="projecrParsedData" class="mat-elevation-z8 ">
 
             <ng-container matColumnDef="no">
-                <th mat-header-cell class="sr"  *matHeaderCellDef> S.NO. </th>
-                <td mat-cell class="right" *matCellDef="let element"> {{element.recordCount}} </td>
+                <th class="sr mat-header-cell"  *matHeaderCellDef> S.NO. </th>
+                <td class="right mat-cell" *matCellDef="let element"> {{element.recordCount}} </td>
             </ng-container>
 
             <ng-container matColumnDef="projectname">
-                <th mat-header-cell class="sr" *matHeaderCellDef>Project Director Names</th>
-                <td mat-cell class="right" *matCellDef="let element"> {{element.projectDirectorName}} </td>
+                <th class="sr mat-header-cell" *matHeaderCellDef>Project Director Names</th>
+                <td class="right mat-cell" *matCellDef="let element"> {{element.projectDirectorName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="projectlocation">
-                <th mat-header-cell class="sr" *matHeaderCellDef>Project Director Location</th>
-                <td mat-cell class="right" *matCellDef="let element"> {{element.projectDirectorLocation}} </td>
+                <th class="sr mat-header-cell" *matHeaderCellDef>Project Director Location</th>
+                <td class="right mat-cell" *matCellDef="let element"> {{element.projectDirectorLocation}} </td>
             </ng-container>
 
             <ng-container matColumnDef="regionalname">
-                <th mat-header-cell class="sr" *matHeaderCellDef>Regional Officer Name</th>
-                <td mat-cell class="right" *matCellDef="let element"> {{element.regionalOfficerName}} </td>
+                <th class="sr mat-header-cell" *matHeaderCellDef>Regional Officer Name</th>
+                <td class="right mat-cell" *matCellDef="let element"> {{element.regionalOfficerName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="regionallocation">
-                <th mat-header-cell class="sr" *matHeaderCellDef>Regional Officer Location</th>
-                <td mat-cell class="right" *matCellDef="let element"> {{element.regionalOfficerLocation}} </td>
+                <th class="sr mat-header-cell" *matHeaderCellDef>Regional Officer Location</th>
+                <td class="right mat-cell" *matCellDef="let element"> {{element.regionalOfficerLocation}} </td>
             </ng-container>
 
             <ng-container matColumnDef="zonename">
-                <th mat-header-cell class="sr" *matHeaderCellDef>Zone</th>
-                <td mat-cell class="right" *matCellDef="let element"> {{element.zone}} </td>
+                <th class="sr mat-header-cell" *matHeaderCellDef>Zone</th>
+                <td class="right mat-cell" *matCellDef="let element"> {{element.zone}} </td>
             </ng-container>
 
             <ng-container matColumnDef="subsidiaryaccount">
-                <th mat-header-cell class="sr" *matHeaderCellDef>No. of Subsidiary Accounts </th>
-                <td mat-cell class="right" *matCellDef="let element"><a class="itc-lb-more-info-link"
+                <th class="sr mat-header-cell" *matHeaderCellDef>No. of Subsidiary Accounts </th>
+                <td class="right mat-cell" *matCellDef="let element"><a class="itc-lb-more-info-link"
                 (click)="openDialogSubsidiaryAccount(element.projectDirectorName)"> {{element.numberOfSubsidiaryAccount}} </a></td>
             </ng-container>
 
             <ng-container matColumnDef="totlelimit">
-                <th mat-header-cell class="numberPadding" *matHeaderCellDef>Total Limit </th>
-                <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.toLimit | customCurrencyPipe}} </td>
+                <th class="numberPadding  mat-header-cell" *matHeaderCellDef>Total Limit </th>
+                <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.toLimit | customCurrencyPipe}} </td>
             </ng-container>
 
             <ng-container matColumnDef="usedlimit">
-                <th mat-header-cell class="numberPadding" *matHeaderCellDef>Used Limit</th>
-                <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.usedLimit | customCurrencyPipe}} </td>
+                <th class="numberPadding  mat-header-cell" *matHeaderCellDef>Used Limit</th>
+                <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.usedLimit | customCurrencyPipe}} </td>
             </ng-container>
 
             <ng-container matColumnDef="fundused">
-                <th mat-header-cell class="sr tbla" *matHeaderCellDef>Funds Used(%)</th>
-                <td mat-cell class="right tblb" *matCellDef="let element"> {{element.fundUsedPercentage | customCurrencyPipe}} %</td>
+                <th class="sr mat-header-cell tbla" *matHeaderCellDef>Funds Used(%)</th>
+                <td class="right tblb mat-cell" *matCellDef="let element"> {{element.fundUsedPercentage | customCurrencyPipe}} %</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

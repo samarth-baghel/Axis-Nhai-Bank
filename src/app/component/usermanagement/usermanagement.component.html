@@ -30,72 +30,72 @@
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
 
                 <ng-container matColumnDef="id">
-                    <th mat-header-cell class="sr" *matHeaderCellDef> Sr No </th>
-                    <td mat-cell class="right" *matCellDef="let element">{{element.id}}</td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef> Sr No </th>
+                    <td class="right mat-cell" *matCellDef="let element">{{element.id}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="userid">
-                    <th mat-header-cell class="sr" *matHeaderCellDef> User ID </th>
-                    <td mat-cell class="right" *matCellDef="let element">{{element.userid}}</td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef> User ID </th>
+                    <td class="right mat-cell" *matCellDef="let element">{{element.userid}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="userlevel">
-                    <th mat-header-cell class="sr" *matHeaderCellDef> User Level </th>
-                    <td mat-cell class="right" *matCellDef="let element">{{element.userlevel}}</td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef> User Level </th>
+                    <td class="right mat-cell" *matCellDef="let element">{{element.userlevel}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="userType">
-                    <th mat-header-cell class="sr" *matHeaderCellDef> User Type </th>
-                    <td mat-cell class="right" *matCellDef="let element">{{element.userType}}</td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef> User Type </th>
+                    <td class="right mat-cell" *matCellDef="let element">{{element.userType}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="userZone">
-                    <th mat-header-cell class="sr" *matHeaderCellDef> User Zone </th>
-                    <td mat-cell class="right" *matCellDef="let element">{{element.userZone}}</td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef> User Zone </th>
+                    <td class="right mat-cell" *matCellDef="let element">{{element.userZone}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="userState">
-                    <th mat-header-cell class="sr" *matHeaderCellDef> User State </th>
-                    <td mat-cell class="right" *matCellDef="let element">{{element.userState}}</td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef> User State </th>
+                    <td class="right mat-cell" *matCellDef="let element">{{element.userState}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="userRegion">
-                    <th mat-header-cell class="sr" *matHeaderCellDef> User Regional Office </th>
-                    <td mat-cell class="right" *matCellDef="let element">{{element.userRegion}}</td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef> User Regional Office </th>
+                    <td class="right mat-cell" *matCellDef="let element">{{element.userRegion}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="userPD">
-                    <th mat-header-cell class="sr" *matHeaderCellDef> User Project Director </th>
-                    <td mat-cell class="right" *matCellDef="let element">{{element.userPD}}</td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef> User Project Director </th>
+                    <td class="right mat-cell" *matCellDef="let element">{{element.userPD}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="userCala">
-                    <th mat-header-cell class="sr" *matHeaderCellDef> User Cala</th>
-                    <td mat-cell class="right" *matCellDef="let element">{{element.userCala}}</td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef> User Cala</th>
+                    <td class="right mat-cell" *matCellDef="let element">{{element.userCala}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="username">
-                    <th mat-header-cell class="sr" *matHeaderCellDef>User Name</th>
+                    <th class="sr mat-header-cell" *matHeaderCellDef>User Name</th>
 
-                    <td mat-cell class="right link"
+                    <td class="right link mat-cell"
                         *matCellDef="let element"><a class="itc-lb-more-info-link"
                             
                             (click)="OnSelectUser(element)">{{element.username}} </a></td>
                 </ng-container>
 
                 <ng-container matColumnDef="userEmail">
-                    <th mat-header-cell class="sr" *matHeaderCellDef>E-mail</th>
-                    <td mat-cell class="right" *matCellDef="let element"> {{element.userEmail}} </td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef>E-mail</th>
+                    <td class="right mat-cell" *matCellDef="let element"> {{element.userEmail}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="mobilenumber">
-                    <th mat-header-cell class="sr" *matHeaderCellDef>Mobile Number </th>
-                    <td mat-cell class="right" *matCellDef="let element"> {{element.mobilenumber | maskData:4}} </td>
+                    <th class="sr mat-header-cell" *matHeaderCellDef>Mobile Number </th>
+                    <td class="right mat-cell" *matCellDef="let element"> {{element.mobilenumber | maskData:4}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="deleteAction">
-                    <th mat-header-cell class="sr" *matHeaderCellDef [attr.colspan]="2">Actions</th>
-                    <td mat-cell *matCellDef="let row" class="textCenter">
+                    <th class="sr mat-header-cell" *matHeaderCellDef [attr.colspan]="2">Actions</th>
+                    <td *matCellDef="let row" class="textCenter">
                         <mat-icon matSuffix class="cursor" (click)="onActiveAction($event,row)">
                             {{row.active ? 'delete_outline' : 'person_add'}}</mat-icon>
                         <!-- <button mat-icon-button (click)="openDialog()"><img src="assets/img/trash.png"
@@ -104,9 +104,9 @@
                 </ng-container>
 
                 <ng-container matColumnDef="toggleAction">
-                    <th mat-header-cell class="sr" *matHeaderCellDef [attr.rowspan]="2" [ngStyle]="{'display': 'none'}">
+                    <th class="sr mat-header-cell" *matHeaderCellDef [attr.rowspan]="2" [ngStyle]="{'display': 'none'}">
                         Lock/Unlock User</th>
-                    <td mat-cell class="textCenter" *matCellDef="let row">
+                    <td class="textCenter mat-cell" *matCellDef="let row">
                         <mat-slide-toggle (change)="onSlideToggle($event.checked,row)" [checked]="toggleStatus(row)"
                             [color]=""></mat-slide-toggle>
                     </td>

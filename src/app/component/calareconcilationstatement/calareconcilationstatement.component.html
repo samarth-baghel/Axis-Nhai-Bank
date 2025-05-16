@@ -32,7 +32,7 @@
         <mat-label>Account Number</mat-label>
         <input type="number" matInput class="acc" [(ngModel)]='accountnumber'>
       </mat-form-field>
-      <button mat-raised-button id="btnlimitasondate" class="searchBtn" (click)="onSearchclick()">Search</button>
+      <button id="btnlimitasondate" class="searchBtn mat-raised-button" (click)="onSearchclick()">Search</button>
     </div>
   </div>
   <div class="icon">
@@ -44,87 +44,87 @@
   <div class="table-container">
     <table mat-table [dataSource]="dataSourcecala" class="mat-elevation-z8 ">
       <ng-container matColumnDef="no">
-        <th mat-header-cell class="sr" *matHeaderCellDef> S.NO. </th>
-        <td mat-cell class="sr" *matCellDef="let element; let i = index;"> {{i + 1}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef> S.NO. </th>
+        <td class="sr mat-cell" *matCellDef="let element; let i = index;"> {{i + 1}} </td>
       </ng-container>
 
       <ng-container matColumnDef="accountnumber">
-        <th mat-header-cell class="sr" *matHeaderCellDef> Account Number </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.accountNumber | maskData:4}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef> Account Number </th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.accountNumber | maskData:4}} </td>
       </ng-container>
 
       <ng-container matColumnDef="accountname">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Account Name</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.accountName}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Account Name</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.accountName}} </td>
       </ng-container>
 
       <ng-container matColumnDef="totalsanctionedlimits">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Total Sanctioned Limits</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.allocatedLimits | customCurrencyPipe}}
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Total Sanctioned Limits</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.allocatedLimits | customCurrencyPipe}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="limitsutilizedperprevyear">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef> Limits Utilized per prev Year </th>
-        <td mat-cell class="numberPadding" *matCellDef="let element">
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef> Limits Utilized per prev Year </th>
+        <td class="numberPadding mat-cell" *matCellDef="let element">
           {{element.utilizedLimitTillPreviousMonth | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="limitsutilizedincurryear">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Limits Utilized in curr year</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element">
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Limits Utilized in curr year</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element">
           {{element.utilizedLimitInCurrentMonth | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="unutilizedlimit">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Unutilized Limit</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.unUtilizedLimit | customCurrencyPipe}}
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Unutilized Limit</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.unUtilizedLimit | customCurrencyPipe}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="electtrf">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Elect TRF</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.elecTarif | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Elect TRF</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.elecTarif | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="tdstrf">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>TDS TRF</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.PaidForTds | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>TDS TRF</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.PaidForTds | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="otherdrtrf">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Other DR TRF</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.otherDebit | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Other DR TRF</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.otherDebit | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="returns">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Returns</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.returns | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Returns</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.returns | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="dddebit">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>DD Debit</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.ddDebit | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>DD Debit</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.ddDebit | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="clearingdebit">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Clearing Debit</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.clearingDr | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Clearing Debit</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.clearingDr | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="lessfundscrbcktoacctmiss">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Less Funds Cr back to Acct Miss</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.creditBankToAccount | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Less Funds Cr back to Acct Miss</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.creditBankToAccount | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="lessoutwardchequereturn">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Less Outward Cheque Return</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.outChequeRet | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Less Outward Cheque Return</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.outChequeRet | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="othercreditdepsits">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Other Credit Depsits</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.otherCredit | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Other Credit Depsits</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.otherCredit | customCurrencyPipe}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
@@ -151,7 +151,7 @@
     </mat-form-field>
     <div class="row">
       <autocomplete-filter *ngIf="showHide" [dropdowndata]='dataSourcecaladrp' class="paddinglf"></autocomplete-filter>
-      <button mat-raised-button id="btnlimitasondate" class="searchBtns" (click)="onSearchclicks()">Search</button>
+      <button id="btnlimitasondate" class="searchBtns mat-raised-button" (click)="onSearchclicks()">Search</button>
     </div>
   </div>
   <div class="icon">
@@ -164,45 +164,45 @@
     <table mat-table [dataSource]="dataSourcecalaacc" class="mat-elevation-z8 ">
 
       <ng-container matColumnDef="accountnumber">
-        <th mat-header-cell class="sr" *matHeaderCellDef> Account Number </th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.accountNumber == undefined ? element.ACCTNUM : element.accountNumber}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef> Account Number </th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.accountNumber == undefined ? element.ACCTNUM : element.accountNumber}} </td>
       </ng-container>
 
       <ng-container matColumnDef="accountname">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Account Name</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{element.accountName == undefined ? element.ACCTNAME : element.accountName}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Account Name</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{element.accountName == undefined ? element.ACCTNAME : element.accountName}} </td>
       </ng-container>
 
       <ng-container matColumnDef="reconformonthyear">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Recon for the Month-Year</th>
-        <td mat-cell class="sr" *matCellDef="let element"> {{monthdate | date : 'MM/y'}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef>Recon for the Month-Year</th>
+        <td class="sr mat-cell" *matCellDef="let element"> {{monthdate | date : 'MM/y'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="openingbalance">
-        <th mat-header-cell class="numberPaddings" *matHeaderCellDef>Opening Balance</th>
-        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{(element.openBalance == undefined ? element.OPENBAL : element.openBalance) | customCurrencyPipe}} </td>
+        <th class="numberPaddings mat-header-cell" *matHeaderCellDef>Opening Balance</th>
+        <td class="numberPaddings mat-cell" *matCellDef="let element"> {{(element.openBalance == undefined ? element.OPENBAL : element.openBalance) | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="limitgrant">
-        <th mat-header-cell class="numberPaddings" *matHeaderCellDef>Limit Grant</th>
-        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{(element.allocatedLimits) | customCurrencyPipe}}
+        <th class="numberPaddings mat-header-cell" *matHeaderCellDef>Limit Grant</th>
+        <td class="numberPaddings mat-cell" *matCellDef="let element"> {{(element.allocatedLimits) | customCurrencyPipe}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="limitutilized">
-        <th mat-header-cell class="numberPaddings" *matHeaderCellDef>Limit Utilized </th>
-        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{element.utilisedLimit | customCurrencyPipe}}
+        <th class="numberPaddings mat-header-cell" *matHeaderCellDef>Limit Utilized </th>
+        <td class="numberPaddings mat-cell" *matCellDef="let element"> {{element.utilisedLimit | customCurrencyPipe}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="closingbalance">
-        <th mat-header-cell class="numberPaddings" *matHeaderCellDef>Closing Balance</th>
-        <td mat-cell class="numberPaddings" *matCellDef="let element"> {{(element.closingBalance == undefined ? element.CLOSINGBAL : element.closingBalance) | customCurrencyPipe}} </td>
+        <th class="numberPaddings mat-header-cell" *matHeaderCellDef>Closing Balance</th>
+        <td class="numberPaddings mat-cell" *matCellDef="let element"> {{(element.closingBalance == undefined ? element.CLOSINGBAL : element.closingBalance) | customCurrencyPipe}} </td>
       </ng-container>
 
       <ng-container matColumnDef="pendingadjustment">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Pending Adjustment</th>
-        <td mat-cell class="sr" *matCellDef="let element">
+        <th class="sr mat-header-cell" *matHeaderCellDef>Pending Adjustment</th>
+        <td class="sr mat-cell" *matCellDef="let element">
           <a class="hyperLink"
             (click)="openDialogPendingadjustment(element.accountNumber,monthdate,element.accountName)">{{(element.pendingAdjestment == undefined ? element.PENDINGADJ : element.pendingAdjestment) | customCurrencyPipe}}
           </a>

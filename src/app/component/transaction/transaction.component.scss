@@ -46,6 +46,7 @@ width:18px;height:10px;
 
 table {
   width: 1500px;
+  background-color: rgb(151,20,77);
 }
 .mat-cell{
  color: black;
@@ -76,7 +77,7 @@ tr,td,th{
 }
 
 .sr{
-  width:100px;
+  width:600px;
   text-align: center;
   
 
@@ -89,17 +90,19 @@ tr,td,th{
 }
 .excel{
   width: 22px;
-  height: 22px;
-  float: right;
-  margin-right: 25px;
-  cursor: pointer;
+  // height: 22px;
+  // float: right;
+  // margin-right: 25px;
+  margin-top: 100px;
+  cursor:pointer;
 }
 
 .refresh{
   width: 22px;
-  height: 22px;
-  float: right;
-  margin-right: 25px;
+  // height: 22px;
+  // float: right;
+  // margin-right: 25px;
+  margin-top: 100px;
   cursor: pointer;
 }
 
@@ -252,8 +255,10 @@ tr,td,th{
 }
 
 .fileDonwloadSec{
-  width: 100%; 
-  float:right;
+  display: flex;
+  // width: 100%; 
+  float:right; 
+  margin-right: 30px;
 }
 
 .pdfState{

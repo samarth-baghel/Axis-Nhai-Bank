@@ -30,24 +30,29 @@
   color: white
 }
 .icon{
-  width: 100%; float:right; margin-right: 30px;
+  display: flex;
+  // width: 100%; 
+  float:right; 
+  margin-right: 30px;
 }
 .tbla{
-  display: table;
+  display: flex;
   margin-left: 25px; 
   margin-bottom: 92px;
+  margin-top: 50px;
 }
 .tblb{
-  display: table-row; 
+  display: flex; 
   width: 100%;
   justify-content:space-between;
 }
 .tblc{
-  display: table-cell;
-  margin-right: 5500px;
+  display: flex;
+  margin-right: 150px;
 }
 .tbld{
-  display: table-cell;
+  display: flex;
+  margin-right: 90px;
 }
 .tble{
   cursor: pointer;
@@ -57,11 +62,12 @@
   padding-left: 25px;
   padding-right: 25px;
   margin-bottom: 30px;
+  width: 90%;
 }
 table {
     width: 90%;
     height: 5%;
-   background-color: white;
+   background-color: rgb(151,20,77);
   }
   .mat-cell{
    color: black;
@@ -127,7 +133,7 @@ table {
     
     margin-left: 5px;
     background-color: rgb(151,20,77) ;
-    padding:0px 30px;
+    padding:0px 23px;
     margin-top: 4px;
  
     height: 42px;

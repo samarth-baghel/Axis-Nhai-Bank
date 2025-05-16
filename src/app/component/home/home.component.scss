@@ -15,21 +15,22 @@
   width:100%;margin-right:32px;float: right;
 }
 .tbla{
-  display: table;
+  display: flex;
   margin-left: 28px; 
   margin-bottom: 92px;
 }
 .tblb{
-  display: table-row; 
+  display: flex; 
   width: 100%;
   justify-content:space-between;
 }
 .tblc{
-  display: table-cell;
-  margin-right: 5500px;
+  display: flex;
+  margin-right: 150px;
 }
 .tbld{
-  display: table-cell;
+  display: flex;
+  margin-right: 90px;
 }
 .tblcount{
   cursor: pointer;
@@ -70,7 +71,7 @@ table {
   tr,td,th{
       //border:1px solid #ced4da;
       border:1px solid black ;
-      width: 500px;
+      width: 400px;
   }
 
   h5 {

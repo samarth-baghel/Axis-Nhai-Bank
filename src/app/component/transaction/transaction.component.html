@@ -67,18 +67,18 @@
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
-    <button mat-raised-button id="btnlimitasondate" class="searchbtn"
+    <button id="btnlimitasondate" class="searchbtn mat-raised-button"
       (click)="selectedValue(creditTypes,accountnumber,fromdate,todate,transactiondate)">Search</button>
-    <button mat-raised-button id="btnlimitason" class="searchbtn" (click)="onReset()">Reset</button>
+    <button id="btnlimitason" class="searchbtn mat-raised-button" (click)="onReset()">Reset</button>
   </div>
 
 </div>
 
 <div class="fileDonwloadSec">
 
-  <a (click)="onRefreshClick()"> <img src="assets/img/refresh.png" class=refresh></a>
+  <a mat-list-item (click)="onExcelDownloadClick()"> <img src="assets/img/excel.png" class="excel"></a>
+  <a (click)="onRefreshClick()"> <img src="assets/img/refresh.png" class="refresh"></a>
 
-  <a mat-list-item (click)="onExcelDownloadClick()"> <img src="assets/img/excel.png" class=excel></a>
 
   <a class="pdfState" mat-list-item routerLink='/main/'> <img src="assets/img/pdf.png" class=pdf></a>
   <br /><br />
@@ -92,82 +92,82 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
       <ng-container matColumnDef="REC_CNT">
-        <th mat-header-cell class="sr" *matHeaderCellDef> S.No.
+        <th class="sr mat-header-cell" *matHeaderCellDef> S.No.
         </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.recordCount}}
+        <td class="right mat-cell" *matCellDef="let element"> {{element.recordCount}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="ACCOUNT_NUMBER">
-        <th mat-header-cell class="sr" *matHeaderCellDef>Account
+        <th class="sr mat-header-cell" *matHeaderCellDef>Account
           Number </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.accountNumber | maskData:4}}
+        <td class="right mat-cell" *matCellDef="let element"> {{element.accountNumber | maskData:4}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="ACCOUNT_NAME">
-        <th mat-header-cell class="sr" *matHeaderCellDef> Account Name</th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.accountName}}
+        <th class="sr mat-header-cell" *matHeaderCellDef> Account Name</th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.accountName}}
         </td>
       </ng-container>
 
 
       <ng-container matColumnDef="ACCOUNT_OPEN_DATE">
-        <th mat-header-cell class="sr" *matHeaderCellDef> Account Open Date
+        <th class="sr mat-header-cell" *matHeaderCellDef> Account Open Date
         </th>
-        <td mat-cell class="right" *matCellDef="let element">
+        <td class="right mat-cell" *matCellDef="let element">
           {{element.accountOpenDate}} </td>
       </ng-container>
 
       <ng-container matColumnDef="TRAN_DATE">
-        <th mat-header-cell class="sr" *matHeaderCellDef> Date </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.tranDate}}
+        <th class="sr mat-header-cell" *matHeaderCellDef> Date </th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.tranDate}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="DR_CR_IND">
-        <th mat-header-cell class="sr" *matHeaderCellDef> Debit/Credit </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.drCrInd}}
+        <th class="sr mat-header-cell" *matHeaderCellDef> Debit/Credit </th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.drCrInd}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="AMOUNT">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef> Amount</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.amount | customCurrencyPipe}}
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef> Amount</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.amount | customCurrencyPipe}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="BENEFICIARY_NAME">
-        <th mat-header-cell class="sr" *matHeaderCellDef> Beneficiary Name
+        <th class="sr mat-header-cell" *matHeaderCellDef> Beneficiary Name
         </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.beneficiaryName}}
+        <td class="right mat-cell" *matCellDef="let element"> {{element.beneficiaryName}}
         </td>
       </ng-container>
 
 
       <ng-container matColumnDef="BENEFICIARY_BANK_ACCT">
-        <th mat-header-cell class="sr" *matHeaderCellDef> Beneficiary Bank
+        <th class="sr mat-header-cell" *matHeaderCellDef> Beneficiary Bank
           A/C</th>
-        <td mat-cell class="right" *matCellDef="let element">
+        <td class="right mat-cell" *matCellDef="let element">
           {{element.beneficiaryBankAccount | maskData:4}} </td>
       </ng-container>
 
 
       <ng-container matColumnDef="IFSI_CODE">
-        <th mat-header-cell class="sr" *matHeaderCellDef> IFSC Code</th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.ifscCode | maskData:4}}
+        <th class="sr mat-header-cell" *matHeaderCellDef> IFSC Code</th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.ifscCode | maskData:4}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="UTR">
-        <th mat-header-cell class="sr" *matHeaderCellDef> UTR No.</th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.utr}}
+        <th class="sr mat-header-cell" *matHeaderCellDef> UTR No.</th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.utr}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="RUNING_BALANCE">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef>Running Balance</th>
-        <td mat-cell class="numberPadding" *matCellDef="let element">
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef>Running Balance</th>
+        <td class="numberPadding mat-cell" *matCellDef="let element">
           {{element.runingBalance | customCurrencyPipe}} </td>
       </ng-container>
 
