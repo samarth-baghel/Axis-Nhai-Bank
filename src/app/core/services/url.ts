@@ -1,8 +1,9 @@
 export class Url {
 
-     static readonly url =  'https://nhailmsuat.axisbank.co.in/webServicesProject-0.0.1-SNAPSHOT'; // UAT env
+    //  static readonly url =  'https://nhailmsuat.axisbank.co.in/webServicesProject-0.0.1-SNAPSHOT'; // UAT env
     //  static readonly  url =  'https://lmsnhai.axisbank.co.in/webServicesProject-0.0.1-SNAPSHOT'; // PROD env
     // static readonly url = 'https://ce2d-103-253-208-202.ngrok-free.app/webServicesProject-0.0.1-SNAPSHOT';
+    static readonly url = 'https://78c1-115-244-231-22.ngrok-free.app/webServicesProject-0.0.1-SNAPSHOT';
     static readonly homeXmlUrl = Url.url+'/homeDetails';
     static readonly homeBackdatedUrl = Url.url+'/homeBackdatedDetails';
     static readonly financilalsummaryXmlUrl = Url.url+'/financialSummary';

@@ -60,7 +60,7 @@ import { OtpforgotyourusernameComponent } from './component/otpforgotyourusernam
 import { EnterotpforgotusernameComponent } from './component/enterotpforgotusername/enterotpforgotusername.component';
 import { AfterVerifyUserNameComponent } from './component/after-verify-user-name/after-verify-user-name.component';
 import { AfterVerifypasswordComponent } from './component/after-verifypassword/after-verifypassword.component';
-import { BotDetectCaptchaModule } from 'angular-captcha';
+// import { BotDetectCaptchaModule } from 'angular-captcha';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NewuserComponent } from './component/newuser/newuser.component';
 import { UserchangeworlflowComponent } from './component/userchangeworkflowfolder/userchangeworlflow/userchangeworlflow.component';
@@ -154,9 +154,8 @@ import {Error404Component} from './component/error404/error404.component';
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        BotDetectCaptchaModule,
         MatDialogModule,
-        NgxSpinnerModule
+        NgxSpinnerModule.forRoot()
     ],
     providers: [CurrencyPipe,
         { provide: LocationStrategy, useClass: HashLocationStrategy }],
