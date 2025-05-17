@@ -20,7 +20,7 @@ mat-icon {
   vertical-align: middle;
 }
 
-@import '@angular/material/theming';
+// @import '@angular/material/theming';
 
 $custom-typography: mat.define-typography-config(
   $font-family: 'Roboto, Arial, sans-serif'
@@ -38,7 +38,9 @@ $custom-typography: mat.define-typography-config(
 // @include mat-checkbox-typography($custom-typography);
 
 // Override typography for all Angular Material, including mat-base-typography and all components.
-@include angular-material-typography($custom-typography);
+// @include angular-material-typography($custom-typography);
+@include mat.typography-hierarchy($custom-typography);
+
 
 // Override the typography in the core CSS.
 @include mat.core();
