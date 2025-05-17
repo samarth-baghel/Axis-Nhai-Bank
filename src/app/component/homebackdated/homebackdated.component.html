@@ -49,13 +49,13 @@
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
 
             <ng-container matColumnDef="heads">
-              <th  class="sr" mat-header-cell *matHeaderCellDef> Heads </th>
-              <td mat-cell  class="right" *matCellDef="let element"> {{element.heads}} </td>
+              <th  class="sr mat-header-cell" *matHeaderCellDef> Heads </th>
+              <td  class="right mat-cell" *matCellDef="let element"> {{element.heads}} </td>
             </ng-container>
 
             <ng-container matColumnDef="amount">
-              <th mat-header-cell  class="numberPadding" *matHeaderCellDef> Amount </th>
-              <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.amount  | customCurrencyPipe }} </td>
+              <th  class="numberPadding mat-header-cell" *matHeaderCellDef> Amount </th>
+              <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.amount  | customCurrencyPipe }} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -66,13 +66,13 @@
           <table mat-table [dataSource]="dataSources" class="mat-elevation-z8 ;">
 
             <ng-container matColumnDef="accounttype">
-              <th mat-header-cell  class="sr" *matHeaderCellDef> Account Type </th>
-              <td mat-cell  class="right" *matCellDef="let element"> {{element.accounttype}} </td>
+              <th  class="sr mat-header-cell" *matHeaderCellDef> Account Type </th>
+              <td  class="right mat-cell" *matCellDef="let element"> {{element.accounttype}} </td>
             </ng-container>
 
             <ng-container matColumnDef="totalcount">
-              <th mat-header-cell  class="numberPadding" *matHeaderCellDef> Total Count </th>
-              <td mat-cell class="numberPadding" *matCellDef="let element"><a routerLink="/main/account" class="tble"> {{element.totalcount}} </a></td>
+              <th  class="numberPadding mat-header-cell" *matHeaderCellDef> Total Count </th>
+              <td class="numberPadding mat-cell" *matCellDef="let element"><a routerLink="/main/account" class="tble"> {{element.totalcount}} </a></td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
@@ -86,44 +86,44 @@
       <table mat-table [dataSource]="finDataSource" class="mat-elevation-z8 ">
 
         <ng-container matColumnDef="no">
-          <th mat-header-cell class="sr" *matHeaderCellDef> S.No. </th>
-          <td mat-cell  class="right" *matCellDef="let element"> {{element.no}} </td>
+          <th class="sr mat-header-cell" *matHeaderCellDef> S.No. </th>
+          <td  class="right mat-cell" *matCellDef="let element"> {{element.no}} </td>
         </ng-container>
 
         <ng-container matColumnDef="finYear">
-          <th mat-header-cell class="sr" *matHeaderCellDef> Year </th>
-          <td mat-cell class="right" *matCellDef="let element"> {{element.finYear}} </td>
+          <th class="sr mat-header-cell" *matHeaderCellDef> Year </th>
+          <td class="right mat-cell" *matCellDef="let element"> {{element.finYear}} </td>
         </ng-container>
 
         <ng-container matColumnDef="LimitGrantAmt">
-          <th mat-header-cell class="numberPadding" *matHeaderCellDef> Allocated
+          <th class="numberPadding mat-header-cell" *matHeaderCellDef> Allocated
             Limits </th>
-          <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.LimitGrantAmt | customCurrencyPipe}} </td>
+          <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.LimitGrantAmt | customCurrencyPipe}} </td>
         </ng-container>
 
         <ng-container matColumnDef="UtilisedLimit">
-          <th mat-header-cell class="numberPadding" *matHeaderCellDef>Utilized Limit
+          <th class="numberPadding mat-header-cell" *matHeaderCellDef>Utilized Limit
           </th>
-          <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.UtilisedLimit  | customCurrencyPipe}} </td>
+          <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.UtilisedLimit  | customCurrencyPipe}} </td>
         </ng-container>
 
         <ng-container matColumnDef="UnutilizedLimit">
-          <th mat-header-cell class="numberPadding" *matHeaderCellDef>Unutilized
+          <th class="numberPadding mat-header-cell" *matHeaderCellDef>Unutilized
             Limit</th>
-          <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.UnutilizedLimit | customCurrencyPipe}} </td>
+          <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.UnutilizedLimit | customCurrencyPipe}} </td>
         </ng-container>
 
         <ng-container matColumnDef="TotalInterestPaidInterest">
-          <th mat-header-cell class="numberPadding" *matHeaderCellDef> Actual
+          <th class="numberPadding mat-header-cell" *matHeaderCellDef> Actual
             Interest </th>
-          <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.TotalInterestPaidInterest | customCurrencyPipe}}
+          <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.TotalInterestPaidInterest | customCurrencyPipe}}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="TotalCount">
-          <th mat-header-cell class="sr" *matHeaderCellDef> Number of
+          <th class="sr mat-header-cell" *matHeaderCellDef> Number of
             Subsidiary Accounts </th>
-          <td mat-cell class="right" *matCellDef="let element"> {{element.TotalCount}} </td>
+          <td class="right mat-cell" *matCellDef="let element"> {{element.TotalCount}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="findisplayedColumns"></tr>

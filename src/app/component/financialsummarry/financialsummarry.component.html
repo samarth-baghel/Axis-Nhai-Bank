@@ -28,18 +28,18 @@
     <table mat-table [dataSource]="dataSources" class="mat-elevation-z8 ">
 
       <ng-container matColumnDef="no">
-        <th mat-header-cell class="sr" *matHeaderCellDef width="10%"> S.No. </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.no}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef width="10%"> S.No. </th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.no}} </td>
       </ng-container>
 
       <ng-container matColumnDef="deposit">
-        <th mat-header-cell class="sr" *matHeaderCellDef width="45%"> Deposit </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.deposit}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef width="45%"> Deposit </th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.deposit}} </td>
       </ng-container>
 
       <ng-container matColumnDef="amount">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef width="45%"> Amount </th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.amount | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef width="45%"> Amount </th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.amount | customCurrencyPipe}} </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -49,18 +49,18 @@
     <table mat-table [dataSource]="datas" class="mat-elevation-z8 ">
 
       <ng-container matColumnDef="no">
-        <th mat-header-cell class="sr" *matHeaderCellDef width="10%"> S.No. </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.no}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef width="10%"> S.No. </th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.no}} </td>
       </ng-container>
 
       <ng-container matColumnDef="disbursement">
-        <th mat-header-cell class="sr" *matHeaderCellDef width="45%"> Disbursement </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.disbursement}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef width="45%"> Disbursement </th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.disbursement}} </td>
       </ng-container>
 
       <ng-container matColumnDef="amount">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef width="45%"> Amount </th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.amount | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef width="45%"> Amount </th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.amount | customCurrencyPipe}} </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayed"></tr>
       <tr mat-row *matRowDef="let row; columns: displayed;"></tr>
@@ -70,18 +70,18 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
 
       <ng-container matColumnDef="no">
-        <th mat-header-cell class="sr" *matHeaderCellDef width="10%"> S.No. </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.no}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef width="10%"> S.No. </th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.no}} </td>
       </ng-container>
 
       <ng-container matColumnDef="summary">
-        <th mat-header-cell class="sr" *matHeaderCellDef width="45%"> Summary </th>
-        <td mat-cell class="right" *matCellDef="let element"> {{element.summary}} </td>
+        <th class="sr mat-header-cell" *matHeaderCellDef width="45%"> Summary </th>
+        <td class="right mat-cell" *matCellDef="let element"> {{element.summary}} </td>
       </ng-container>
 
       <ng-container matColumnDef="amount">
-        <th mat-header-cell class="numberPadding" *matHeaderCellDef width="45%"> Amount </th>
-        <td mat-cell class="numberPadding" *matCellDef="let element"> {{element.amount | customCurrencyPipe}} </td>
+        <th class="numberPadding mat-header-cell" *matHeaderCellDef width="45%"> Amount </th>
+        <td class="numberPadding mat-cell" *matCellDef="let element"> {{element.amount | customCurrencyPipe}} </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumn;"></tr>
