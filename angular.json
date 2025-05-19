@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ngx-spinner/animations/ball-spin-clockwise.css",
               "src/styles.scss"
             ],
             "scripts": ["node_modules/crypto-js/crypto-js.js"],
