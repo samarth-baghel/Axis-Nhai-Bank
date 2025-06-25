@@ -252,7 +252,7 @@ export class HomebackdatedComponent implements OnInit {
 
       for (k in obj) {
 
-        if (k == 'effectiveAvailableAmount') {
+        if (k == 'effAvailableAmount') {
           arra.push({ heads: 'Central Account Balance', amount: obj[k][0] })
         }
         if (k == 'limitGrantAmount') {
@@ -340,7 +340,7 @@ export class HomebackdatedComponent implements OnInit {
       let finYear: any = {};
       let count = 0;
       for (k in obj) {
-        if (k != 'effectiveAvailableAmount' && k != 'limitGrantAmount' && k != 'utilisedLimit'
+        if (k != 'effAvailableAmount' && k != 'limitGrantAmount' && k != 'utilisedLimit'
           && k != 'unUtilizedLimit' && k != 'limitUtilization' && k != 'accruedInterest' && k != 'totalInterestPaidInterest'
           && k != 'pendingAdjustments' && k != 'totalCount') {
           if (k.substr(0, 2) == 'fy') {
